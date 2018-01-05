@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# LINK TO THE PYTHON FILE
+
+# ON WINDOWS MACHINE
+ARCHIVER_KMBP=$HOME/HomePackages/pytexarchiver/pytexarchiver.py
+#$ARCHIVER_KMBP --document-type "$(<doctype.tex)" --preamble "$(<preamble_KMBP.tex)" --title-page "$(<titlepage.tex)" -p manuscript --bib --bib-style="chem-acs" --bib-fullpath "standardized-refdb.bib"
+$ARCHIVER_KMBP --document-type "$(<doctype.tex)" --preamble "$(<preamble_KMBP.tex)" --title-page "$(<titlepage.tex)" -p thesis 
