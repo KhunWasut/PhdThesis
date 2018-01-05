@@ -2,12 +2,17 @@
 \newpage
 \thispagestyle{plain}
 
-\begin{center}
-    EPIGRAPH
-\end{center}
+\begingroup
+\renewcommand{\cleardoublepage}{}
+\chapter*{Epigraph}
+\endgroup
+
+\addcontentsline{toc}{chapter}{Epigraph}
 
 \vspace*{\fill}
 
-\raggedleft{\textsl{A man is never too old to learn.} \\ - Chinese Proverb}
+\begin{raggedleft}
+    {\textsl{A man is never too old to learn.} \\ - Chinese Proverb}
+\end{raggedleft}
 
 \vspace*{\fill}

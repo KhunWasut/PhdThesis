@@ -1,4 +1,4 @@
-\usepackage{verbatim,listings,caption,subcaption,float,fixltx2e,amsmath,amsfonts,color,xcolor,graphicx,indentfirst,epstopdf,setspace}
+\usepackage{verbatim,listings,caption,subcaption,float,fixltx2e,amsmath,amsfonts,color,xcolor,graphicx,indentfirst,epstopdf,setspace,titlesec}
 \usepackage{subcaption,textcomp,enumitem,mathtools,chemfig,chapterfolder,import,array,multirow,longtable,algpseudocode,algorithm,soul}
 \usepackage[version=4]{mhchem}
 % Let subdirs point to its own relative figures/bib/section paths
@@ -12,6 +12,11 @@
 \setlength{\parskip}{1em}
 
 \definecolor{KSOrange}{HTML}{FFA500}
+
+\titleformat{\chapter}[block]{\centering}{}{1em}{\MakeUppercase}
+\titlespacing*{\chapter}{0pt}{0pt}{1em}
+
+\renewcommand{\contentsname}{Table of Contents}
 
 % This part should be added separately in the code only when the bib flag is specified, and simply keep this static pattern
 % of the preamble file because bibliography is not static in nature.
