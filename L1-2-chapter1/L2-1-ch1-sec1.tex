@@ -9,7 +9,9 @@
 
 % DEFINE HOW WE WANT TO SET THE CHAPTER
 \titleformat{\chapter}[block]{\centering\bfseries\large}{\centering\Large CHAPTER \thechapter \\}{0em}{}
-\titlespacing*{\chapter}{0pt}{0pt}{1em}
+\titleformat{\section}[block]{\bfseries\large}{\thesection }{1.5em}{}
+\titlespacing*{\chapter}{0pt}{-2.5em}{0pt}
+\titlespacing*{\section}{0pt}{0pt}{0pt}
 
 \begingroup
 %\renewcommand{\clearpage}{}
@@ -18,7 +20,33 @@
 
 \begin{spacing}{2.0}
 
-    % TEMPORARY TEXT
-    This problem is clearly outlined in the review paper by Riches \cite{P-ChemRev-2005-v105-Richens}. 
+    \section{Background of the Problem}
+
+    % CURRENT TEXT - SYNC WITH WORD VERSION!! TO APPLY NEW CHANGES, COPY THE WHOLE THING FROM WORD AND KEEP OLD TEXT FIRST
+    % AS COMMENTS FOR COMPARISON!!
+    Ionic association in aqueous solution is a chemical process defined by the interactions between the cation and the anion as a solute of an 
+    aqueous solution. \textbf{MAYBE ADD THE IMPORTANCE OF THIS CHEMICAL PROCESS HERE...} Due to the charged nature of the ions and the fact that 
+    water molecule is a highly polar chemical species, water molecules have a strong tendency to solvate around the ions, forming a hydration 
+    shell. The formation of a hydration shell can be thought of as a cage, where an ion in the hydration shell is confined in such a cage by 
+    the charge – dipole interaction. Therefore, hydrated ions become less effective in chemical interactions in an aqueous solution environment 
+    because there is an energy cost associated with breaking the ion-solvent interactions. Hence, understanding the behavior of the solvent is 
+    crucial.
+
+    The efforts of characterizing such reaction dated back the 1950s, where Sadek and Fuoss \cite{P-JACS-1954-v76-Sadek} and Winstein et al. 
+    \cite{P-JACS-1956-v78-Winstein} proposed that there are two prominent forms of ion pairing – contacted ion pair (CIP), and solvent-separated 
+    ion pairing (SSIP). The main difference between CIP and SSIP is the number of solvent molecules shared between the cation and the anion.
+
+    \begin{equation}
+        \underset{\text{free ions}}{\mathrm{M}^+ + \mathrm{X}^-\vphantom{p}} \iff 
+        \underset{\text{SSIP}}{\mathrm{M} \cdots \mathrm{X}\vphantom{p}} \iff 
+        \underset{\text{CIP}}{\mathrm{M} \cdot \mathrm{X}\vphantom{p}}
+        \label{eq:c1s1-ionpairillus}
+    \end{equation}
+
+    As outlined in \ref{eq:c1s1-ionpairillus}, the cation and the anion are directly contacted in the CIP structure; hence, there should be
+    no solvent molecules in between the two ions, and the interionic separations of the ions should be shorter. In contrast, the SSIP structure
+    has the solvent molecules acting as a bridge between the cation and the anion, hence the longer separation between the two ions. Therefore,
+    in order for the ions to be able to come close, the hydration shells around these ions need to rearrange to make room for the ions to
+    be come into a closer contact.
 
 \end{spacing}
