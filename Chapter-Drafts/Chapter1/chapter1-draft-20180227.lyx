@@ -1,0 +1,334 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass book
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Historical Backgrounds of Ion Pairing Studies in Aqueous Solutions
+\end_layout
+
+\begin_layout Section
+Motivations
+\end_layout
+
+\begin_layout Standard
+Despite being a simple chemical system, studying ion pairing in aqueous
+ solutions could be the key to understanding many other complex chemical
+ reactions of current research interests, for the prescence of the ions
+ in aqueous solution is an integral part of human body, seawater, catalytic
+ environments, or energy-efficient materials.
+ There are numerous evidences of the ions in aqueous solutions that play
+ crucial roles in complex biological processes, such as the effects on macrobiom
+olecules like proteins or DNA, such as salt bridge formations in proteins,
+ protein-DNA interactions, or assisting the creation of tertiary and quarternary
+ structures of proteins, [CITE MINOR] Moreover, the ions in an oceanic environme
+nt also regulates the chemistry of both the ocean and the atmosphere, which
+ could provide a better mechanistic understanding of global warming.
+ [CITE MINOR] Recent advances of batteries and energy materials also necessitate
+ a good understanding in ion transport in aqueous solution.
+ [CITE MINOR] [ABOUT 142 WORDS IN THIS PARAGRAPH.
+ TRY TO MAKE IT CLOSE TO 200]
+\end_layout
+
+\begin_layout Standard
+With water molecules removed, the ion pairing interactions is easily characteriz
+ed as mostly electrostatic interactions between the cation and the anion,
+ which does not have any associated barriers due to the inverse dependence
+ on the interionic separation, 
+\begin_inset Formula $r_{+-}$
+\end_inset
+
+.
+ However, ions in aqueous solutions behave differently, as polar water molecules
+ could arrange around the ions by the means of charge - dipole interactions,
+ solvating the ions.
+ Thus, the solvation structure around the ions need to change in order for
+ the cation and the anion to come close.
+ The need to overcome the solvation energy of the ions to put two ions closer
+ together; hence, involves a free energy barrier.
+ For this reason, thermodynamics and kinetics information of ionic association
+ in aqueous solutions can be obtained given that the free energy landscape
+ of this chemical process can be extracted, paving the ways to isolate the
+ most likely solvation structures around the ions and elucidate the mechanisms
+ of the reaction in terms of the proper reaction coordinate for this system.
+ [166 WORDS]
+\end_layout
+
+\begin_layout Standard
+The biggest obstacle for thoroughly understanding not only this kind of
+ process, but also the thermodynamics and the kinetics of all kinds of chemical
+ reactions, is the lack of knowledge of such a reaction coordinate.
+ Throughout the document, the reaction coordinate is defined as a linear
+ combination of functions 
+\begin_inset Formula $\xi_{i}(\mathbf{x})$
+\end_inset
+
+, where each 
+\begin_inset Formula $\xi_{i}$
+\end_inset
+
+ is called a collective variable.
+ A collective variable is a function of all the Cartesian coordinate in
+ the phase space defining a collective group of atoms in the regions of
+ our interests, which includes, but not limited to, 
+\begin_inset Formula $r_{+-}$
+\end_inset
+
+, the angle, the dihedral angle, or even the coordination number of an atom.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Psi=\sum_{i}c_{i}\xi_{i}(\mathbf{x})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The definition of a proper reaction coordinate 
+\begin_inset Formula $\Psi$
+\end_inset
+
+ for a chemical reaction is such coordinate should capture the slowest motion
+ [CHECK] across the free energy barrier in the direction of the isocommitting
+ surface.
+ However, in most cases, we do not know a proper combination of the collective
+ variables, nor that we know which collective variables should we choose.
+ Therefore, most of the attempts to study the mechanisms of chemical reactions
+ usually based on the intuitive guesses of a few collective variables.
+ As a result, we cannot know with certainty about the true underlying mechanism
+ that actually represents the slowest motion, for we only have a limited
+ picture of all the influences.
+ 
+\end_layout
+
+\begin_layout Section
+Backgrounds
+\end_layout
+
+\begin_layout Standard
+The accepted concept of ion pairing that is widely cited today came from
+ the work of Fuoss [P-JACS-1954-v76-Sadek] and Winstein [P-JACS-1956-v78-Winstei
+n] during the 1950s.
+ Before their work, the solvent was usually modeled as a part of the continuum
+ model, where the solvent's electrostatic influence was treated as one single
+ entity, which gave rise to a two-state model.
+ One of those two states being the associated states, where the ions are
+ held close together by their electrostatic interactions, and another state
+ being the dissociated state, where the ions are separated far enough to
+ not attracting each other again.
+ However, Fuoss and Winstein showed in their work that there exists another
+ state that lies in between the dissociated and the associated states of
+ the ions.
+ Therefore, the state in between shall not have the ions too separated that
+ they do not see another's attraction, but not too close that the association
+ is mainly the electrostatic interaction between the ions.
+ For this reason, the state in between could be thought of as another associated
+ state with some influence from the solvent.
+ In this document, we will call this state the solvent separated ion pair
+ (SSIP), and the associated state the contacted ion pair (CIP) for convenience.
+\end_layout
+
+\begin_layout Standard
+The earliest simulation that attempted to study this type of reaction came
+ from the work of Belch et al.
+ in 1986.
+ [P-JACS-1986-v108-Belch] Although the work did not compute the free energy,
+ it was among the first attempts to analyze the behavior of the solvent
+ through computer simulations.
+ Belch et al.
+ proposed that for a solution of NaCl in water, the Na+ cation tries to
+ maintain the octahedral structure in the CIP state, the SSIP state, and
+ the dissociated state.
+ The work also pointed out that as the dissociation takes place, one water
+ molecule would rotate to form a bridge between the two ions and the hydrogen
+ bond structure between water molecules in the first and the second solvation
+ shells become disrupted.
+ It is evident from this result that the solvent plays a role in the dissociatio
+n of CIP.
+ However, how the solvent plays the role in this process still remained
+ a mystery at that point.
+\end_layout
+
+\begin_layout Standard
+The thermodynamics and the kinetics model of this type of reaction would
+ not complete without the free energy landscape and the information of the
+ free energy barrier between the SSIP and the CIP states.
+ For any simulations performed under the canonical ensemble (fixed numbers
+ of particles, volume, and temperature), the relative Helmholtz free energy
+ can be computed by just taking a natural logarithm of the probability of
+ finding a particular configuration of the ensemble,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+A(\mathbf{x})=-k_{B}T\ln\mathbb{P}(\mathbf{x})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $k_{B}$
+\end_inset
+
+ is the Boltzmann's constant, and 
+\begin_inset Formula $T$
+\end_inset
+
+ is the temperature of the simulation.
+ Since a collective variable 
+\begin_inset Formula $\xi(\mathbf{x})$
+\end_inset
+
+ is also a function of the Cartesian coordinates in the phase space, the
+ Helmholtz free energy could also be computed in terms of the collective
+ variable through the following relationship,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+A\left(\xi(\mathbf{x})\right)=-k_{B}T\ln\int\delta\left(\xi(\mathbf{x}')-\xi(\mathbf{x})\right)e^{-V(\mathbf{x})/k_{B}T}d\mathbf{x}'
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Initial attempts on free energy landscape computation began from a very
+ simple model of 1 collective variable chosen from an intuitive guess.
+ Since we hope to study the association / dissociation of the ions, the
+ most natural collective variable that would serve the purpose would be
+ 
+\begin_inset Formula $r_{+-}$
+\end_inset
+
+.
+ Hence, the relative Helmholtz free energy based on this collective variable
+ would allow us to quantitatively determine the free energy barrier that
+ separates the SSIP state from the CIP state.
+ Numerous works have since published the one-dimensional free energy landscapes
+ in 
+\begin_inset Formula $r_{+-}$
+\end_inset
+
+, most of which allowed both qualitative and quantitative distinctions between
+ the SSIP and CIP states as two separate metastable states.
+ [CITE 1D WORKS] For group 1 cations, Fennell et al.
+ published detailed comparisons of the free energy trend down the same group.
+ [P-JPhysChemB-2009-v113].
+ He found that the CIP structure of LiCl has a very steep well of about
+ XX kcal/mol, whereas the CIP free energy barrier of CsCl is very shallow,
+ and for CsCl, the CIP structure is even less thermodynamically stable than
+ the SSIP structure.
+ 
+\end_layout
+
+\begin_layout Standard
+Although the free energy of ion pairing in aqueous solutions in terms of
+ 
+\begin_inset Formula $r_{+-}$
+\end_inset
+
+ can give us a rough idea of the SSIP and the CIP behaviors of the system,
+ it does not capture the dynamics of the solvent as hinted by Belch et al.
+ [CITE], which was confirmed by the later work of Geissler et al.
+ [P-JPhysChemB-1999-v103-Geissler].
+ In the work of Geissler et al., they employed transition path sampling to
+ characterize the behavior at the transition state [CHECK], and found that
+ there are many probable transition pathways where collective motion of
+ solvent molecules play an important role.
+ A subsequent work by Ballard and Dellago also pointed out that using only
+ 
+\begin_inset Formula $r_{+-}$
+\end_inset
+
+ as a hypothetical reaction coordinate for this process is inherently a
+ bad choice.
+ [P-JPhysChemB-2012-v116-Ballard] They also found that the influence of
+ the solvent for the NaCl reaction extends up to the third shell, consistent
+ with what was found by Belch et al.
+ [P-JACS-1986-v108-Belch].
+\end_layout
+
+\end_body
+\end_document
