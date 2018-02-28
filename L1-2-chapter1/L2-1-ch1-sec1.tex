@@ -15,38 +15,63 @@
 
 \begingroup
 %\renewcommand{\clearpage}{}
-\chapter{Ion Association in Aqueous Solutions - Introduction}
+\chapter{Historical Backgrounds of Ion Pairing Studies in Aqueous Solutions}
 \endgroup
 
 \begin{spacing}{2.0}
 
-    \section{Background of the Problem}
+    \section{Motivations}
 
-    % CURRENT TEXT - SYNC WITH WORD VERSION!! TO APPLY NEW CHANGES, COPY THE WHOLE THING FROM WORD AND KEEP OLD TEXT FIRST
-    % AS COMMENTS FOR COMPARISON!!
-    Ionic association in aqueous solution is a chemical process defined by the interactions between the cation and the anion as a solute of an 
-    aqueous solution. \textbf{MAYBE ADD THE IMPORTANCE OF THIS CHEMICAL PROCESS HERE...} Due to the charged nature of the ions and the fact that 
-    water molecule is a highly polar chemical species, water molecules have a strong tendency to solvate around the ions, forming a hydration 
-    shell. The formation of a hydration shell can be thought of as a cage, where an ion in the hydration shell is confined in such a cage by 
-    the charge – dipole interaction. Therefore, hydrated ions become less effective in chemical interactions in an aqueous solution environment 
-    because there is an energy cost associated with breaking the ion-solvent interactions. Hence, understanding the behavior of the solvent is 
-    crucial.
+    % SYNCED WITH LYX CHAPTER 1 DRAFT - 20180227 VERSION
+    Despite being a simple chemical system, studying ion pairing in aqueous solutions could be the key to understanding many other complex 
+    chemical reactions of current research interests, for the prescence of the ions in aqueous solution is an integral part of human body, 
+    seawater, catalytic environments, or energy-efficient materials. There are numerous evidences of the ions in aqueous solutions that play 
+    crucial roles in complex biological processes, such as the effects on macrobiomolecules like proteins or DNA, such as salt bridge formations 
+    in proteins, protein-DNA interactions, or assisting the creation of tertiary and quarternary structures of proteins, [CITE MINOR] Moreover, 
+    the ions in an oceanic environment also regulates the chemistry of both the ocean and the atmosphere, which could provide a better 
+    mechanistic understanding of global warming. [CITE MINOR] Recent advances of batteries and energy materials also necessitate a good 
+    understanding in ion transport in aqueous solution. [CITE MINOR]
 
-    The efforts of characterizing such reaction dated back the 1950s, where Sadek and Fuoss \cite{P-JACS-1954-v76-Sadek} and Winstein et al. 
-    \cite{P-JACS-1956-v78-Winstein} proposed that there are two prominent forms of ion pairing – contacted ion pair (CIP), and solvent-separated 
-    ion pairing (SSIP). The main difference between CIP and SSIP is the number of solvent molecules shared between the cation and the anion.
+    With water molecules removed, the ion pairing interactions is easily characterized as mostly electrostatic interactions between the cation 
+    and the anion, which does not have any associated barriers due to the inverse dependence on the interionic separation, $r_{+-}$. However, ions 
+    in aqueous solutions behave differently, as polar water molecules could arrange around the ions by the means of charge - dipole interactions, 
+    solvating the ions. Thus, the solvation structure around the ions need to change in order for the cation and the anion to come close. The need 
+    to overcome the solvation energy of the ions to put two ions closer together; hence, involves a free energy barrier. For this reason, 
+    thermodynamics and kinetics information of ionic association in aqueous solutions can be obtained given that the free energy landscape of this 
+    chemical process can be extracted, paving the ways to isolate the most likely solvation structures around the ions and elucidate the mechanisms 
+    of the reaction in terms of the proper reaction coordinate for this system.
+
+    The biggest obstacle for thoroughly understanding not only this kind of process, but also the thermodynamics and the kinetics of all kinds of 
+    chemical reactions, is the lack of knowledge of such a reaction coordinate. Throughout the document, the reaction coordinate is defined as a 
+    linear combination of functions $\xi_i(\mathbf{x})$, where each $\xi_i$ is called a collective variable. A collective variable is a function 
+    of all the Cartesian coordinate in the phase space defining a collective group of atoms in the regions of our interests, which includes, but 
+    not limited to $r_{+-}$, the angle, the dihedral angle, or even the coordination number around an atom.
 
     \begin{equation}
-        \underset{\text{free ions}}{\mathrm{M}^+ + \mathrm{X}^-\vphantom{p}} \iff 
-        \underset{\text{SSIP}}{\mathrm{M} \cdots \mathrm{X}\vphantom{p}} \iff 
-        \underset{\text{CIP}}{\mathrm{M} \cdot \mathrm{X}\vphantom{p}}
-        \label{eq:c1s1-ionpairillus}
+        \Psi = \sum_i c_i \xi_i(\mathbf{x})
     \end{equation}
 
-    As outlined in \ref{eq:c1s1-ionpairillus}, the cation and the anion are directly contacted in the CIP structure; hence, there should be
-    no solvent molecules in between the two ions, and the interionic separations of the ions should be shorter. In contrast, the SSIP structure
-    has the solvent molecules acting as a bridge between the cation and the anion, hence the longer separation between the two ions. Therefore,
-    in order for the ions to be able to come close, the hydration shells around these ions need to rearrange to make room for the ions to
-    be come into a closer contact.
+    The definition of a proper reaction coordinate $\Psi$ for a chemical reaction is such coordinate should capture the slowest motion [CHECK] 
+    across the free energy barrier in the direction of the isocommitting surface. However, in most cases, we do not know a proper combination of 
+    the collective variables, nor that we know which collective variables should we choose. Therefore, most of the attempts to study the mechanisms 
+    of chemical reactions usually based on the intuitive guesses of a few collective variables. As a result, we cannot know with certainty about 
+    the true underlying mechanism that actually represents the slowest motion, for we only have a limited picture of all the influences.
+
+    %The efforts of characterizing such reaction dated back the 1950s, where Sadek and Fuoss \cite{P-JACS-1954-v76-Sadek} and Winstein et al. 
+    %\cite{P-JACS-1956-v78-Winstein} proposed that there are two prominent forms of ion pairing – contacted ion pair (CIP), and solvent-separated 
+    %ion pairing (SSIP). The main difference between CIP and SSIP is the number of solvent molecules shared between the cation and the anion.
+
+    %\begin{equation}
+    %    \underset{\text{free ions}}{\mathrm{M}^+ + \mathrm{X}^-\vphantom{p}} \iff 
+    %    \underset{\text{SSIP}}{\mathrm{M} \cdots \mathrm{X}\vphantom{p}} \iff 
+    %    \underset{\text{CIP}}{\mathrm{M} \cdot \mathrm{X}\vphantom{p}}
+    %    \label{eq:c1s1-ionpairillus}
+    %\end{equation}
+
+    %As outlined in \ref{eq:c1s1-ionpairillus}, the cation and the anion are directly contacted in the CIP structure; hence, there should be
+    %no solvent molecules in between the two ions, and the interionic separations of the ions should be shorter. In contrast, the SSIP structure
+    %has the solvent molecules acting as a bridge between the cation and the anion, hence the longer separation between the two ions. Therefore,
+    %in order for the ions to be able to come close, the hydration shells around these ions need to rearrange to make room for the ions to
+    %be come into a closer contact.
 
 \end{spacing}
