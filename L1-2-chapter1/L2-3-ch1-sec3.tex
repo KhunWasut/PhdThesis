@@ -1,0 +1,63 @@
+\section{Areas of Improvement and Objectives}
+\label{sec:L12L23}
+
+\begin{spacing}{2.0}
+
+    The work of Mullen et al. changed the perception of how we should approach this problem in a hugely significant manner by introducing a number 
+    of possible candidates to describe the dynamics of the solvent; however, there are still several obstacles for us to fully grasp the whole 
+    picture. There are two possible questions that arose from Mullen et al. First, although the proper reaction coordinate can be found by maximizing 
+    the likelihood of a linear combination of collective variables that go across the dividing surface between two isocommittor surfaces, there is 
+    a possibility that more than 3 collective variables are actually involved and a linear combination of 3 collective variables may still be 
+    inadequate to properly representing the slowest motion. Second, the work of Mullen et al. focused mainly in the SSIP - CIP transition, but did 
+    not discuss the dynamics of the bulk, so the mechanics of the ionic association from the bulk remain relatively little understood.
+
+    There are several ways that can be used to identify proper reaction coordinates for a chemical reaction. The maximum likelihood method used in 
+    Mullen et al. is just one method among many other proposals of methods that allow us to study the most important coordinate of a chemical system, 
+    such as string method \cite{P-PhysRevB-2002-v66-E, P-JPhysChemB-2005-v109-E, P-JChemPhys-2007-v126-E}, markov state model (MSM)
+    \cite{P-JChemPhys-2004-v121-Singhal, P-JChemPhys-2008-v129-Pan, P-Methods-2010-v52-Pande, P-PhysChemChemPhys-2011-v13-Prinz, P-JChemPhys-2011-v134-Prinz}, 
+    principal component analysis (PCA), diffusion map, and many other. \cite{P-AnnuRevPhysChem-2013-v64-Rohrdanz} [CITE RELATED] Among these methods, 
+    MSM is one of the most widely used tools in biochemical simulations to identify different conformations of large biomolecules such as proteins or DNA. 
+    \cite{P-JCTC-2014-v10-Malmstrom} [CITE MSM WORKS] Besides being used to identify metastable states in the system, the information from MSM 
+    eigenfunctions also directly relates to different motions in a chemical system. Therefore, not only that MSM could give an insight for the slowest 
+    motion, MSM can also be useful in a stituation where a system with motions in a very similar timescale and the slowest motion cannot be fully 
+    distinguished from the next slowest motion in the system. This would allow us to study any possible secondary or tertiary motions and their possible 
+    effects on the primary motion across the free energy barrier. Besides, the information of each MSM eigenfunction can also be projected onto the 
+    collective variables space and we could determine each unique linear combination of the collective variables specific to each motion in the system.
+    \cite{P-JChemPhys-2013-v139-Perez-Hernandez, P-JChemPhys-2017-v146-Wu, P-CurrOpStructBiol-2017-v43-Noe}
+
+    In accompanying a proper reaction coordinate which may have contributions from several collective variables, a multidimensional free energy 
+    landscape is needed to represent those collective variables to give a viable insight into the reaction mechanisms. However, the current capabilities 
+    limited the free energy computation to a two-dimensional space due to the high computational cost of multidimensional sampling. As relative 
+    free energy between two points in the collective variable space relates to the natural logarithm of the probability of going from one state to 
+    another, any free energy barriers are considered as rare event regions that are naturally less sampled for any unbiased molecular dynamics 
+    simulations. Hence, we have relatively little information to correctly determine the free energy landscapes around the barriers, which may 
+    cause errors in rate calculation and inaccurate description of the transition state - a crucial element for full understandings of the entire 
+    mechanism. For this type of problem, Cuendet and Tuckerman has noted the difficulties in the free energy computation of the ionic association 
+    reaction of NaCl in aqueous solution which presents challenges for any novel free energy computation methods that usually validate their models 
+    with the free energy landscape of alanine dipeptide with respect to their two dihedral angles. Compared to the free energy of alanine dipeptide, 
+    the free energy of NaCl's SSIP and CIP states differ only in the order of a few kcal/mol, prompting the need to make sure that we need a free 
+    energy calculation scheme that cannot produce a large error which would otherwise cause severe inaccuracies in the result. Moreover, the CIP 
+    feature of NaCl's one-dimensional free energy is relatively narrow, which implies that the free energy gradient is relatively rapidly changing 
+    and giving rise to statistical noise when averaging the free energy estimators. \cite{P-JCTC-2014-v10-Cuendet}
+
+    The preferred method of free energy computation among the community has always been window-based simulations, where an average of a probability 
+    density or average force along a particular collective variable was computed in a restrained simulation environment to ensure adequate amount of 
+    sampling, especially in the rare event regions. Despite providing accurate results, the main disadvantage of this class of free energy simulation 
+    method has always been the cost, which scales as $\mathcal{O}(n^D)$ for a $D$-dimensional problem. Although it is also possible to perform a 
+    simulation in each window in parallel given that we know a good initial configuration in each window, this does not eliminate the scaling issue 
+    for a many-dimension problem. \cite{P-JCTC-2013-v9-Wojtas-Niziurski} Another main issue in free energy simulation is the inherent statistical 
+    noises of the average probability density or an average force along a collective variable, which also produce noisy free energy landscapes that 
+    may become an issue for a chemical system with sensitive free energy profile. 
+
+    In order to circumvent the two issues of free energy computations presented in the above paragraph, we need to first be able to quickly explore 
+    the free energy landscape to eliminate the need to perform windowed simulation while also collecting the needed information to compute the free 
+    energy landscapes, and then we need to find a reconstruction algorithm that ensures a smooth reconstructed data. The first task could be done 
+    using well-tempered metadynamics (WT-MTD) simulation, which has been shown in the work by Mones et al. to have fastest exploration of the free 
+    energy landscape compared to many other algorithms. \cite{P-JCTC-2016-v12-Mones} During the WT-MTD simulation, biased instantaneous forces (BIFs) 
+    along the collective variables are collected and then later are unbiased using the known information of the deposited WT-MTD Gaussians to obtain 
+    unbiased instantaneous forces (UIFs). The UIFs could be treated as a noisy, unaveraged version of the average force along the collective variable 
+    commonly used in thermodynamic integration to compute the free energy landscapes. Therefore, a machine learning-based approach such as Gaussian 
+    process regression (GPR) could be used to infer the most likely free energy landscape based on our training data of UIFs, providing a smooth 
+    reconstruction of the free energy landscape in any number of dimensions. \cite{P-JCTC-2014-v10-Stecher, P-JCTC-2016-v12-Mones}
+
+\end{spacing}

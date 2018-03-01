@@ -63,11 +63,45 @@
     found that the influence of the solvent for the NaCl reaction extends up to the third shell, consistent with what was found by Belch et al. 
     \cite{P-JACS-1986-v108-Belch}
 
-    % TEST ADDING A FIGURE
+    % TEST ADDING A FIGURE - TO BE REMOVED ONCE A PROPER FIGURE IS IN PLACE
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.6\textwidth]{./figs/fig1-01}
         \caption{TEST FIGURE}
     \end{figure}
+
+    Subsequent works have contributed a lot of efforts in determining the solvent effects of ion pairing, but a solid consensus on the solvent 
+    coordinate is yet to be made. The most popular opinion among recent publications has been imagining the number of water molecules in the first 
+    solvation shell of the cation ($n_+$) as a driving force for the ionic association. This viewpoint was clearly influenced from the ligand 
+    exchanging process commonly perceived by the inorganic chemist community, where they have put mechanistic labels of such process as either
+    \textsl{associative} (involving the expansion of the solvation shell as another ligand came close to the center cation before ejecting one 
+    water molecule) or \textsl{dissociative} (involving the ejection of a water molecule from the cation before the association with another 
+    ligand), originally proposed by Eigen and Wilkins during the 1950s. \cite{P-ChemRev-2005-v105-Richens, P-PureApplChem-1963-v6-Eigen, IB-EigenWilkins-1965}
+    Therefore, later works involved characterizing $n_+$ as a solvent coordinate and later computations free energy landscapes of the ionic 
+    association in aqueous solution started to include this collective variable as well.
+    \cite{P-JChemPhys-2007-v127-Ikeda, P-JPhysChemC-2015-v43-Raiteri, P-JPhysChemC-2016-v120-Roy, P-JCTC-2017-v13-Roy} The most common features 
+    in these works are that the free energy minima mostly occurs around the integer values of $n_+$ and these minima are very narrow in the $n_+$
+    dimension. Moreover, recent publications with two-dimensional free energy landscapes in the $r_{+-}$ and $n_+$ coordinates revealed the fact 
+    that for group 1 or group 2 cations, the SSIP - CIP transition is usually characterized by an initial association of the cation and the anion 
+    from the SSIP coordinated state to an intermediate structure where the cation and the anion both have the CIP separation but the cation still 
+    have the same coordination number as the SSIP state, then a water molecule is ejected from the first solvation shell in a much faster process 
+    to form a CIP structure. The results indicate that for group 1 and group 2 cations, the preferred Eigen - Wilkins mechanistic label for the 
+    cation - anion association process in aqueous solution is the associative pathway.
+
+    Despite recent efforts in incorporating the $n_+$ collective variable in free energy computations for this type of process, the contribution 
+    from solvent molecules in the outer solvation shell still remains unclear as the $n_+$ coordinate does not include any water molecules in any 
+    outer solvation shells, nor does it include the contributions from the solvation shell of the anion. In this regard, a recent work by 
+    Mullen et al. found that by maximizing the likelihood of a linear combination of 3 collective variables out of their 73 candidates with respect 
+    to the crossing of the isocommittor surface [CHECK], there are two solvent coordinates that play significant roles in the ionic association 
+    reaction of \ce{NaCl} in aqueous solution, which are the number of water molecules that are simultaneously coordinated with both the cation 
+    and the anion by forming bridges between them ($n_B$), and the density of water molecules around the midpoint between the cation and the anion
+    ($\rho_{ii}$). \cite{P-JCTC-2014-v10-Mullen} The interpretation with respect to $n_B$ collective variable is particularly interesting, as visualizing 
+    the $n_B$ coordinate in the transition state is consistent with the earlier proposal from the work of Belch et al. \cite{P-JACS-1986-v108-Belch}
+    If we also added the $\rho_{ii}$ coordinate into the mix, we would have another coordinate that takes the water molecules in the outer solvation 
+    shells into an account as well. Hence, the linear combination of the collective variables proposed by Mullen et. al. with maximum likelihood 
+    across the isocommittor surfaces [CHECK] represents the most likely reaction coordinate across the slowest motion across the actual free energy 
+    barrier between the CIP and the SSIP states, which indicates that having either one or two collective variables are not sufficient in describing 
+    the dynamics of the ionic association in aqueous solutions, and an optimum reaction coordinate across the barrier involves a specific linear 
+    combination of the collective variables.
 
 \end{spacing}
