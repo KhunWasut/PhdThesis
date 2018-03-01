@@ -1,0 +1,629 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass book
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Historical Backgrounds of Ion Pairing Studies in Aqueous Solutions
+\end_layout
+
+\begin_layout Section
+The Problem and its Significance
+\end_layout
+
+\begin_layout Standard
+Despite being a simple chemical system, studying ion pairing in aqueous
+ solutions could be the key to understanding many other complex chemical
+ reactions of current research interests, for the prescence of the ions
+ in aqueous solution is an integral part of human body, seawater, catalytic
+ environments, or energy-efficient materials.
+ There are numerous evidences of the ions in aqueous solutions that play
+ crucial roles in complex biological processes, such as the effects on macrobiom
+olecules like proteins or DNA, such as salt bridge formations in proteins,
+ protein-DNA interactions, or assisting the creation of tertiary and quarternary
+ structures of proteins, [CITE MINOR] Moreover, the ions in an oceanic environme
+nt also regulates the chemistry of both the ocean and the atmosphere, which
+ could provide a better mechanistic understanding of global warming.
+ [CITE MINOR] Recent advances of batteries and energy materials also necessitate
+ a good understanding in ion transport in aqueous solution.
+ [CITE MINOR] [ABOUT 142 WORDS IN THIS PARAGRAPH.
+ TRY TO MAKE IT CLOSE TO 200]
+\end_layout
+
+\begin_layout Standard
+With water molecules removed, the ion pairing interactions is easily characteriz
+ed as mostly electrostatic interactions between the cation and the anion,
+ which does not have any associated barriers due to the inverse dependence
+ on the interionic separation, 
+\begin_inset Formula $r_{+-}$
+\end_inset
+
+.
+ However, ions in aqueous solutions behave differently, as polar water molecules
+ could arrange around the ions by the means of charge - dipole interactions,
+ solvating the ions.
+ Thus, the solvation structure around the ions need to change in order for
+ the cation and the anion to come close.
+ The need to overcome the solvation energy of the ions to put two ions closer
+ together; hence, involves a free energy barrier.
+ For this reason, thermodynamics and kinetics information of ionic association
+ in aqueous solutions can be obtained given that the free energy landscape
+ of this chemical process can be extracted, paving the ways to isolate the
+ most likely solvation structures around the ions and elucidate the mechanisms
+ of the reaction in terms of the proper reaction coordinate for this system.
+ [166 WORDS]
+\end_layout
+
+\begin_layout Standard
+The biggest obstacle for thoroughly understanding not only this kind of
+ process, but also the thermodynamics and the kinetics of all kinds of chemical
+ reactions, is the lack of knowledge of such a reaction coordinate.
+ Throughout the document, the reaction coordinate is defined as a linear
+ combination of functions 
+\begin_inset Formula $\xi_{i}(\mathbf{x})$
+\end_inset
+
+, where each 
+\begin_inset Formula $\xi_{i}$
+\end_inset
+
+ is called a collective variable.
+ A collective variable is a function of all the Cartesian coordinate in
+ the phase space defining a collective group of atoms in the regions of
+ our interests, which includes, but not limited to, 
+\begin_inset Formula $r_{+-}$
+\end_inset
+
+, the angle, the dihedral angle, or even the coordination number of an atom.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Psi=\sum_{i}c_{i}\xi_{i}(\mathbf{x})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The definition of a proper reaction coordinate 
+\begin_inset Formula $\Psi$
+\end_inset
+
+ for a chemical reaction is such coordinate should capture the slowest motion
+ [CHECK] across the free energy barrier in the direction of the isocommitting
+ surface.
+ However, in most cases, we do not know a proper combination of the collective
+ variables, nor that we know which collective variables should we choose.
+ Therefore, most of the attempts to study the mechanisms of chemical reactions
+ usually based on the intuitive guesses of a few collective variables.
+ As a result, we cannot know with certainty about the true underlying mechanism
+ that actually represents the slowest motion, for we only have a limited
+ picture of all the influences.
+ 
+\end_layout
+
+\begin_layout Section
+Prior Investigations
+\end_layout
+
+\begin_layout Standard
+The accepted concept of ion pairing that is widely cited today came from
+ the work of Fuoss [P-JACS-1954-v76-Sadek] and Winstein [P-JACS-1956-v78-Winstei
+n] during the 1950s.
+ Before their work, the solvent was usually modeled as a part of the continuum
+ model, where the solvent's electrostatic influence was treated as one single
+ entity, which gave rise to a two-state model.
+ One of those two states being the associated states, where the ions are
+ held close together by their electrostatic interactions, and another state
+ being the dissociated state, where the ions are separated far enough to
+ not attracting each other again.
+ However, Fuoss and Winstein showed in their work that there exists another
+ state that lies in between the dissociated and the associated states of
+ the ions.
+ Therefore, the state in between shall not have the ions too separated that
+ they do not see another's attraction, but not too close that the association
+ is mainly the electrostatic interaction between the ions.
+ For this reason, the state in between could be thought of as another associated
+ state with some influence from the solvent.
+ In this document, we will call this state the solvent separated ion pair
+ (SSIP), and the associated state the contacted ion pair (CIP) for convenience.
+\end_layout
+
+\begin_layout Standard
+The earliest simulation that attempted to study this type of reaction came
+ from the work of Belch et al.
+ in 1986.
+ [P-JACS-1986-v108-Belch] Although the work did not compute the free energy,
+ it was among the first attempts to analyze the behavior of the solvent
+ through computer simulations.
+ Belch et al.
+ proposed that for a solution of NaCl in water, the Na+ cation tries to
+ maintain the octahedral structure in the CIP state, the SSIP state, and
+ the dissociated state.
+ The work also pointed out that as the dissociation takes place, one water
+ molecule would rotate to form a bridge between the two ions and the hydrogen
+ bond structure between water molecules in the first and the second solvation
+ shells become disrupted.
+ It is evident from this result that the solvent plays a role in the dissociatio
+n of CIP.
+ However, how the solvent plays the role in this process still remained
+ a mystery at that point.
+\end_layout
+
+\begin_layout Standard
+The thermodynamics and the kinetics model of this type of reaction would
+ not complete without the free energy landscape and the information of the
+ free energy barrier between the SSIP and the CIP states.
+ For any simulations performed under the canonical ensemble (fixed numbers
+ of particles, volume, and temperature), the relative Helmholtz free energy
+ can be computed by just taking a natural logarithm of the probability of
+ finding a particular configuration of the ensemble,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+A(\mathbf{x})=-k_{B}T\ln\mathbb{P}(\mathbf{x})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $k_{B}$
+\end_inset
+
+ is the Boltzmann's constant, and 
+\begin_inset Formula $T$
+\end_inset
+
+ is the temperature of the simulation.
+ Since a collective variable 
+\begin_inset Formula $\xi(\mathbf{x})$
+\end_inset
+
+ is also a function of the Cartesian coordinates in the phase space, the
+ Helmholtz free energy could also be computed in terms of the collective
+ variable through the following relationship,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+A\left(\xi(\mathbf{x})\right)=-k_{B}T\ln\int\delta\left(\xi(\mathbf{x}')-\xi(\mathbf{x})\right)e^{-V(\mathbf{x})/k_{B}T}d\mathbf{x}'
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Initial attempts on free energy landscape computation began from a very
+ simple model of 1 collective variable chosen from an intuitive guess.
+ Since we hope to study the association / dissociation of the ions, the
+ most natural collective variable that would serve the purpose would be
+ 
+\begin_inset Formula $r_{+-}$
+\end_inset
+
+.
+ Hence, the relative Helmholtz free energy based on this collective variable
+ would allow us to quantitatively determine the free energy barrier that
+ separates the SSIP state from the CIP state.
+ Numerous works have since published the one-dimensional free energy landscapes
+ in 
+\begin_inset Formula $r_{+-}$
+\end_inset
+
+, most of which allowed both qualitative and quantitative distinctions between
+ the SSIP and CIP states as two separate metastable states.
+ [CITE 1D WORKS] For group 1 cations, Fennell et al.
+ published detailed comparisons of the free energy trend down the same group.
+ [P-JPhysChemB-2009-v113].
+ He found that the CIP structure of LiCl has a very steep well of about
+ XX kcal/mol, whereas the CIP free energy barrier of CsCl is very shallow,
+ and for CsCl, the CIP structure is even less thermodynamically stable than
+ the SSIP structure.
+ 
+\end_layout
+
+\begin_layout Standard
+Although the free energy of ion pairing in aqueous solutions in terms of
+ 
+\begin_inset Formula $r_{+-}$
+\end_inset
+
+ can give us a rough idea of the SSIP and the CIP behaviors of the system,
+ it does not capture the dynamics of the solvent as hinted by Belch et al.
+ [CITE], which was confirmed by the later work of Geissler et al.
+ [P-JPhysChemB-1999-v103-Geissler].
+ In the work of Geissler et al., they employed transition path sampling to
+ characterize the behavior at the transition state [CHECK], and found that
+ there are many probable transition pathways where collective motion of
+ solvent molecules play an important role.
+ A subsequent work by Ballard and Dellago also pointed out that using only
+ 
+\begin_inset Formula $r_{+-}$
+\end_inset
+
+ as a hypothetical reaction coordinate for this process is inherently a
+ bad choice.
+ [P-JPhysChemB-2012-v116-Ballard] They also found that the influence of
+ the solvent for the NaCl reaction extends up to the third shell, consistent
+ with what was found by Belch et al.
+ [P-JACS-1986-v108-Belch].
+\end_layout
+
+\begin_layout Standard
+Subsequent works have contributed a lot of efforts in determining the solvent
+ effects of ion pairing, but a solid consensus on the solvent coordinate
+ is yet to be made.
+ The most popular opinion among recent publications has been imagining the
+ number of water molecules in the first solvation shell of the cation (
+\begin_inset Formula $n_{+}$
+\end_inset
+
+) as a driving force for the ionic association.
+ This viewpoint was clearly influenced from the ligand exchanging process
+ commonly perceived by the inorganic chemist community, where they have
+ put mechanistic labels of such process as either 
+\shape italic
+associative
+\shape default
+ (involving the expansion of the solvation shell as another ligand came
+ close to the center cation before ejecting one water molecule) or 
+\shape italic
+dissociative
+\shape default
+ (involving the ejection of a water molecule from the cation before the
+ association with another ligand), originally proposed by Eigen and Wilkins
+ during the 1950s.
+ [P-ChemRev-2005-v105-Richens, P-PureApplChem-1963-v6-Eigen, IB-EigenWilkins-196
+5] Therefore, later works involved characterizing 
+\begin_inset Formula $n_{+}$
+\end_inset
+
+ as a solvent coordinate and later computations free energy landscapes of
+ the ionic association in aqueous solution started to include this collective
+ variable as well.
+ [P-JChemPhys-2007-v127-Ikeda, P-JPhysChemC-2015-v43-Raiteri, P-JPhysChemC-2016-
+v120-Roy, P-JCTC-2017-v13-Roy] The most common features in these works are
+ that the free energy minima mostly occurs around the integer values of
+ 
+\begin_inset Formula $n_{+}$
+\end_inset
+
+, and these minima are very narrow in the 
+\begin_inset Formula $n_{+}$
+\end_inset
+
+ dimension.
+ Moreover, recent publications with two-dimensional free energy landscapes
+ in the 
+\begin_inset Formula $r_{+-}$
+\end_inset
+
+ and 
+\begin_inset Formula $n_{+}$
+\end_inset
+
+ coordinates revealed the fact that for group 1 or group 2 cations, the
+ SSIP - CIP transition is usually characterized by an initial association
+ of the cation and the anion from the SSIP coordinated state to an intermediate
+ structure where the cation and the anion both have the CIP separation but
+ the cation still have the same coordination number as the SSIP state, then
+ a water molecule is ejected from the first solvation shell in a much faster
+ process to form a CIP structure.
+ The results indicate that for group 1 and group 2 cations, the preferred
+ Eigen - Wilkins mechanistic label for the cation - anion association process
+ in aqueous solution is the associative pathway.
+\end_layout
+
+\begin_layout Standard
+Despite recent efforts in incorporating the 
+\begin_inset Formula $n_{+}$
+\end_inset
+
+ collective variable in free energy computations for this type of process,
+ the contribution from solvent molecules in the outer solvation shell still
+ remains unclear as the 
+\begin_inset Formula $n_{+}$
+\end_inset
+
+ coordinate does not include any water molecules in any outer solvation
+ shells, nor does it include the contributions from the solvation shell
+ of the anion.
+ In this regard, a recent work by Mullen et al.
+ found that by maximizing the likelihood of a linear combination of 3 collective
+ variables out of their 73 candidates with respect to the crossing of the
+ isocommittor surface [CHECK], there are two solvent coordinates that play
+ significant roles in the ionic association reaction of NaCl in aqueous
+ solution, which are the number of water molecules that are simultaneously
+ coordinated with both the cation and the anion by forming bridges between
+ them (
+\begin_inset Formula $n_{B}$
+\end_inset
+
+), and the density of water molecules around the midpoint between the cation
+ and the anion (
+\begin_inset Formula $\rho_{ii}$
+\end_inset
+
+).
+ [P-JCTC-2014-v10-Mullen] The interpretation with respect to 
+\begin_inset Formula $n_{B}$
+\end_inset
+
+ collective variable is particularly interesting, as visualizing the 
+\begin_inset Formula $n_{B}$
+\end_inset
+
+ coordinate in the transition state is consistent with the earlier proposal
+ from the work of Belch et al.
+ [P-JACS-1986-v108-Belch] If we also added the 
+\begin_inset Formula $\rho_{ii}$
+\end_inset
+
+ coordinate into the mix, we would have another coordinate that takes the
+ water molecules in the outer solvation shells into an account as well.
+ Hence, the linear combination of the collective variables proposed by Mullen
+ et.
+ al.
+ with maximum likelihood across the isocommittor surfaces [CHECK] represents
+ the most likely reaction coordinate across the slowest motion across the
+ actual free energy barrier between the CIP and the SSIP states, which indicates
+ that having either one or two collective variables are not sufficient in
+ describing the dynamics of the ionic association in aqueous solutions,
+ and an optimum reaction coordinate across the barrier involves a specific
+ linear combination of the collective variables.
+\end_layout
+
+\begin_layout Section
+Areas of Improvement and Objectives
+\end_layout
+
+\begin_layout Standard
+The work of Mullen et al.
+ changed the perception of how we should approach this problem in a hugely
+ significant manner by introducing a number of possible candidates to describe
+ the dynamics of the solvent; however, there are still several obstacles
+ for us to fully grasp the whole picture.
+ There are two possible questions that arose from Mullen et al.
+ First, although the proper reaction coordinate can be found by maximizing
+ the likelihood of a linear combination of collective variables that go
+ across the dividing surface between two isocommittor surfaces, there is
+ a possibility that more than 3 collective variables are actually involved
+ and a linear combination of 3 collective variables may still be inadequate
+ to properly representing the slowest motion.
+ Second, the work of Mullen et al.
+ focused mainly in the SSIP - CIP transition, but did not discuss the dynamics
+ of the bulk, so the mechanics of the ionic association from the bulk remain
+ relatively little understood.
+\end_layout
+
+\begin_layout Standard
+There are several ways that can be used to identify proper reaction coordinates
+ for a chemical reaction.
+ The maximum likelihood method used in Mullen et al.
+ is just one method among many other proposals of methods that allow us
+ to study the most important coordinate of a chemical system, such as string
+ method, markov state model (MSM), principal component analysis (PCA), diffusion
+ map, and many other.
+ [P-AnnuRevPhysChem-2013-v64-Rohrdanz] [CITE RELATED] Among these methods,
+ MSM is one of the most widely used tools in biochemical simulations to
+ identify different conformations of large biomolecules such as proteins
+ or DNA.
+ [CITE MSM WORKS] Besides being used to identify metastable states in the
+ system, the information from MSM eigenfunctions also directly relates to
+ different motions in a chemical system.
+ Therefore, not only that MSM could give an insight for the slowest motion,
+ MSM can also be useful in a stituation where a system with motions in a
+ very similar timescale and the slowest motion cannot be fully distinguished
+ from the next slowest motion in the system.
+ This would allow us to study any possible secondary or tertiary motions
+ and their possible effects on the primary motion across the free energy
+ barrier.
+ Besides, the information of each MSM eigenfunction can also be projected
+ onto the collective variables space and we could determine each unique
+ linear combination of the collective variables specific to each motion
+ in the system.
+\end_layout
+
+\begin_layout Standard
+In accompanying a proper reaction coordinate which may have contributions
+ from several collective variables, a multidimensional free energy landscape
+ is needed to represent those collective variables to give a viable insight
+ into the reaction mechanisms.
+ However, the current capabilities limited the free energy computation to
+ a two-dimensional space due to the high computational cost of multidimensional
+ sampling.
+ As relative free energy between two points in the collective variable space
+ relates to the natural logarithm of the probability of going from one state
+ to another, any free energy barriers are considered as rare event regions
+ that are naturally less sampled for any unbiased molecular dynamics simulations.
+ Hence, we have relatively little information to correctly determine the
+ free energy landscapes around the barriers, which may cause errors in rate
+ calculation and inaccurate description of the transition state - a crucial
+ element for full understandings of the entire mechanism.
+ For this type of problem, Cuendet and Tuckerman has noted the difficulties
+ in the free energy computation of the ionic association reaction of NaCl
+ in aqueous solution which presents challenges for any novel free energy
+ computation methods that usually validate their models with the free energy
+ landscape of alanine dipeptide with respect to their two dihedral angles.
+ Compared to the free energy of alanine dipeptide, the free energy of NaCl's
+ SSIP and CIP states differ only in the order of a few kcal/mol, prompting
+ the need to make sure that we need a free energy calculation scheme that
+ cannot produce a large error which would otherwise cause severe inaccuracies
+ in the result.
+ Moreover, the CIP feature of NaCl's one-dimensional free energy is relatively
+ narrow, which implies that the free energy gradient is relatively rapidly
+ changing and giving rise to statistical noise when averaging the free energy
+ estimators.
+ [P-JCTC-2014-v10-Cuendet]
+\end_layout
+
+\begin_layout Standard
+The preferred method of free energy computation among the community has
+ always been window-based simulations, where an average of a probability
+ density or average force along a particular collective variable was computed
+ in a restrained simulation environment to ensure adequate amount of sampling,
+ especially in the rare event regions.
+ Despite providing accurate results, the main disadvantage of this class
+ of free energy simulation method has always been the cost, which scales
+ as 
+\begin_inset Formula $\mathcal{\mathcal{O}}(n^{D})$
+\end_inset
+
+ for a 
+\begin_inset Formula $D$
+\end_inset
+
+-dimensional problem.
+ Although it is also possible to perform a simulation in each window in
+ parallel given that we know a good initial configuration in each window,
+ this does not eliminate the scaling issue for a many-dimension problem.
+ [P-JCTC-2013-v9-Wojtas-Niziurski] Another main issue in free energy simulation
+ is the inherent statistical noises of the average probability density or
+ an average force along a collective variable, which also produce noisy
+ free energy landscapes that may become an issue for a chemical system with
+ sensitive free energy profile.
+ 
+\end_layout
+
+\begin_layout Standard
+In order to circumvent the two issues of free energy computations presented
+ in the above paragraph, we need to first be able to quickly explore the
+ free energy landscape to eliminate the need to perform windowed simulation
+ while also collecting the needed information to compute the free energy
+ landscapes, and then we need to find a reconstruction algorithm that ensures
+ a smooth reconstructed data.
+ The first task could be done using well-tempered metadynamics (WT-MTD)
+ simulation, which has been shown in the work by Mones et al.
+ to have fastest exploration of the free energy landscape compared to many
+ other algorithms.
+ [CITE GABOR 2016] During the WT-MTD simulation, biased instantaneous forces
+ (BIFs) along the collective variables are collected and then later are
+ unbiased using the known information of the deposited WT-MTD Gaussians
+ to obtain unbiased instantaneous forces (UIFs).
+ The UIFs could be treated as a noisy, unaveraged version of the average
+ force along the collective variable commonly used in thermodynamic integration
+ to compute the free energy landscapes.
+ Therefore, a machine learning-based approach such as Gaussian process regressio
+n (GPR) could be used to infer the most likely free energy landscape based
+ on our training data of UIFs, providing a smooth reconstruction of the
+ free energy landscape in any number of dimensions.
+ [GABOR 2014/2016]
+\end_layout
+
+\begin_layout Section
+Organization of Chapters
+\end_layout
+
+\begin_layout Standard
+This dissertation presents our research which aim to address the problems
+ highlighted in [REFER 1.3], and contains 6 chapters including this chapter.
+ Chapter 2 is dedicated to discussing the theories of MSM and the projection
+ of MSM eigenfunctions onto the collective variable spaces using tICA and
+ subsequent dimensional reduction through matching pursuit (MP).
+ Chapter 3 presents our application of MSM to the classical MD simulations
+ of LiCl and NaCl in aqueous solutions and our discussions on the significance
+ of the results in terms of the plausible SSIP - CIP transition mechanism
+ based on the reaction coordinates found using MSM and the dynamics of the
+ bulk.
+ Chapter 4 discusses the theories of free energy computation and the best
+ way to overcome the dimensionality problem using a combination of fast
+ exploration through WT-MTD simulations and a machine learning-based reconstruct
+ion of free energy with GPR to ensure a smooth reconstruction of the free
+ energy surfaces in any numbers of dimensions.
+ Chapter 5 features the applications of GPR to compute the two-dimensional
+ free energy landscapes of LiCl and NaCl in the 
+\begin_inset Formula $r_{+-}$
+\end_inset
+
+ and 
+\begin_inset Formula $n_{+}$
+\end_inset
+
+ coordinates, which is the first application of a two-dimensional GPR calculatio
+n beyond the peptide rotation models, and chapter 6 highlights the present
+ challenges and possible future directions of this kind of research,
+\end_layout
+
+\end_body
+\end_document

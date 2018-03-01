@@ -2,3 +2,4 @@ M-L*
 output.log
 /*.pdf
 .DS_Store
+*.lyx~
