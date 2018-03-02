@@ -1,6 +1,6 @@
 \usepackage{verbatim,listings,caption,subcaption,float,fixltx2e,amsmath,amsfonts,color,xcolor,graphicx,indentfirst,epstopdf,setspace}
 \usepackage{subcaption,textcomp,enumitem,mathtools,chemfig,chapterfolder,import,array,multirow,longtable,algpseudocode,algorithm,soul}
-\usepackage{titlesec,fancyhdr,lipsum}
+\usepackage{titlesec,fancyhdr,lipsum,tocloft}
 \usepackage[version=4]{mhchem}
 % Let subdirs point to its own relative figures/bib/section paths
 \let\includegraphicsWithoutCF\includegraphics
@@ -14,7 +14,16 @@
 
 \definecolor{KSOrange}{HTML}{FFA500}
 
-\renewcommand{\contentsname}{Table of Contents}
+% FORMATTING TOC, LOF, LOT USING TOCLOFT PACKAGE
+\renewcommand{\contentsname}{TABLE OF CONTENTS}
+\renewcommand{\cfttoctitlefont}{\hfill\normalsize}
+\renewcommand{\cftaftertoctitle}{\hfill}
+\setlength{\cftbeforetoctitleskip}{0pt}
+\setlength{\cftaftertoctitleskip}{0pt}
+\renewcommand{\cftchappresnum}{Chapter~}
+\setlength{\cftchapnumwidth}{6.5em}
+\renewcommand\cftchapdotsep{\cftdotsep}
+\renewcommand{\cftchapfont}{\normalsize}
 
 % DEFAULT INDENT 0.5 INCHES PER UCSD GUIDELINE
 \setlength{\parindent}{0.5in}
