@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# LINK TO THE PYTHON FILE
+
+# ON WINDOWS MACHINE
+ARCHIVER=$HOME/HomePackages/pytexarchiver/pytexarchiver.py
+$ARCHIVER --document-type "$(<doctype.tex)" --preamble "$(<preamble.tex)" --title-page "$(<titlepage.tex)" -p thesis --bib --bib-style="chem-acs" --bib-fullpath "standardized-refdb.bib"

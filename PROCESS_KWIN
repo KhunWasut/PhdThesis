@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# LINK TO THE PYTHON FILE
-
-# ON WINDOWS MACHINE
-ARCHIVER_KWIN=$HOME/HomePackages/pytexarchiver/pytexarchiver.py
-$ARCHIVER_KWIN --document-type "$(<doctype.tex)" --preamble "$(<preamble_KWIN.tex)" --title-page "$(<titlepage.tex)" -p thesis --bib --bib-style="chem-acs" --bib-fullpath "standardized-refdb.bib"
-#$ARCHIVER_KWIN --document-type "$(<doctype.tex)" --preamble "$(<preamble_KWIN.tex)" --title-page "$(<titlepage.tex)" -p thesis 
-#$ARCHIVER_KWIN --document-type "$(<doctype.tex)" --preamble "$(<preamble_KWIN)" --title-page "$(<titlepage.tex)" -p thesis --bib --bib-style="chem-acs" --bib-fullpath "refdb-20170510.bib"

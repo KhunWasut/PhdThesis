@@ -16,13 +16,24 @@
 
 % FORMATTING TOC, LOF, LOT USING TOCLOFT PACKAGE
 \renewcommand{\contentsname}{TABLE OF CONTENTS}
+\renewcommand{\listfigurename}{LIST OF FIGURES}
+\renewcommand{\listtablename}{LIST OF TABLES}
 \renewcommand{\cfttoctitlefont}{\hfill\normalsize}
 \renewcommand{\cftaftertoctitle}{\hfill}
+\renewcommand{\cftloftitlefont}{\hfill\normalsize}
+\renewcommand{\cftafterloftitle}{\hfill}
+\renewcommand{\cftlottitlefont}{\hfill\normalsize}
+\renewcommand{\cftafterlottitle}{\hfill}
 \setlength{\cftbeforetoctitleskip}{0pt}
 \setlength{\cftaftertoctitleskip}{0pt}
+\setlength{\cftbeforeloftitleskip}{0pt}
+\setlength{\cftafterloftitleskip}{0pt}
+\setlength{\cftbeforelottitleskip}{0pt}
+\setlength{\cftafterlottitleskip}{0pt}
 \renewcommand{\cftchappresnum}{Chapter~}
 \setlength{\cftchapnumwidth}{6.5em}
-\renewcommand\cftchapdotsep{\cftdotsep}
+\renewcommand{\cftchappagefont}{\normalsize}
+\renewcommand{\cftchapdotsep}{\cftdotsep}
 \renewcommand{\cftchapfont}{\normalsize}
 
 % DEFAULT INDENT 0.5 INCHES PER UCSD GUIDELINE
