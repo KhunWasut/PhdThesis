@@ -1,0 +1,689 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass book
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Theoretical Framework for Chemical Reactions
+\end_layout
+
+\begin_layout Standard
+Already finished
+\end_layout
+
+\begin_layout Chapter
+The Markov State Model (MSM)
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+Although intuitions allow us to describe a reaction coordinate that suits
+ the narratives of the researchers' perceptions, the main problem in determining
+ the contributing collective variables for a reaction coordinate from pure
+ intuition is there are no systematic ways to confirm the researchers' beliefs.
+ The fact that 
+\begin_inset Formula $n_{+}$
+\end_inset
+
+ was used as a collective variable in the solvent coordinate demonstrates
+ the intuition-based choice that are relatively accepted in many recent
+ literatures.
+ For example, the recent work of Raiteri et al.
+ uses this fact to construct two-dimensional free energy landscapes with
+ interionic separation (
+\begin_inset Formula $r_{+-}$
+\end_inset
+
+) and 
+\begin_inset Formula $n_{+}$
+\end_inset
+
+ as collective variables of the alkali earth ions pairing interactions with
+ chlorine ions in aqueous solution to validate their empirical potential
+ model for these ions.
+ [CITE] Roy et al.
+ also recently published a two-dimensional free energy calculation using
+ the same set of C.V.'s for alkali ions.
+ [CITE] However, the work of Mullen et al.
+ challenged this belief by claiming that 
+\begin_inset Formula $n_{+}$
+\end_inset
+
+ does not play a significant role in the process at all.
+ On the other hand, the solvent coordinate that plays an important role
+ for this process are 
+\begin_inset Formula $n_{B}$
+\end_inset
+
+ and 
+\begin_inset Formula $\rho_{ii}$
+\end_inset
+
+ coordinates mentioned in [REF 1.2].
+ [CITE]
+\end_layout
+
+\begin_layout Standard
+The significance of the work of Mullen et al.
+ was that it was the first work that performed a systematic analysis of
+ multiple collective variables to determine the best contribution of the
+ collective variables according to the reaction coordinate.
+ However, we have mentioned in [REF 1.3] that there are some possible issues
+ that arose from their results, mainly his crude restriction of the reaction
+ coordinate that should only consisft of a linear combination of 3 collective
+ variables, while there are possibly more collective variables than 3 that
+ could actually involve in the process.
+ Moreover, their work mainly focused on the SSIP - CIP transition without
+ thoroughly covering the behavior of the bulk region.
+ Therefore, the association pattern from the bulk still remained relatively
+ little understood.
+ Also, the efficiency of the method outlined in Mullen et al.
+ also rely a lot on the fact that we could accurately find two isocommittor
+ surfaces and the events that the simulation trajectory crosses between
+ these two, which could be cumbersome in the case where systems do not have
+ a well-defined barrier or the system with multiple metastable states that
+ are close to one another with relatively low barrier.
+ 
+\end_layout
+
+\begin_layout Standard
+Hence, to overcome all these possible issues, we need a scheme that could
+ include all possible linear combinations of the collective variables to
+ systematically characterize the slowest motion across the barrier with
+ respect to all possible influences.
+ Moreover, this method also needs to 
+\end_layout
+
+\begin_layout Section
+Markovian Nature of MD Simulations
+\end_layout
+
+\begin_layout Subsection
+Historical evidence of the Markovian properties
+\end_layout
+
+\begin_layout Subsection
+Mathematical Formulation of MSM
+\end_layout
+
+\begin_layout Standard
+The idea of reduced dimensionality itself was not new.
+ In fact, a method like 
+\shape italic
+principal component analysis
+\shape default
+ (PCA) is widely used in many fields such as chemistry, physics, biology,
+ and data sciences.
+ [CITE] PCA can be interpreted as a method that exploits multiple features
+ corresponding to a data and construct principal components (P.C.'s) that
+ are linear combinations of the provided features.
+ The best P.C.
+ is determined from the maximum variance of the data along that component.
+ Hence, this method finds important applications in the field of genetics,
+ where the P.C.
+ gives a clue of which genome expression gives rise to a specific behavior,
+ or among big companies to create personalized commercial experiences.
+ In our application, however, there exists a more suitable component analysis
+ method than PCA, which makes use of the autocorrelation of different eigenfunct
+ions at a particular time constant 
+\begin_inset Formula $\tau$
+\end_inset
+
+, called 
+\shape italic
+lagged time
+\shape default
+.
+ Hence, the name 
+\begin_inset Quotes eld
+\end_inset
+
+time-lagged independent component analysis
+\begin_inset Quotes erd
+\end_inset
+
+ (TICA).
+ 
+\end_layout
+
+\begin_layout Standard
+Since both PCA and TICA are the signal decomposition methods, they are naturally
+ eigenvalue problems with eigenfunctions written in the form of the linear
+ combination of the features.
+ In order to apply such methods with MD simulation, we need to be able to
+ express the evolution of the MD trajectory as an eigenvalue problem.
+ With an introduction of the Markov State Model (MSM) [CITE], we could think
+ about the evolution of the MD trajectory being memoryless.
+ That is, the probability of finding a particular configuration at time
+ 
+\begin_inset Formula $t+\tau$
+\end_inset
+
+ only depends on the configuration at time 
+\begin_inset Formula $t$
+\end_inset
+
+and nothing else,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\rho(\mathbf{x}_{t+\tau})=p_{t\to t+\tau}\mathbb{\rho}(\mathbf{x}_{t})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Therefore, equation XX implies that any MD simulations can be viewed as
+ a Markov chain, and we can use the mathematics of the Markov chains to
+ treat this problem.
+ Therefore, we could reformulate this problem as an eigenvalue problem with
+ an operator 
+\begin_inset Formula $\mathcal{P}(\tau)$
+\end_inset
+
+ as a propagator of the eigenfunctions in time,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mathcal{P}(\tau)\phi_{i}=\lambda_{i}\phi_{i}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The operator 
+\begin_inset Formula $\mathcal{P}$
+\end_inset
+
+ is nothing but the transition matrix of a Markov chain, where each element
+ 
+\begin_inset Formula $\mathcal{P}_{ij}$
+\end_inset
+
+ represents the transition probability from state 
+\begin_inset Formula $i$
+\end_inset
+
+ to state 
+\begin_inset Formula $j$
+\end_inset
+
+.
+ [CITE STOCHASTIC BOOK] The matrix 
+\begin_inset Formula $\mathcal{P}$
+\end_inset
+
+ has an important properties such that the steady state behavior at very
+ long time has a solution that approaches a stationary distribution 
+\begin_inset Formula $\mu$
+\end_inset
+
+.
+ If our simulation was performed under the canonical ensemble, the stationary
+ distribution 
+\begin_inset Formula $\mu$
+\end_inset
+
+is simply the Boltzmann distribution, which holds true for 
+\begin_inset Formula $\tau\to\infty$
+\end_inset
+
+.
+ If the operator 
+\begin_inset Formula $\mathcal{P}(\tau)$
+\end_inset
+
+ is Hermitian, then we could expand 
+\begin_inset Formula $\mathcal{P}(\tau)$
+\end_inset
+
+ as a combination of its spectral decompositions 
+\begin_inset Formula $\phi_{i}$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mathbb{\rho}(\mathbf{x}_{t+\tau})=\sum_{i=1}^{\infty}\lambda_{i}\left\langle \psi_{i},\rho(\mathbf{x}_{t})\right\rangle \phi_{i}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The values of 
+\begin_inset Formula $\psi_{i}$
+\end_inset
+
+ in equation XX represents the weighted eigenfunction by a factor of the
+ stationary density 
+\begin_inset Formula $\psi_{i}=\mu^{-1}\phi_{i}$
+\end_inset
+
+.
+ The eigenvalues 
+\begin_inset Formula $\lambda_{i}=\exp\left(-\frac{\tau}{t_{i}}\right)$
+\end_inset
+
+ are related to the implied relaxation timescale (
+\begin_inset Formula $t_{i}$
+\end_inset
+
+) of the system, and the largest eigenvalue has the value of 1, with other
+ eigenvalues strictly lower than the previous one.
+ Hence, the smaller eigenvalues imply fast decay of the corresponding eigenfunct
+ion, indicating that for a lag time 
+\begin_inset Formula $\tau\geq t_{m+1}$
+\end_inset
+
+, there are only 
+\begin_inset Formula $m$
+\end_inset
+
+ significant contributions from 
+\begin_inset Formula $m$
+\end_inset
+
+ eigenfunctions.
+ Therefore, the configurational probability at time 
+\begin_inset Formula $t+\tau$
+\end_inset
+
+ is approximately,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\rho(\mathbf{x}_{t+\tau})\approx\sum_{i=1}^{m}\lambda_{i}\left\langle \psi_{i},\rho(\mathbf{x}_{i})\right\rangle \phi_{i}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Suppose that the exact form of 
+\begin_inset Formula $\psi_{i}$
+\end_inset
+
+ is known, the autocorrelation function 
+\begin_inset Formula $C(\tau)=\left\langle \psi_{i}(\mathbf{x}_{t})\psi_{i}(\mathbf{x}_{t+\tau})\right\rangle _{t}$
+\end_inset
+
+ simply gives us the eigenvalue 
+\begin_inset Formula $\lambda_{i}=\exp\left(-\frac{\tau}{t_{i}}\right)$
+\end_inset
+
+.
+ By taken ideas of variational principle from quantum chemistry, we could
+ show that no matter what the form of 
+\begin_inset Formula $\psi_{i}$
+\end_inset
+
+ is chosen, the autocorrelation function 
+\begin_inset Formula $C(\tau)$
+\end_inset
+
+ of a hypothetical eigenfunction 
+\begin_inset Formula $\psi_{i}^{\ddagger}$
+\end_inset
+
+ would give us an approximation of the eigenvalue 
+\begin_inset Formula $\lambda_{i}^{\ddagger}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\lambda_{i}^{\ddagger}\leq\lambda_{i}$
+\end_inset
+
+.
+ Therefore, if we could find 
+\begin_inset Formula $\psi_{i}^{\ddagger}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\lambda_{i}^{\ddagger}\approx\lambda_{i}$
+\end_inset
+
+, we could say that our chosen 
+\begin_inset Formula $\psi_{i}^{\ddagger}$
+\end_inset
+
+ is a good representation of the true eigenfunction 
+\begin_inset Formula $\psi_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Chemical Significance of MSM Eigenfunctions and Eigenvalues
+\end_layout
+
+\begin_layout Standard
+blah blah blah
+\end_layout
+
+\begin_layout Section
+Projection of MSM Eigenfunctions onto the Collective Variable Space
+\end_layout
+
+\begin_layout Subsection
+Variational Principle
+\end_layout
+
+\begin_layout Standard
+The solution of an eigenvalue problem in equation XX gives us 
+\begin_inset Formula $m$
+\end_inset
+
+ eigenvalues and eigenfunctions that best approximates the probability of
+ arriving at an MD configuration at time 
+\begin_inset Formula $\tau$
+\end_inset
+
+after the current time.
+ As mentioned in XX, the information provided by eigenvalues implies the
+ inherent timescale of their corresponding eigenfunctions.
+ However, the eigenfunctions themselves also contain several important dynamical
+ information of the process of interest.
+ We could see that the inner product 
+\begin_inset Formula $\left\langle \psi_{i},\rho(\mathbf{x}_{i})\right\rangle $
+\end_inset
+
+ tells us about the projection of the probability density of the configuration
+ at current time; thus, the eigenfunction 
+\begin_inset Formula $\psi_{i}$
+\end_inset
+
+ with the highest eigenvalue contains the contributions that give rise to
+ the slowest motion for this process.
+ In a situation where we have 
+\begin_inset Formula $\lambda_{2}\gg\lambda_{i}\,\,\forall i>2$
+\end_inset
+
+, it readily implies that the slowest motion is a dominant motion and the
+ other eigenfunctions decay much faster at lag time 
+\begin_inset Formula $\tau$
+\end_inset
+
+, and 
+\begin_inset Formula $\psi_{2}$
+\end_inset
+
+ would be able to be taken to dominate the dynamics.
+\end_layout
+
+\begin_layout Standard
+Here we are interested in a construction of eigenfunction 
+\begin_inset Formula $\psi_{i}^{\ddagger}$
+\end_inset
+
+ as a linear combination of an orthonomal basis of the ansatz 
+\begin_inset Formula $\chi_{k}$
+\end_inset
+
+, where the reconstruction takes the form of
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\psi_{i}^{\ddagger}=\sum_{k=1}^{N_{\chi}}b_{ik}\chi_{k}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where the optimal coefficients 
+\begin_inset Formula $b_{ik}$
+\end_inset
+
+ can be determined from solving the following eigenvalue problem,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mathbf{C}^{\chi}(\tau)\mathbf{b}_{i}=\mathbf{b}_{i}\lambda_{i}^{\ddagger}(\tau)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\mathbf{C}^{\chi}(\tau)$
+\end_inset
+
+ is the autocorrelation matrix of the ansatz functions at time 
+\begin_inset Formula $\tau$
+\end_inset
+
+with the following form,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+c_{ij}^{\chi}(\tau)=\left\langle \chi_{i}(\mathbf{x}_{t})\chi_{j}(\mathbf{x}_{t+\tau})\right\rangle _{t}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+under the condition of orthonomal ansatz functions 
+\begin_inset Formula $\left\langle \chi_{i},\chi_{j}\right\rangle _{\mu}=\left\langle \chi_{i}(\mathbf{x}_{t})\chi_{j}(\mathbf{x}_{t})\right\rangle =\delta_{ij}$
+\end_inset
+
+, where 
+\begin_inset Formula $\delta_{ij}$
+\end_inset
+
+ is the Kronecker's delta.
+ However, for a non-orthonomal basis of 
+\begin_inset Formula $\chi$
+\end_inset
+
+, the basis must be orthonormalized first through generalizations of equation
+ XX by using the autocorrelation of the ansatz function at time 0.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mathbf{C}^{\chi}(\tau)\mathbf{b}_{i}=\mathbf{C}^{\chi}(0)\mathbf{b}_{i}\lambda_{i}^{\ddagger}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Solving equation XX yields an optimal set of the coefficients 
+\begin_inset Formula $\mathbf{b}_{i}$
+\end_inset
+
+ for any non-orthonormal basis of 
+\begin_inset Formula $\chi$
+\end_inset
+
+.
+ In our case, since we would like to determine the optimal C.V.
+ for a particular eigenfunction, we would then construct a basis of as many
+ C.V.'s as possible and solve for equation XX for the coefficients.
+ In order to properly obtain the autocorrelation function of the C.V., we
+ need to subtract the mean of each C.V.
+ from our data such that we have
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\xi_{i}^{MF}(\mathbf{x})=\xi_{i}(\mathbf{x})-\left\langle \xi_{i}(\mathbf{x})\right\rangle _{t}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Therefore, we can now write an approximation of the eigenfunction 
+\begin_inset Formula $\psi_{i}^{\ddagger}$
+\end_inset
+
+ as a linear combination of the mean-free C.V.'s 
+\begin_inset Formula $\xi_{k}^{MF}$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\psi_{i}^{\ddagger}=\sum_{k=1}^{N_{\xi}}b_{ik}\xi_{k}^{MF}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Time-lagged Independent Component Analysis (tICA)
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $\psi_{i}^{\ddagger}$
+\end_inset
+
+ is expanded with a non-orthonormal basis, some of the C.V.'s may not be entirely
+ independent.
+ Thus, complicating the situation further by having coefficients in two
+ or more possible C.V.'s that are not independent, and does not help us in
+ achieving our goal to truly reducing the dimensionality expression of the
+ chemical process of interest.
+ Matching Pursuit (MP) can help us achieve our goal by finding a sparse
+ solution of equation XX and reassign the coefficients accordingly.
+ 
+\end_layout
+
+\begin_layout Subsection
+Matching Pursuit and Dimensional Reduction
+\end_layout
+
+\begin_layout Standard
+blah blah blah
+\end_layout
+
+\begin_layout Section
+Obtaining Chemical Information from MSM
+\end_layout
+
+\begin_layout Standard
+blah blah blah
+\end_layout
+
+\end_body
+\end_document
