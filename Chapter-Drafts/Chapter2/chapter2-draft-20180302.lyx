@@ -110,7 +110,7 @@ Although intuitions allow us to describe a reaction coordinate that suits
 \end_inset
 
  as collective variables of the alkali earth ions pairing interactions with
- chlorine ions in aqueous solution to validate their empirical potential
+ carbonate ions in aqueous solution to validate their empirical potential
  model for these ions.
  [CITE] Roy et al.
  also recently published a two-dimensional free energy calculation using
@@ -158,23 +158,65 @@ The significance of the work of Mullen et al.
 \end_layout
 
 \begin_layout Standard
-Hence, to overcome all these possible issues, we need a scheme that could
- include all possible linear combinations of the collective variables to
- systematically characterize the slowest motion across the barrier with
- respect to all possible influences.
- Moreover, this method also needs to 
+As mentioned in Rohrdanz et al., there are many possible methods that can
+ be used to tackle this problem.
+ [P-AnnuRevPhysChem-2013-v64-Rohrdanz] Out of the methods highlighted in
+ Rohrdanz et al., the Markov State Model (MSM) is a viable candidate yet
+ it is still not being applied to this type of problem.
+ In our opinion, the fact that any MD simulations that is ergodic are shown
+ to exhibit Markovian properties [CITE] implies that we could express the
+ dynamics of any MD simulations in terms of their chatacteristic eigenfunctions
+ and eigenvalues corresponding to specific transitions between metastable
+ states [CITE MSM].
+ Therefore, MSM allows a characterization of any transition between any
+ metastable states besides the slowest motion across the highest free energy
+ barrier.
+ The MSM eigenfunctions also entail important information on dynamical variables
+, and could be projected onto the collective variable space to gain valuable
+ insights on all possible variables corresponding to different processes
+ in a chemical system.
+ All of these benefits could be achieved with a relatively short simulation
+ time; hence, MSM is an attractive tool among simulations in biochemical
+ processes [CITE].
+ Nevertheless, there are no MSM interpretations for processes governing
+ the solution dynamics at all.
+ Therefore, we hope to present the MSM interpretation of two model reactions
+ for ionic association process of 
+\backslash
+ce{LiCl} and 
+\backslash
+ce{NaCl} in aqueous solutions.
 \end_layout
 
 \begin_layout Section
-Markovian Nature of MD Simulations
+Theoretical Foundations of MSM
 \end_layout
 
 \begin_layout Subsection
-Historical evidence of the Markovian properties
+Formulations
 \end_layout
 
-\begin_layout Subsection
-Mathematical Formulation of MSM
+\begin_layout Standard
+In 1983, Zwanzig proposed that the transition between two metastable configurati
+ons in the phase space can be treated as a continuous time random walk problem.
+ [P-JStatPhys-1983-v30-Zwanzig] In order to understand the Markovianity
+ of a MD trajectory, it is necessary to think about MD simulations in terms
+ of the probability density of possible configurations, where the evolution
+ of configurations over time is governed by generalized classical master
+ equation for the distribution of the waiting times to change from one configura
+tion to another.
+ The short memory approximation of the transition memory kernels from the
+ master equation can then be approximated, and it ignores the possibility
+ of the later return to the same state.
+ Hence, if the system's dynamics is sufficiently complex and metastable
+ states are chosen sensibly, then this implies the memoryless characteristics
+ of the interstate jumps.
+ [P-JStatPhys-1983-v30-Zwanzig] Later, Van Kampen expanded the concepts
+ blah blah.
+\end_layout
+
+\begin_layout Standard
+
 \end_layout
 
 \begin_layout Standard
@@ -444,7 +486,7 @@ Suppose that the exact form of
 .
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Chemical Significance of MSM Eigenfunctions and Eigenvalues
 \end_layout
 
