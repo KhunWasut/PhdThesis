@@ -465,7 +465,96 @@ In general,
 \begin_inset Formula $\mathcal{T}(\tau)$
 \end_inset
 
- operates on 
+ operates on the weighted probability density.
+ Therefore, it can be said that 
+\begin_inset Formula $\mathcal{T}(\tau)$
+\end_inset
+
+ has to conform with the following properties,
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\mathcal{T}(\tau)$
+\end_inset
+
+ fulfills the Chapman—Kolmogorov equation 
+\begin_inset Formula $u_{t+k\tau}(\mathbf{x})=[\mathcal{T}(\tau)]^{k}u_{t}(\mathcal{\mathbf{x}})$
+\end_inset
+
+, where 
+\begin_inset Formula $[\mathcal{T}(\tau)]^{k}$
+\end_inset
+
+ represents the 
+\begin_inset Formula $k$
+\end_inset
+
+-th power of the transfer operator matrix.
+\end_layout
+
+\begin_layout Enumerate
+There exist eigenfunctions 
+\begin_inset Formula $\psi_{i}$
+\end_inset
+
+ that corresponds to the eigenvalue problem 
+\begin_inset Formula $\mathcal{T}(\tau)\psi_{i}=\lambda_{i}\psi_{i}$
+\end_inset
+
+, where 
+\begin_inset Formula $\lambda_{i}$
+\end_inset
+
+ is the corresponding eigenvalue of an eigenfunction 
+\begin_inset Formula $\psi_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\psi_{i}$
+\end_inset
+
+ relates to the 
+\begin_inset Formula $i$
+\end_inset
+
+-th eigenfunction of the propagator 
+\begin_inset Formula $\mathcal{Q}(\tau)$
+\end_inset
+
+ through the stationary distribution; that is, 
+\begin_inset Formula $\mu(\mathbf{x})^{-1}\phi_{i}(\mathbf{x})=\psi_{i}(\mathbf{x})$
+\end_inset
+
+.
+ Both 
+\begin_inset Formula $\phi_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $\psi_{i}$
+\end_inset
+
+ share the same eigenvalue 
+\begin_inset Formula $\lambda_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+The eigenvalues 
+\begin_inset Formula $\lambda_{i}$
+\end_inset
+
+ are real numbers and 
+\begin_inset Formula $\lambda_{i}\in(-1,1]$
+\end_inset
+
+.
+ 
 \end_layout
 
 \begin_layout Standard
