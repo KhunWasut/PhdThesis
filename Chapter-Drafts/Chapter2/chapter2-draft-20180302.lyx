@@ -193,7 +193,7 @@ Theoretical Foundations of MSM
 \end_layout
 
 \begin_layout Subsection
-Formulations
+MSM Ansatz
 \end_layout
 
 \begin_layout Standard
@@ -211,12 +211,261 @@ tion to another.
  Hence, if the system's dynamics is sufficiently complex and metastable
  states are chosen sensibly, then this implies the memoryless characteristics
  of the interstate jumps.
- [P-JStatPhys-1983-v30-Zwanzig] Later, Van Kampen expanded the concepts
- blah blah.
+ [P-JStatPhys-1983-v30-Zwanzig] 
 \end_layout
 
 \begin_layout Standard
+As opposed to the typical view of the MD simulations as composed of distinct
+ trajectories, MSM takes an ensemble approach given that the dynamics is
+ ergodic in the phase space 
+\begin_inset Formula $\Omega$
+\end_inset
 
+, that is, there always exist a connected configuration to the current configura
+tion in the phase space.
+ Therefore, the evolution of the ensembles of the trajectories take a probabilis
+tic approach in MSM.
+ Since we assert that a transition from one configuration to another configurati
+on after a lag time 
+\begin_inset Formula $\tau$
+\end_inset
+
+ is Markovian; therefore, starting from a configuration 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ at time 
+\begin_inset Formula $t$
+\end_inset
+
+ where 
+\begin_inset Formula $\mathbf{x}\in\Omega$
+\end_inset
+
+, the probability that a trajectory starting at 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ at time 
+\begin_inset Formula $t$
+\end_inset
+
+ will be in an infinitestimally small region 
+\begin_inset Formula $d\mathbf{y}$
+\end_inset
+
+ around point 
+\begin_inset Formula $\mathbf{y\in\Omega}$
+\end_inset
+
+, 
+\begin_inset Formula $p(\mathbf{x},\mathbf{y};\tau)$
+\end_inset
+
+ can be defined as, [CITE]
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+p(\mathbf{x},\mathbf{y};\tau)d\mathbf{y}=\mathbb{P}[\mathbf{x}(t+\tau)\in\mathbf{y}+d\mathbf{y}|\mathbf{x}(t)=\mathbf{x}]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Therefore, equation XX implies that for a set of configurations 
+\begin_inset Formula $A\subset\Omega$
+\end_inset
+
+, the following also holds true for all configurations 
+\begin_inset Formula $\mathbf{y}\in A$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+p(\mathbf{x},A;\tau)=\int_{\mathbf{y}\in A}p(\mathbf{x},\mathbf{y};\tau)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since the phase space 
+\begin_inset Formula $\Omega$
+\end_inset
+
+is ergodic, the state 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ will be visited inifitely often as 
+\begin_inset Formula $t\to\infty$
+\end_inset
+
+.
+ Hence, a unique stationary probability density 
+\begin_inset Formula $\mu(\mathbf{x})$
+\end_inset
+
+ can be written to represent this fact, and 
+\begin_inset Formula $\mu(\mathbf{x})$
+\end_inset
+
+ represents the ensemble equilibrium density; for example, for a canonical
+ (NVT) ensemble, 
+\begin_inset Formula $\mu(\mathbf{x})$
+\end_inset
+
+ can be written as,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mu(\mathbf{x})=\frac{\exp(-\beta H(\mathbf{x}))}{Z}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $Z=\int\exp(-\beta H(\mathbf{x}))d\mathbf{x}$
+\end_inset
+
+ is the canonical partition function, 
+\begin_inset Formula $\beta=(k_{B}T)^{-1}$
+\end_inset
+
+, and 
+\begin_inset Formula $H(\mathbf{x})$
+\end_inset
+
+ is a classical Hamiltonian of the system.
+\end_layout
+
+\begin_layout Standard
+In order for MSM to be a viable method to model reversible reactions, another
+ assumption that the configuration 
+\begin_inset Formula $\mathbf{x}(t)$
+\end_inset
+
+ is reversible is needed.
+ Therefore, the following detailed balance condition,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mu(\mathbf{x})p(\mathbf{x},\mathbf{y};\tau)=\mu(\mathbf{y})p(\mathbf{y},\mathbf{x};\tau)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+has to be satisfied.
+ Thus, with conditions in equations XX to YY defined, we have formulated
+ an ansatz for MSM.
+\end_layout
+
+\begin_layout Subsection
+Transfer Operator - MSM as an Eigenvalue Problem
+\end_layout
+
+\begin_layout Standard
+Considering a probability density of a configuration 
+\begin_inset Formula $p_{t}(\mathbf{x})$
+\end_inset
+
+, the transition probability 
+\begin_inset Formula $p(\mathbf{x},\mathbf{x};\tau)$
+\end_inset
+
+ governs that after some times 
+\begin_inset Formula $\tau$
+\end_inset
+
+, the probability density of 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ at time 
+\begin_inset Formula $t+\tau$
+\end_inset
+
+ is expressed as 
+\begin_inset Formula $p_{t+\tau}(\mathbf{x})$
+\end_inset
+
+.
+ Hence, one could define a propagator 
+\begin_inset Formula $\mathcal{Q}(\tau)$
+\end_inset
+
+ that satisfies the following properties,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+p_{t+\tau}(\mathbf{y})=\mathcal{Q}(\tau)p_{t}(\mathbf{y})=\int_{\mathbf{x}\in\Omega}p(\mathbf{x},\mathbf{y};\tau)p_{t}(\mathbf{x})d\mathbf{x}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When weighted by the stationary density, another way to look at equation
+ XX is through the transfer operator 
+\begin_inset Formula $\mathcal{T}(\tau)$
+\end_inset
+
+ which propagates the weighted probability density 
+\begin_inset Formula $u_{t+\tau}(\mathbf{y})$
+\end_inset
+
+.
+ This, it must follow that,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+u_{t+\tau}(\mathbf{y})=\mathcal{T}(\tau)u_{t}(\mathbf{y})=\frac{1}{\mu(\mathbf{y})}\int_{\mathbf{x}\in\Omega}p(\mathbf{x},\mathbf{y};\tau)\mu(\mathbf{x})u_{t}(\mathbf{x})d\mathbf{x}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In general, 
+\begin_inset Formula $\mathcal{T}(\tau)$
+\end_inset
+
+ is a preferred operator because of the fact that 
+\begin_inset Formula $\mathcal{T}(\tau)$
+\end_inset
+
+ operates on 
 \end_layout
 
 \begin_layout Standard
