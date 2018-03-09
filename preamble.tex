@@ -9,7 +9,7 @@
 \newcommand{\placeholder}[1]{\textbf{[PLACEHOLDER:} #1\textbf{]}}
 \renewcommand*\ttdefault{pcr}
 \renewcommand*\sfdefault{phv}
-\usepackage[top=1.0in,bottom=1.0in,left=1.0in,right=1.0in]{geometry}
+\usepackage[letterpaper,top=1.0in,bottom=1.0in,left=1.0in,right=1.0in]{geometry}
 \setlength{\parskip}{1em}
 
 \definecolor{KSOrange}{HTML}{FFA500}
@@ -31,7 +31,13 @@
 \setlength{\cftbeforelottitleskip}{0pt}
 \setlength{\cftafterlottitleskip}{0pt}
 \renewcommand{\cftchappresnum}{Chapter~}
-\setlength{\cftchapnumwidth}{6.5em}
+\renewcommand{\cftfigpresnum}{Figure~}
+\renewcommand{\cfttabpresnum}{Table~}
+\setlength{\cftchapnumwidth}{5em}
+\setlength{\cftfignumwidth}{5.5em}
+\setlength{\cfttabnumwidth}{5.5em}
+\setlength{\cftfigindent}{0pt}
+\setlength{\cfttabindent}{0pt}
 \renewcommand{\cftchappagefont}{\normalsize}
 \renewcommand{\cftchapdotsep}{\cftdotsep}
 \renewcommand{\cftchapfont}{\normalsize}
