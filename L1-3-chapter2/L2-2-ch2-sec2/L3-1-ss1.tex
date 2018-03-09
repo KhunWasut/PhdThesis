@@ -1,0 +1,44 @@
+\section{Theoretical Foundations of MSM}
+
+\subsection{MSM Ansatz}
+
+\begin{spacing}{2.0}
+    In 1983, Zwanzig proposed that the transition between two metastable configurations in the phase space can be treated as a continuous time 
+    random walk problem. \cite{P-JStatPhys-1983-v30-Zwanzig} In order to understand the Markovianity of a MD trajectory, it is necessary to think 
+    about MD simulations in terms of the probability density of possible configurations, where the evolution of configurations over time is governed 
+    by a generalized classical master equation for the distribution of the waiting times to change from one configuration to another. The short memory 
+    approximation of the transition memory kernels from the master equation can then be approximated, and it ignores the possibility of the later 
+    return to the same state. Hence, if the system's dynamics is sufficiently complex and metastable states are chosen sensibly, then this implies 
+    the memoryless characteristics of the interstate jumps. \cite{P-JStatPhys-1983-v30-Zwanzig}
+
+    As opposed to the typical view of the MD simulations as composed of distinct trajectories, MSM takes an ensemble approach given that the dynamics 
+    is ergodic in the phase space $\Omega$, that is, there always exist a connected configuration to the current configuration in the phase space. 
+    Therefore, the evolution of the ensembles of the trajectories take a probabilistic approach in MSM. Since we assert that a transition from one 
+    configuration to another configuration after a lag time $\tau$ is Markovian; therefore, starting from a configuration $\mathbf{x}$ at time $t$
+    where $\mathbf{x} \in \Omega$, the probability that a trajectory starting at $\mathbf{x}$ at time $t$ will be in an infinitestimally small
+    region $d\mathbf{y}$ around point $\mathbf{y} \in \Omega$, $p(\mathbf{x}, \mathbf{y}; \tau)$ can be defined as, 
+    \cite{P-JChemPhys-2011-v134-Prinz, P-PhysChemChemPhys-2011-v13-Prinz}
+
+    \begin{equation}
+        p(\mathbf{x}, \mathbf{y}; \tau)d\mathbf{y} = \mathbb{P}[\mathbf{x}(t+\tau)\in\mathbf{y}+d\mathbf{y}|\mathbf{x}(t)=\mathbf{x}]
+        \label{eq:msm-prob-def}
+    \end{equation}
+
+    Therefore, equation \ref{eq:msm-prob-def} implies that for a set of configurations $A \subset \Omega$, the following also holds true for all
+    configurations $\mathbf{y} \in A$,
+
+    \begin{equation}
+        p(\mathbf{x},A;\tau) = \int_{\mathbf{y}\in A}p(\mathbf{x},\mathbf{y};\tau)d\mathbf{y}
+    \end{equation}
+
+    Since the phase space $\Omega$ is assumed to be ergodic, the state $\mathbf{x}$ will be visited infinitely often as $t\to\infty$. Hence, a
+    unique stationary probability density $\mu(\mathbf{x})$ can be written to represent this fact, and $\mu(\mathbf{x})$ represents the ensemble's
+    equilibrium density; for example, for a canonical ensemble ($NVT$ variables are held constant), $\mu(\mathbf{x})$ can be written as,
+
+    \begin{equation}
+        \mu(\mathbf{x}) = \frac{e^{-\beta H(\mathbf{x})}}{Z}
+    \end{equation}
+
+    \noindent where $Z = \int\exp(-\beta H(\mathbf{x}))d\mathbf{x}$ is the canonical partition function, $\beta = (k_B T)^{-1}$, and $H(\mathbf{x})$
+    is a classical Hamiltonian of the system.
+\end{spacing}

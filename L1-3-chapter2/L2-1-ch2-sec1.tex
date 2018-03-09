@@ -1,0 +1,39 @@
+\chapter{The Markov State Model (MSM)}
+
+\section{Introduction}
+
+\begin{spacing}{2.0}
+
+    Although intuitions allow us to describe a reaction coordinate that suits the narratives of the researchers' perceptions, the main problem in 
+    determining the contributing collective variables for a reaction coordinate from pure intuition is there are no systematic ways to confirm the 
+    researchers' beliefs. The fact that $n_+$ was used as a collective variable in the solvent coordinate demonstrates the intuition-based choice 
+    that are relatively accepted in many recent literatures. For example, the recent work of Raiteri et al. uses this fact to construct 
+    two-dimensional free energy landscapes with interionic separation ($r_{+-}$) and $n_+$ as collective variables of the alkali earth ions pairing 
+    interactions with carbonate ions in aqueous solution to validate their empirical potential model for these ions. \cite{P-JPhysChemC-2015-v43-Raiteri} 
+    Roy et al. also recently published a two-dimensional free energy calculation using the same set of C.V.'s for alkali ions. 
+    \cite{P-JPhysChemC-2016-v120-Roy, P-JCTC-2017-v13-Roy} However, the work of Mullen et al. 
+    challenged this belief by claiming that $n_+$  does not play a significant role in the process at all. On the other hand, the solvent coordinate 
+    that plays an important role for this process are $n_B$ and $\rho_{ii}$ coordinates mentioned in \ref{sec:L12L22}. \cite{P-JCTC-2014-v10-Mullen}
+
+    The significance of the work of Mullen et al. was that it was the first work that performed a systematic analysis of multiple collective variables 
+    to determine the best contribution of the collective variables according to the reaction coordinate. However, we have mentioned in \ref{sec:L12L23} 
+    that there are some possible issues that arose from their results, mainly his crude restriction of the reaction coordinate that should only 
+    consist of a linear combination of 3 collective variables, while there are possibly more collective variables than 3 that could actually involve 
+    in the process. Moreover, their work mainly focused on the SSIP - CIP transition without thoroughly covering the behavior of the bulk region. 
+    Therefore, the association pattern from the bulk still remained relatively little understood. Also, the efficiency of the method outlined in 
+    Mullen et al. also rely a lot on the fact that we could accurately find two isocommittor surfaces and the events that the simulation trajectory 
+    crosses between these two, which could be cumbersome in the case where systems do not have a well-defined barrier or the system with multiple 
+    metastable states that are close to one another with relatively low barrier.
+
+    As mentioned in Rohrdanz et al., there are many possible methods that can be used to tackle this problem. \cite{P-AnnuRevPhysChem-2013-v64-Rohrdanz} 
+    Out of the methods highlighted in Rohrdanz et al., the Markov State Model (MSM) is a viable candidate yet it is still not being applied to this 
+    type of problem. In our opinion, the fact that any MD simulations that is ergodic are shown to exhibit Markovian properties \cite{P-JStatPhys-1983-v30-Zwanzig} 
+    implies that we could express the dynamics of any MD simulations in terms of their chatacteristic eigenfunctions and eigenvalues corresponding 
+    to specific transitions between metastable states [CITE MSM]. Therefore, MSM allows a characterization of any transition between any metastable 
+    states besides the slowest motion across the highest free energy barrier. The MSM eigenfunctions also entail important information on dynamical 
+    variables, and could be projected onto the collective variable space to gain valuable insights on all possible variables corresponding to 
+    different processes in a chemical system. All of these benefits could be achieved with a relatively short simulation time; hence, MSM is an 
+    attractive tool among simulations in biochemical processes [CITE]. Nevertheless, there are no MSM interpretations for processes governing the 
+    solution dynamics at all. Therefore, we hope to present the MSM interpretation of two model reactions for ionic association process of 
+    \ce{LiCl} and \ce{NaCl} in aqueous solutions.
+\end{spacing}
