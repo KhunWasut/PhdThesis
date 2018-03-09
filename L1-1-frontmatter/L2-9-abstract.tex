@@ -42,5 +42,25 @@
 
 % DUMMY TEXT TO MODEL THE ABSTRACT AT SOME LENGTH
 \begin{spacing}{2.0}
-    \lipsum[1-3]
+    Understanding a proper reaction coordinate and the free energy profile of any chemical reaction provide valuable information in elucidating 
+    the kinetics and thermodynamics properties, as well as the underlying reaction mechanisms. Nevertheless, identifying a proper reaction 
+    coordinate for a specific chemical reaction or computing the free energy landscape are difficult. Hence, any methods that could systematically 
+    provide insights into both issues would play important roles in studies of any kind of chemical reactions.
+
+    On the reaction coordinate’s front, Markov State Model (MSM) is a tool that can be used to identify the reaction coordinate of the slowest 
+    motion in a simulation. Instead of the deterministic view of the MD simulations, MSM takes a probabilistic view that a configuration has a 
+    probability to evolve to another configuration after time t defined by a transfer operator, which allows us to identify each motion in the 
+    system in terms of the information encapsulated in each of the operator’s corresponding eigenfunctions and eigenvalues. The eigenfunctions 
+    of the transfer operator can then be projected onto the collective variable space, and minimal representation of each eigenfunction in the 
+    collective variable space could be obtained.
+
+    On the free energy front, efficient multidimensional free energy landscape can be reconstructed smoothly from noisy free energy estimators 
+    through Gaussian Process Regression (GPR). In this dissertation, we proposed a rigorous GPR workflow that also ensures the consistency through 
+    projection of the multidimensional landscape into each individual one-dimensional surface with errors bounded by Eigenvector Method for 
+    Umbrella Sampling (EMUS).
+
+    This dissertation employed both MSM and GPR to study the dynamics of cation---anion association in aqueous solutions using LiCl and NaCl as 
+    a model. With MSM, we have completely identified all significant motions in the association process and in the bulk, and we also identify 
+    important contributions to the slowest process of the dynamics. With GPR, we have achieved a smooth reconstruction of a free energy landscape 
+    of both systems using 2 collective variables and large efficiency gain relative to traditional two-dimensional windowed simulations. 
 \end{spacing}
