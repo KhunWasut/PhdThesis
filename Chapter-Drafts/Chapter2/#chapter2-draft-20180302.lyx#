@@ -586,7 +586,7 @@ Thus, the weighted probability density
 
 -th eigenfunction.
  Hence, 
-\begin_inset Formula $u_{t+\tau}(\mathbf{x})$
+\begin_inset Formula $u_{t+k\tau}(\mathbf{x})$
 \end_inset
 
  is now written as,
@@ -595,7 +595,7 @@ Thus, the weighted probability density
 \begin_layout Standard
 \begin_inset Formula 
 \[
-u_{t+\tau}(\mathbf{x})=\sum_{i=1}^{m}\lambda_{i}\left\langle u_{t},\psi_{i}\right\rangle _{\mu}\psi_{i}(\mathbf{x})+\sum_{i=m+1}^{\infty}\lambda_{i}\left\langle u_{t},\psi_{i}\right\rangle \psi_{i}(\mathbf{x})
+u_{t+k\tau}(\mathbf{x})=\sum_{i=1}^{m}\lambda_{i}^{k}\left\langle u_{t},\psi_{i}\right\rangle _{\mu}\psi_{i}(\mathbf{x})+\sum_{j=m+1}^{\infty}\lambda_{j}^{k}\left\langle u_{t},\psi_{j}\right\rangle \psi_{j}(\mathbf{x})
 \]
 
 \end_inset
@@ -627,73 +627,34 @@ The first term of equation XX represents
 \end_inset
 
 .
+ Equation XX also implies that in the limit where 
+\begin_inset Formula $k\to\infty$
+\end_inset
+
+, only the first eigenfunction would remain as all other eigenvalues are
+ strictly less than one except the first one, recovering the equilibrium
+ distribution.
+ The patterns of the eigenvalues thus would imply that for any motions where
  
-\end_layout
-
-\begin_layout Standard
-The idea of reduced dimensionality itself was not new.
- In fact, a method like 
-\shape italic
-principal component analysis
-\shape default
- (PCA) is widely used in many fields such as chemistry, physics, biology,
- and data sciences.
- [CITE] PCA can be interpreted as a method that exploits multiple features
- corresponding to a data and construct principal components (P.C.'s) that
- are linear combinations of the provided features.
- The best P.C.
- is determined from the maximum variance of the data along that component.
- Hence, this method finds important applications in the field of genetics,
- where the P.C.
- gives a clue of which genome expression gives rise to a specific behavior,
- or among big companies to create personalized commercial experiences.
- In our application, however, there exists a more suitable component analysis
- method than PCA, which makes use of the autocorrelation of different eigenfunct
-ions at a particular time constant 
-\begin_inset Formula $\tau$
+\begin_inset Formula $\lambda_{i}$
 \end_inset
 
-, called 
-\shape italic
-lagged time
-\shape default
-.
- Hence, the name 
-\begin_inset Quotes eld
+ is less than 1, all the terms where 
+\begin_inset Formula $i>1$
 \end_inset
 
-time-lagged independent component analysis
-\begin_inset Quotes erd
+ would decay over time according to the value of 
+\begin_inset Formula $\lambda_{i}$
 \end_inset
 
- (TICA).
- 
-\end_layout
-
-\begin_layout Standard
-Since both PCA and TICA are the signal decomposition methods, they are naturally
- eigenvalue problems with eigenfunctions written in the form of the linear
- combination of the features.
- In order to apply such methods with MD simulation, we need to be able to
- express the evolution of the MD trajectory as an eigenvalue problem.
- With an introduction of the Markov State Model (MSM) [CITE], we could think
- about the evolution of the MD trajectory being memoryless.
- That is, the probability of finding a particular configuration at time
- 
-\begin_inset Formula $t+\tau$
-\end_inset
-
- only depends on the configuration at time 
-\begin_inset Formula $t$
-\end_inset
-
-and nothing else,
+, which also determines the implied timescale of each motion through the
+ following relationship,
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\rho(\mathbf{x}_{t+\tau})=p_{t\to t+\tau}\mathbb{\rho}(\mathbf{x}_{t})
+t_{i}=-\frac{\tau}{\ln\lambda_{i}}
 \]
 
 \end_inset
@@ -702,21 +663,13 @@ and nothing else,
 \end_layout
 
 \begin_layout Standard
-Therefore, equation XX implies that any MD simulations can be viewed as
- a Markov chain, and we can use the mathematics of the Markov chains to
- treat this problem.
- Therefore, we could reformulate this problem as an eigenvalue problem with
- an operator 
-\begin_inset Formula $\mathcal{P}(\tau)$
-\end_inset
-
- as a propagator of the eigenfunctions in time,
+Equation XX can thus be now written as,
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\mathcal{P}(\tau)\phi_{i}=\lambda_{i}\phi_{i}
+u_{t+k\tau}(\mathbf{x})=1+\sum_{i=2}^{m}e^{-\frac{k\tau}{t_{i}}}\left\langle u_{t},\psi_{i}\right\rangle _{\mu}\psi_{i}(\mathbf{x})+\sum_{j=m+1}^{\infty}e^{-\frac{k\tau}{t_{j}}}\left\langle u_{t},\psi_{j}\right\rangle _{\mu}\psi_{j}(\mathbf{x})
 \]
 
 \end_inset
@@ -725,192 +678,31 @@ Therefore, equation XX implies that any MD simulations can be viewed as
 \end_layout
 
 \begin_layout Standard
-The operator 
-\begin_inset Formula $\mathcal{P}$
+The representation of 
+\begin_inset Formula $u_{t+k\tau}(\mathbf{x})$
 \end_inset
 
- is nothing but the transition matrix of a Markov chain, where each element
- 
-\begin_inset Formula $\mathcal{P}_{ij}$
+ outlined in equation XX is now separated into three parts; the stationary
+ distribution, the 
+\begin_inset Formula $m-1$
 \end_inset
 
- represents the transition probability from state 
-\begin_inset Formula $i$
+ important process that have distinctly different eigenvalues, from which
+ the implied timescale of the process can now be extracted.
+ However, important information can also be found from the first 
+\begin_inset Formula $m-1$
 \end_inset
 
- to state 
-\begin_inset Formula $j$
-\end_inset
-
-.
- [CITE STOCHASTIC BOOK] The matrix 
-\begin_inset Formula $\mathcal{P}$
-\end_inset
-
- has an important properties such that the steady state behavior at very
- long time has a solution that approaches a stationary distribution 
-\begin_inset Formula $\mu$
-\end_inset
-
-.
- If our simulation was performed under the canonical ensemble, the stationary
- distribution 
-\begin_inset Formula $\mu$
-\end_inset
-
-is simply the Boltzmann distribution, which holds true for 
-\begin_inset Formula $\tau\to\infty$
-\end_inset
-
-.
- If the operator 
-\begin_inset Formula $\mathcal{P}(\tau)$
-\end_inset
-
- is Hermitian, then we could expand 
-\begin_inset Formula $\mathcal{P}(\tau)$
-\end_inset
-
- as a combination of its spectral decompositions 
-\begin_inset Formula $\phi_{i}$
-\end_inset
-
-,
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\mathbb{\rho}(\mathbf{x}_{t+\tau})=\sum_{i=1}^{\infty}\lambda_{i}\left\langle \psi_{i},\rho(\mathbf{x}_{t})\right\rangle \phi_{i}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The values of 
-\begin_inset Formula $\psi_{i}$
-\end_inset
-
- in equation XX represents the weighted eigenfunction by a factor of the
- stationary density 
-\begin_inset Formula $\psi_{i}=\mu^{-1}\phi_{i}$
-\end_inset
-
-.
- The eigenvalues 
-\begin_inset Formula $\lambda_{i}=\exp\left(-\frac{\tau}{t_{i}}\right)$
-\end_inset
-
- are related to the implied relaxation timescale (
-\begin_inset Formula $t_{i}$
-\end_inset
-
-) of the system, and the largest eigenvalue has the value of 1, with other
- eigenvalues strictly lower than the previous one.
- Hence, the smaller eigenvalues imply fast decay of the corresponding eigenfunct
-ion, indicating that for a lag time 
-\begin_inset Formula $\tau\geq t_{m+1}$
-\end_inset
-
-, there are only 
-\begin_inset Formula $m$
-\end_inset
-
- significant contributions from 
-\begin_inset Formula $m$
-\end_inset
-
- eigenfunctions.
- Therefore, the configurational probability at time 
-\begin_inset Formula $t+\tau$
-\end_inset
-
- is approximately,
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\rho(\mathbf{x}_{t+\tau})\approx\sum_{i=1}^{m}\lambda_{i}\left\langle \psi_{i},\rho(\mathbf{x}_{i})\right\rangle \phi_{i}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Suppose that the exact form of 
-\begin_inset Formula $\psi_{i}$
-\end_inset
-
- is known, the autocorrelation function 
-\begin_inset Formula $C(\tau)=\left\langle \psi_{i}(\mathbf{x}_{t})\psi_{i}(\mathbf{x}_{t+\tau})\right\rangle _{t}$
-\end_inset
-
- simply gives us the eigenvalue 
-\begin_inset Formula $\lambda_{i}=\exp\left(-\frac{\tau}{t_{i}}\right)$
-\end_inset
-
-.
- By taken ideas of variational principle from quantum chemistry, we could
- show that no matter what the form of 
-\begin_inset Formula $\psi_{i}$
-\end_inset
-
- is chosen, the autocorrelation function 
-\begin_inset Formula $C(\tau)$
-\end_inset
-
- of a hypothetical eigenfunction 
-\begin_inset Formula $\psi_{i}^{\ddagger}$
-\end_inset
-
- would give us an approximation of the eigenvalue 
-\begin_inset Formula $\lambda_{i}^{\ddagger}$
-\end_inset
-
- such that 
-\begin_inset Formula $\lambda_{i}^{\ddagger}\leq\lambda_{i}$
-\end_inset
-
-.
- Therefore, if we could find 
-\begin_inset Formula $\psi_{i}^{\ddagger}$
-\end_inset
-
- such that 
-\begin_inset Formula $\lambda_{i}^{\ddagger}\approx\lambda_{i}$
-\end_inset
-
-, we could say that our chosen 
-\begin_inset Formula $\psi_{i}^{\ddagger}$
-\end_inset
-
- is a good representation of the true eigenfunction 
-\begin_inset Formula $\psi_{i}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Subsection
-Chemical Significance of MSM Eigenfunctions and Eigenvalues
-\end_layout
-
-\begin_layout Standard
-blah blah blah
+ eigenfunctions as well through the projection onto the collective variable
+ space, which we will discuss in the following section.
 \end_layout
 
 \begin_layout Section
-Projection of MSM Eigenfunctions onto the Collective Variable Space
+Approximating MSM Eigenfunctions
 \end_layout
 
 \begin_layout Subsection
-Variational Principle
+Approximation of the Eigenfunctions through Variational Principle
 \end_layout
 
 \begin_layout Standard
@@ -956,21 +748,204 @@ after the current time.
 \end_layout
 
 \begin_layout Standard
-Here we are interested in a construction of eigenfunction 
-\begin_inset Formula $\psi_{i}^{\ddagger}$
+Equations XX and YY provided a spectral decomposition of all different motions
+ in the system, where the information of each motion can be obtained from
+ the eigenvalue problem 
+\begin_inset Formula $\mathcal{T}(\tau)\psi_{i}=\lambda_{i}\psi_{i}$
 \end_inset
 
- as a linear combination of an orthonomal basis of the ansatz 
-\begin_inset Formula $\chi_{k}$
+.
+ The implied timescale of each process could also be obtained from the eigenvalu
+es 
+\begin_inset Formula $\lambda_{i}=e^{-\frac{\tau}{t_{i}}}$
 \end_inset
 
-, where the reconstruction takes the form of
+.
+ However, we still do not know how to extract the dynamical information
+ from the eigenfunctions.
+ Nonetheless, equation XX implies that for any function that relates to
+ a configuration 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ at time 
+\begin_inset Formula $t$
+\end_inset
+
+, the time-autocorrelation function of 
+\begin_inset Formula $f$
+\end_inset
+
+ as a function of 
+\begin_inset Formula $\tau$
+\end_inset
+
+ can be written as,
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\psi_{i}^{\ddagger}=\sum_{k=1}^{N_{\chi}}b_{ik}\chi_{k}
+\left\langle f(\mathbf{x}_{t})f(\mathbf{x}_{t+\tau})\right\rangle _{t}=\sum_{i=1}^{\infty}e^{-\frac{\tau}{t_{i}}}\left\langle \phi_{i},f\right\rangle ^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Hence, the time-autocorrelation function of the 
+\begin_inset Formula $i$
+\end_inset
+
+-th normalized eigenfunction 
+\begin_inset Formula $\psi_{i}$
+\end_inset
+
+ can be used to recover the 
+\begin_inset Formula $i$
+\end_inset
+
+-th eigenvalue due to the fact that for a normalized eigenfunction, 
+\begin_inset Formula $\left\langle \psi_{i}(\mathbf{x}_{t}),\psi_{i}(\mathbf{x}_{t+\tau})\right\rangle ^{2}=1$
+\end_inset
+
+.
+ Thus, given that the eigenfunctions can be computed, the eigenvalues and
+ the implied timescales can be approximated from the time-autocorrelation
+ function as a function of 
+\begin_inset Formula $\tau$
+\end_inset
+
+, now called a 
+\shape italic
+lag time
+\shape default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\lambda_{i}^{\ddagger}=\left\langle \psi_{i}(\mathbf{x}_{t})\psi_{i}(\mathbf{x}_{t+\tau})\right\rangle 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Nevertheless, the main question here is how would we know the eigenfunction.
+ It is very likely that we will never know the true form of the eigenfunctions
+ 
+\begin_inset Formula $\psi_{i}$
+\end_inset
+
+.
+ However, since the eigenvalues 
+\begin_inset Formula $\lambda_{i}$
+\end_inset
+
+ can be modeled from the time-autocorrelation of 
+\begin_inset Formula $\psi_{i}$
+\end_inset
+
+, we always know that for any model eigenfunction 
+\begin_inset Formula $\tilde{\psi_{i}}$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left\langle \tilde{\psi}_{i}(\mathbf{x}_{t})\tilde{\psi}_{i}(\mathbf{x}_{t+\tau})\right\rangle \leq e^{-\frac{\tau}{t_{i}}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Hence, the variational principle can be applied to find a good approximation
+ of 
+\begin_inset Formula $\tilde{\psi}_{i}$
+\end_inset
+
+ if we could find such a function that gives 
+\begin_inset Formula $e^{-\frac{\tau}{t_{i}^{\ddagger}}}\approx e^{-\frac{\tau}{t_{i}}}$
+\end_inset
+
+, where 
+\begin_inset Formula $t_{i}^{\ddagger}$
+\end_inset
+
+ is the approximation of the 
+\begin_inset Formula $i$
+\end_inset
+
+-th implied timescale 
+\begin_inset Formula $t_{i}$
+\end_inset
+
+.
+ Since the equality between the modeled and the actual implied timescale
+ only holds if 
+\begin_inset Formula $\tilde{\psi}_{i}=\psi_{i}$
+\end_inset
+
+, the modeled eigenfunction
+\begin_inset Formula $\tilde{\psi}_{i}$
+\end_inset
+
+ that best approximates the true eigenfunction 
+\begin_inset Formula $\psi_{i}$
+\end_inset
+
+ needs to maximize the modeled implied timescale 
+\begin_inset Formula $t_{i}^{\ddagger}$
+\end_inset
+
+, or equivalently, maximize the modeled eigenvalue 
+\begin_inset Formula $\lambda_{i}^{\ddagger}$
+\end_inset
+
+.
+ In fact, the principles behind the application of the variational principle
+ to approximate the eigenfunctions of MSM is analogous to that of quantum
+ mechanics, where the wavefunctions are best approximated by minimizing
+ the energy.
+\end_layout
+
+\begin_layout Subsection
+Projection of the Modeled Eigenfunctions onto the Collective Variable Space
+\end_layout
+
+\begin_layout Standard
+Suppose that the modeled eigenfunction 
+\begin_inset Formula $\tilde{\psi}_{i}$
+\end_inset
+
+ can be modeled as a linear combination of an orthonormal basis of the ansatz
+ 
+\begin_inset Formula $\chi_{k}$
+\end_inset
+
+, the reconstruction of 
+\begin_inset Formula $\tilde{\psi}_{i}$
+\end_inset
+
+ would take the following form,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\psi_{i}^{}=\sum_{k=1}^{N_{\chi}}b_{ik}\chi_{k}
 \]
 
 \end_inset
