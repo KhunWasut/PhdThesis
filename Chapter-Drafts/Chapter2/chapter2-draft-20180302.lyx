@@ -882,6 +882,7 @@ Hence, the variational principle can be applied to find a good approximation
 
 , where 
 \begin_inset Formula $\tilde{t}_{i}$
+
 \end_inset
 
  is the approximation of the 
@@ -912,9 +913,10 @@ Hence, the variational principle can be applied to find a good approximation
 
 , or equivalently, maximize the modeled eigenvalue 
 \begin_inset Formula $\tilde{\lambda}_{i}$
+
 \end_inset
 
-.
+, or equivalently, maximize the modeled eigenvalue.
  In fact, the principles behind the application of the variational principle
  to approximate the eigenfunctions of MSM is analogous to that of quantum
  mechanics, where the wavefunctions are best approximated by minimizing
@@ -1057,6 +1059,7 @@ Solving equation XX yields an optimal set of the coefficients
 \begin_layout Standard
 Therefore, we can now write an approximation of the eigenfunction 
 \begin_inset Formula $\tilde{\psi}_{i}$
+
 \end_inset
 
  as a linear combination of the mean-free C.V.'s 
@@ -1431,7 +1434,8 @@ With all the formulations laid out in X.X, the TICA approximations of important
 's.
  This could be achieved through discretization of the state space into the
  space of TICA eigenfunctions.
- 
+ Matching Pursuit (MP) can help us achieve our goal by finding a sparse
+ solution of equation XX and reassign the coefficients accordingly.
 \end_layout
 
 \begin_layout Subsection
