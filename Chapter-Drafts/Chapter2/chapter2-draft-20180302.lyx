@@ -828,7 +828,7 @@ lag time
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\lambda_{i}^{\ddagger}=\left\langle \psi_{i}(\mathbf{x}_{t})\psi_{i}(\mathbf{x}_{t+\tau})\right\rangle 
+\tilde{\lambda}_{i}=\left\langle \psi_{i}(\mathbf{x}_{t})\psi_{i}(\mathbf{x}_{t+\tau})\right\rangle 
 \]
 
 \end_inset
@@ -881,7 +881,7 @@ Hence, the variational principle can be applied to find a good approximation
 \end_inset
 
 , where 
-\begin_inset Formula $t_{i}^{\ddagger}$
+\begin_inset Formula $\tilde{t}_{i}$
 \end_inset
 
  is the approximation of the 
@@ -907,11 +907,11 @@ Hence, the variational principle can be applied to find a good approximation
 \end_inset
 
  needs to maximize the modeled implied timescale 
-\begin_inset Formula $t_{i}^{\ddagger}$
+\begin_inset Formula $\tilde{t}_{i}$
 \end_inset
 
 , or equivalently, maximize the modeled eigenvalue 
-\begin_inset Formula $\lambda_{i}^{\ddagger}$
+\begin_inset Formula $\tilde{\lambda}_{i}$
 \end_inset
 
 .
@@ -922,7 +922,7 @@ Hence, the variational principle can be applied to find a good approximation
 \end_layout
 
 \begin_layout Subsection
-Projection of the Modeled Eigenfunctions onto the Collective Variable Space
+Time-lagged Independent Component Analysis (TICA)
 \end_layout
 
 \begin_layout Standard
@@ -1056,7 +1056,7 @@ Solving equation XX yields an optimal set of the coefficients
 
 \begin_layout Standard
 Therefore, we can now write an approximation of the eigenfunction 
-\begin_inset Formula $\psi_{i}^{\ddagger}$
+\begin_inset Formula $\tilde{\psi}_{i}$
 \end_inset
 
  as a linear combination of the mean-free C.V.'s 
@@ -1069,7 +1069,7 @@ Therefore, we can now write an approximation of the eigenfunction
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\psi_{i}^{\ddagger}=\sum_{k=1}^{N_{\xi}}b_{ik}\xi_{k}^{MF}
+\tilde{\psi}_{i}=\sum_{k=1}^{N_{\xi}}b_{ik}\xi_{k}^{MF}
 \]
 
 \end_inset
@@ -1077,8 +1077,37 @@ Therefore, we can now write an approximation of the eigenfunction
 
 \end_layout
 
+\begin_layout Standard
+In X.X.X, we have demonstrated that 
+\begin_inset Formula $\tilde{\psi}_{i}$
+\end_inset
+
+ can be approximated from the time-autocorrelation of itself at a lag time
+ 
+\begin_inset Formula $\tau$
+\end_inset
+
+, and section Y.Y.Y demonstrates that 
+\begin_inset Formula $\tilde{\psi}_{i}$
+\end_inset
+
+ can be projected onto the collective variable space.
+ However, one last question remains — how do we properly select the 
+\begin_inset Formula $m-1$
+\end_inset
+
+ most important motions in the dynamics out of infinitely many possible
+ motions? In order to achieve this, we need an algorithm that surely maximizes
+ the time-autocorrelation 
+\begin_inset Formula $\left\langle \tilde{\psi}_{i}(\mathbf{x}_{t})\tilde{\psi}_{i}(\mathbf{x}_{t+\tau})\right\rangle $
+\end_inset
+
+ so that the variational principle is optimally satisfied.
+ 
+\end_layout
+
 \begin_layout Subsection
-Time-lagged Independent Component Analysis (tICA)
+Reduced Representation of Each IC with Matching Pursuit
 \end_layout
 
 \begin_layout Standard
@@ -1092,21 +1121,329 @@ If
  or more possible C.V.'s that are not independent, and does not help us in
  achieving our goal to truly reducing the dimensionality expression of the
  chemical process of interest.
- Matching Pursuit (MP) can help us achieve our goal by finding a sparse
- solution of equation XX and reassign the coefficients accordingly.
+ Matching Pursuit algorithm (MP), first proposed by Mallat and Zhang [CITE
+ LOOK AT FRANK NOTE], can help us achieve our goal by finding a sparse solution
+ of equation XX and reassign the coefficients accordingly.
+ 
+\end_layout
+
+\begin_layout Standard
+Let us begin by suppose that there are 
+\begin_inset Formula $m-1$
+\end_inset
+
+ model eigenfunctions 
+\begin_inset Formula $\tilde{\psi}_{i}$
+\end_inset
+
+, 
+\begin_inset Formula $2\leq i\leq m$
+\end_inset
+
+, are the most important components that we obtained from solving the TICA
+ problem from the previous section.
+ If we initially build such eigenfunctions from our library of 
+\begin_inset Formula $n$
+\end_inset
+
+ collective variables, then each 
+\begin_inset Formula $\tilde{\psi}_{i}$
+\end_inset
+
+ is simply a linear combination of those 
+\begin_inset Formula $n$
+\end_inset
+
+ variables as expressed in equation XX.
+ However, as each 
+\begin_inset Formula $\tilde{\psi}_{i}$
+\end_inset
+
+ is a function of 
+\begin_inset Formula $n$
+\end_inset
+
+ variables, often times, it is very hard to use these variables altogether
+ to discern the physical meaning of each 
+\begin_inset Formula $\tilde{\psi}_{i}$
+\end_inset
+
+.
+ Preferably, one would prefer that each 
+\begin_inset Formula $\tilde{\psi}_{i}$
+\end_inset
+
+ has a physically meaningful representation with only dominant collective
+ variables represented.
+ The MP algorithm reduced the representation of 
+\begin_inset Formula $\tilde{\psi}_{i}$
+\end_inset
+
+ by finding only the productive coefficients that best summarize the behavior
+ of the function based on our data.
+ To better understand the MP algorithm, we would assume an arbitrary function
+ 
+\begin_inset Formula $f(t)$
+\end_inset
+
+ that can be written as a linear expansion on a basis 
+\begin_inset Formula $\mathbf{\chi=\left\{ \chi_{1},\chi_{2},\ldots,\chi_{k}\right\} }$
+\end_inset
+
+that could either be orthonormal or not.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+f(t)=\sum_{i=1}^{k}b_{i}\chi_{i}(t)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The inner product of 
+\begin_inset Formula $f$
+\end_inset
+
+ and a basis function 
+\begin_inset Formula $\chi_{k}(t)$
+\end_inset
+
+, 
+\begin_inset Formula $\left\langle f,\chi_{k}\right\rangle $
+\end_inset
+
+, can be computed from the following equation,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\left\langle f,\chi_{k}\right\rangle  & =\sum_{i=1}^{n}b_{i}\left\langle \chi_{i},\chi_{k}\right\rangle \\
+ & =\sum_{i=1}^{n}b_{i}c_{ik}^{\chi}(0)\\
+ & =\sum_{i=1}^{n}c_{ki}^{\chi}(0)b_{i}\\
+ & =\left(\mathbf{C}\mathbf{b}\right)_{k}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+And a residual norm of 
+\begin_inset Formula $f$
+\end_inset
+
+, 
+\begin_inset Formula $\left\Vert f_{res}^{2}\right\Vert $
+\end_inset
+
+, is computed as follow,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\left\Vert f_{res}^{2}\right\Vert  & =\left\langle \sum_{i=1}^{n}b_{i}\chi_{i}(t)\sum_{j=1}^{n}b_{j}\chi_{j}(t)\right\rangle \\
+ & =\sum_{i=1}^{n}\sum_{j=1}^{n}b_{i}b_{j}\left\langle \chi_{i}(t)\chi_{j}(t)\right\rangle \\
+ & =\sum_{i=1}^{n}\sum_{j=1}^{n}b_{i}c_{ij}^{\chi}(0)b_{j}=\mathbf{b}^{T}\mathbf{C}\mathbf{b}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The algorithm to compute the productive coefficients, 
+\begin_inset Formula $\mathbf{b}^{\ddagger}$
+\end_inset
+
+, of 
+\begin_inset Formula $f$
+\end_inset
+
+ is outlined in figure XX using 
+\begin_inset Formula $\left\langle f,\chi_{k}\right\rangle $
+\end_inset
+
+and 
+\begin_inset Formula $\left\Vert f_{res}^{2}\right\Vert $
+\end_inset
+
+ computed above.
+ This presents an iterative method that converges to a set tolerance value
+ of 
+\begin_inset Formula $\left\Vert f_{res}^{2}\right\Vert $
+\end_inset
+
+.
+ The result of this algorithm is the reduced representation of 
+\begin_inset Formula $f$
+\end_inset
+
+, 
+\begin_inset Formula $f^{\ddagger}$
+\end_inset
+
+such that,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+f^{\ddagger}(t) & =\sum_{i=1}^{n_{reduced}}b_{i}^{\ddagger}\chi_{i}(t)\\
+ & \approx f(t)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $n_{reduced}\leq n$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+As shown in XX, TICA computes 
+\begin_inset Formula $\tilde{\psi}_{i}$
+\end_inset
+
+ according to the variational principle to get a best approximation that
+ is reasonably close to 
+\begin_inset Formula $\psi_{i}$
+\end_inset
+
+.
+ Since TICA computes 
+\begin_inset Formula $\tilde{\psi}_{i}$
+\end_inset
+
+ as a linear projection onto the basis of collective variables, the MP projectio
+n of 
+\begin_inset Formula $\tilde{\psi}_{i}$
+\end_inset
+
+ can be computed in the same fashion as equation XX, 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\psi_{i}^{\ddagger} & =\sum_{k=1}^{N_{reduced}}b_{ik}^{\ddagger}\xi_{k}^{MF}\\
+ & \approx\tilde{\psi}_{i}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\psi_{i}^{\ddagger}$
+\end_inset
+
+ is now expressed as a linear combination of 
+\begin_inset Formula $N_{reduced}\leq N_{\xi}$
+\end_inset
+
+ variables.
+ Therefore, a reduced representation of 
+\begin_inset Formula $\psi_{i}$
+\end_inset
+
+ would allow us to interpret the dynamics of each motion involving only
+ important collective variables that are dominant in each specific 
+\begin_inset Formula $\psi_{i}$
+\end_inset
+
+.
+ This way, one could gain important mechanistic insights into the slowest
+ dynamics in any kinds of systems.
+\end_layout
+
+\begin_layout Section
+Building MSM with TICA Eigenfunctions
+\end_layout
+
+\begin_layout Subsection
+Discretization of the Collective Variable Space
+\end_layout
+
+\begin_layout Standard
+With all the formulations laid out in X.X, the TICA approximations of important
+ 
+\begin_inset Formula $m-1$
+\end_inset
+
+ 
+\begin_inset Formula $\psi_{i}$
+\end_inset
+
+'s can be computed and projected onto the collective variables space that
+ we could begin with as large number of the collective variables candidates
+ as possible.
+ Consequently, we can now express the weighted probability density 
+\begin_inset Formula $u_{t}(\mathbf{x})$
+\end_inset
+
+ in terms of 
+\begin_inset Formula $m-1$
+\end_inset
+
+ dominant eigenfunctions, and 
+\begin_inset Formula $u_{t}(\mathbf{x})$
+\end_inset
+
+ can then later be propagated with the transfer operator 
+\begin_inset Formula $\mathcal{T}(\tau)$
+\end_inset
+
+ to get the density for any time 
+\begin_inset Formula $t+k\tau$
+\end_inset
+
+ where 
+\begin_inset Formula $k>0$
+\end_inset
+
+ is any positive integer.
+ As MSM takes a probabilistic view of MD, the simulation data can then be
+ projected onto the subspace consisting of 
+\begin_inset Formula $m-1$
+\end_inset
+
+ 
+\begin_inset Formula $\tilde{\psi}_{i}$
+\end_inset
+
+'s.
+ This could be achieved through discretization of the state space into the
+ space of TICA eigenfunctions.
  
 \end_layout
 
 \begin_layout Subsection
-Matching Pursuit and Dimensional Reduction
+Coarse-graining of the MSM Microstates
 \end_layout
 
 \begin_layout Standard
 blah blah blah
 \end_layout
 
-\begin_layout Section
-Obtaining Chemical Information from MSM
+\begin_layout Subsection
+MSM Kinetic Model
 \end_layout
 
 \begin_layout Standard
