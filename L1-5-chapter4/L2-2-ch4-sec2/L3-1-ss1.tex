@@ -1,0 +1,125 @@
+\begin{spacing}{2.0}
+    \section{Gaussian Process Regression (GPR)}
+
+    \subsection{Training Data}
+
+    Gaussian process regression (GPR) is a class of machine learning algorithms, where one aims to make a prediction of the relationship between 
+    one set of input values to another set of output values based on the provided \textsl{training data} $\mathcal{D}$, which is a set of data 
+    obtained from observations or experimental evidence. A set of the training data $\mathcal{D}$ with $N$ training examples is written as
+    $\mathcal{D} = \left\{(\mathbf{x}_i,y_i)\right\}_{i=1}^N$, where $\mathbf{x}_i$ is a $1 \times D$ row vector called a \textsl{feature vector}
+    containing $D$ features. The main objective of any machine learning algorithm is to recover an underlying relationship $f:\mathbb{R}^D\to\mathbb{R}$
+    that maps $\mathbf{X} = \left[\mathbf{x}_1\,\mathbf{x}_2\,\ldots\,\mathbf{x}_N\right]^{\top}$ to $\mathbf{y} = \left[y_1\,y_2\,\ldots\,y_N\right]^{\top}$.
+    The predicted form of $f$ would then be used to make a prediction in a \textsl{test set} with $N_{\mathcal{T}}$ entries
+    $\mathcal{T} = \left\{(\mathbf{x}_i^*,y_i^*)\right\}_{i=1}^{N_{\mathcal{T}}}$ with an assertion that for any $\mathbf{x}_i^*,y_i^*\in\mathcal{T}$,
+    each value of $y_i^*$ relates to $f(\mathbf{x}_i^*)$. Among the available machine learning algorithms, GPR is a subset of a class of algorithms
+    called \textsl{Bayesian Concept Learning} \cite{B-MachineLearning-Murphy}, where the main concept is to compute a conditional expectation of $f$
+    given a set of $\mathcal{D}$ based on Bayesian inference. The key idea behind GPR lies in the model that is used to interpret $\mathcal{D}$, 
+    where each $y_i$ is not a perfect mapping of $\mathbf{x}_i$ by $f$, and each mapping $f(\mathbf{x}_i)$ differs from each $y_i$ by $\epsilon_i$,
+
+    \begin{equation}
+        y_i = f(\mathbf{x}_i) + \epsilon_i
+        \label{eq:gpr-training-data-model}
+    \end{equation}
+
+    Equation \ref{eq:gpr-training-data-model}; therefore, represents the imperfection in the data collection procedures or inherent uncertainties
+    in any algorithms or experiments, because each $\epsilon_i$ can be thought of as a statistical error of the $i$-th mapping of $f$. In GPR,
+    the deviation $\epsilon_i$ is assumed to have a normal distribution,
+
+    \begin{equation}
+        \epsilon_i \sim \mathcal{N}(0,\sigma_{\epsilon_i}^2)
+    \end{equation}
+
+    To determine the underlying $f$ that maps $\mathbf{X}$ to $\mathbf{y}$, let us define a vector $\mathbf{f}$ where each element represents the 
+    evaluation of some arbitrary function $f$ that we hope to represent the actual relationship we are looking for each $\mathbf{x}_i$,
+
+    \begin{equation}
+        \mathbf{f} = \left[f(\mathbf{x}_1)\,f(\mathbf{x}_2)\,\ldots\,f(\mathbf{x}_N)\right]^{\top}
+        \label{eq:gpr-arbitrary-function-vector}
+    \end{equation}
+
+    If the elements of $\mathbf{f}$ in equation \ref{eq:gpr-arbitrary-function-vector} have a joint Gaussian distribution, then the function $f$
+    that gives rise to the aforementioned property is said to be a Gaussian Process,
+
+    \begin{equation}
+        f \sim \mathcal{GP}\left(m(\cdot),k(\cdot,\cdot)\right)
+        \label{eq:gpr-gaussian-process}
+    \end{equation}
+
+    Equation \ref{eq:gpr-gaussian-process} states that $f$ is a Gaussian Process with mean $m$ and covariance $k$. For the purpose of approximating 
+    the conditional expectation of $f$, the mean of this Gaussian Process is set to zero. The covariance of the Gaussian Process can be approximated 
+    by a kernel where the key property of the covariance represents the correlation between two points in the feature space $\mathbf{x}_i$ and 
+    $\mathbf{x}_j$. If the two points are identical, then the correlation should be at its maximum. If the two points are very far apart, then the 
+    correlation is expected to decay towards zero, or no correlations at all. To satisfy this property, the most common choice of the covariance 
+    approximation kernel is the squared exponential kernel $\mathbf{K}_{SE}$, which is a $ND \times ND$ matrix whose elements are defined as follow,
+
+    \begin{equation}
+        k_{ij} = \mathbf{K}(\mathbf{x}_i,\mathbf{x}_j) = \chi^2\exp\left(-\frac{1}{2}\sum_{a=1}^D\frac{\left(\mathbf{x}_i^{(a)} - 
+            \mathbf{x}_j^{(a)}\right)^2}{{(\lambda^{(a)})}^2}\right)
+        \label{eq:gpr-covariance-matrix}
+    \end{equation}
+
+    \noindent where $\chi$ represents the overall deviation of the function value in the region of interest, and $\lambda^{(a)}$ is called the 
+    \textsl{length scale} in the $a$-th dimension. For a training data with $D$ dimensions, there are $D$ values of the length scales, each of 
+    which controls how abrupt the correlation between the two points in the feature space should be in a specific dimension. Thus, if a dimension 
+    has a small value of $\lambda^{(a)}$, it means that the value of the function should vary more rapidly in that dimension, and if a dimension 
+    has a large value of $\lambda^{(a)}$, it means that the value of the function would vary slowly in that dimension. Equations
+    \ref{eq:gpr-training-data-model} and \ref{eq:gpr-covariance-matrix} are, therefore, key ingredients to the GPR modeling of the test set, and 
+    the success of such modeling would require a good set of $2D+1$ parameters containing $D$ values of $\sigma_{\epsilon_i}^2$, $D$ values
+    of $\lambda^{(a)}$, and one value for $\chi$. These parameters are called the \textsl{hyperparameters} in machine learning literatures,
+    and an optimum set of hyperparameters should result in a maximum likelihood $p(\mathcal{D}|\mathbf{y}^*,\mathbf{X}^*)$ that represents the best 
+    fit to the training data. However, Stecher et al. suggested that hyperparameters optimization is a computationally expensive task, but one could 
+    make a good choice of the hyperparameters from the \textsl{a priori} knowledge of our training data. Moreover, in the application for free energy surface 
+    reconstruction, the range of good hyperparameters can vary at a large range while does not result in a significantly different reconstructed 
+    free energy landscape. \cite{P-JCTC-2014-v10-Stecher}
+
+    Due to the fact that $f$ satisfies the conditions of the Gaussian Process and elements of $\mathbf{f}$ from equation \ref{eq:gpr-arbitrary-function-vector}
+    have a joint Gaussian distribution, if we apply the same function $f$ on the inputs of the test set $\mathcal{T}$, we would have a vector
+    $\mathbf{f}^* = \left[f(\mathbf{x}_1^*)\,f(\mathbf{x}_2^*)\,\ldots\,f(\mathbf{x}_{N_{\mathcal{T}}}^*)\right]^{\top}$ whose elements also have a 
+    joint Gaussian distribution. Therefore, \cite{B-GaussianProcessML-Rasmussen}
+
+    \begin{equation}
+        % LEFT VECTOR
+        \left.\begin{bmatrix}
+            \mathbf{f} \\ \mathbf{f}^*
+        \end{bmatrix}\right|\mathbf{X},\mathbf{X}^* \sim \mathcal{N}\left(0,
+            \begin{bmatrix}
+                \mathbf{K}(\mathbf{X},\mathbf{X}) & \mathbf{K}(\mathbf{X},\mathbf{X}^*) \\
+                \mathbf{K}(\mathbf{X}^*,\mathbf{X}) & \mathbf{K}(\mathbf{X}^*,\mathbf{X}^*)
+            \end{bmatrix}
+        \right)
+        \label{eq:gpr-distribution-gaussian-process}
+    \end{equation}
+
+    Let $\epsilon = \left[\epsilon_1\,\epsilon_2\,\ldots\,\epsilon_N\right]^{\top}$, the vectorized form of equation \ref{eq:gpr-training-data-model} can
+    be written as follow,
+
+    \begin{equation}\begin{aligned}
+        \mathbf{y} &= \mathbf{f} + \epsilon \\
+        \mathbf{y}^* &= \mathbf{f}^* + \epsilon^*
+    \end{aligned}\end{equation}
+
+    Since we have defined that each element of $\mathbf{f}$ and $\mathbf{f}^*$ is a Gaussian random variable, and the elements of $\epsilon$ and $\epsilon^*$
+    is also a Gaussian random variable as well, each element of $\mathbf{y}$ and $\mathbf{y}^*$ must also be a Gaussian random variable. Hence, similar to 
+    equation \ref{eq:gpr-distribution-gaussian-process}, we could also express the joint Gaussian distribution between $\mathbf{y}$ and $\mathbf{y}^*$ as,
+
+    \begin{equation}
+        \left.\begin{bmatrix}
+            \mathbf{y} \\ \mathbf{y}^*
+        \end{bmatrix}\right|\mathbf{X},\mathbf{X}^* \sim \mathcal{N}\left(0,
+            \begin{bmatrix}
+                \mathbf{K}(\mathbf{X},\mathbf{X}) + \Sigma^2 I & \mathbf{K}(\mathbf{X},\mathbf{X}^*) \\
+                \mathbf{K}(\mathbf{X},\mathbf{X}) & \mathbf{K}(\mathbf{X}^*,\mathbf{X}^*) + (\Sigma^*)^2 I
+            \end{bmatrix}
+        \right)
+        \label{eq:gpr-distribution-gaussian-process-y}
+    \end{equation}
+
+    \noindent where $\Sigma^2 I$ and $(\Sigma^*)^2 I$ are the diagonal matrices of the individual variance of each point in the training data and the test data, 
+    respectively. Since both $\mathbf{y}$ and $\mathbf{y}^*$ have joint Gaussian distribution, we could compute the conditional expectation of $\mathbf{y}^*$ in 
+    the test set using the rules of the joint Gaussian distribution of two Gaussian random variables, 
+
+    \begin{equation}
+        \mathbb{E}\left[\mathbf{y}^*|\mathbf{y},\mathbf{X},\mathbf{X}^*\right] = \mathbf{K}(\mathbf{X}^*,\mathbf{X})
+            \left[\mathbf{K}(\mathbf{X},\mathbf{X}) + \Sigma^2 I\right]^{-1}\mathbf{y}
+    \end{equation}
+\end{spacing}

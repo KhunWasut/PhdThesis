@@ -21,4 +21,112 @@
     \begin{equation}
         A(\mathbf{x}) = -\beta^{-1}\ln p(\mathbf{x})
     \end{equation}
+
+    Hypothetically, if a simulation is performed for an infinitely large amount of time, one could easily compute $p(\mathbf{x})$ for any configurations 
+    and then the configurational free energy landscape can be mapped. Nevertheless, as governed by equation \ref{eq:free-energy-prob-defn}, the higher the 
+    value $\Delta A_{1\to *}$ is, the longer timescale it would take to go from state 1 across the barrier. With limited computational resources, 
+    standard molecular dynamics (MD) simulation can only go up to the millisecond timescale, while ab initio molecular dynamics (AIMD) fares far worse in 
+    timescale, only in the picosecond timescale due to a much higher cost for expensive first principles calculations. Hence, rare barrier crossing 
+    events typically are not well-sampled due to the issue of far less timescale affordable by current computational capabilities, and an attempt to 
+    compute the free energy landscape from any unbiased MD simulations would result in a noisy representation in the barrier region, hindering our 
+    insights on the dynamics of the transition state. \placeholder{FIGURE XX} shows the one-dimensional free energy of \ce{NaCl + 495H2O} computed 
+    from the probability of finding the system at the cation - anion separation ($r_{+-}$) ranging from 2.5 to 7.0 \r{A}. It is clear that the noise around
+    $r_{+-} = 3.0$ \r{A} is a result of inadequate sampling, because \placeholder{FIGURE XX} was computed from an unbiased simulation for only 240 ns, and according 
+    to our results in XX, there were only YY crossing events registered, which is not enough for us to deduce the dynamics of the rare events with confidence.
+
+    \placeholder{NOISY FREE ENERGY FIGURE PLACEHOLDER}
+
+    Being able to compute relatively noise-free free energy landscapes, thus, opens up new insights into several relevant chemical processes, as 
+    well as their underlying mechanisms, as these free energy landscapes offer us insights into the relationship between all the metastable states 
+    and the dynamics around the transition state of amy chemical reactions. Nevertheless, as a chemical system may contain up to thousands of atoms, 
+    determining the free energy as a function of thousands of phase space variables is highly complex and expensive. However, \textsl{relative free energies} 
+    can be computed by constraining the absolute free energies into the collective variable space. Consequently, the relative free energy 
+    $A(\xi_1,\xi_2,\ldots,\xi_D)$ can be written as a function of $D$ collective variables, where $D$ is the dimensionality of the problem which 
+    relates to the number of collective variables hypothesized to involve in the process where the reaction coordinate is a hypothetical linear 
+    combination of these $D$ variables that correlates with the slowest motion of the system across the free energy barrier. 
+    \cite{P-AnnuRevPhysChem-2013-v64-Rohrdanz,P-JCTC-2014-v10-Mullen,P-CurrOpStructBiol-2017-v43-Noe} When written in terms 
+    of the collective variables, the free energy at $\Xi = (\xi_1^*,\xi_2^*,\ldots,\xi_D^*)$ is related to the natural logarithm marginal probability density,
+
+    \begin{equation}
+        A(\xi_1^*,\xi_2^*,\ldots,\xi_D^*) = -\beta^{-1}\ln\int\prod_{i=1}^D \delta\left(\xi_i(\mathbf{x}) - \xi_i^*\right)
+        \exp\left(-\beta V(\mathbf{x})\right) d\mathbf{x}
+        \label{eq:free-energy-cv-defn}
+    \end{equation}
+
+    \noindent where $\mathbf{x}$ is a configuration snapshot. Therefore, $A(\xi_1^*,\xi_2^*,\ldots,\xi_D^*)$ is computed by integrating over all 
+    the possible snapshots in the simulation. By taking the derivative of equation \ref{eq:free-energy-cv-defn}, the gradient of $A(\xi_1^*,\xi_2^*,\ldots,\xi_D^*)$
+    is found to be related to the statistical average of the gradient of the potential $V(\mathbf{x})$,
+
+    \begin{equation}
+        \nabla_{\mathbf{x}}A = \left<\nabla_{\mathbf{x}} V\right>
+        \label{eq:free-energy-cv-grad-defn}
+    \end{equation}
+
+    Equations \ref{eq:free-energy-cv-defn} and \ref{eq:free-energy-cv-grad-defn} imply that there exists free energy estimator, that is, a monomer 
+    unit that can be used to deduce the bigger picture of the free energy landscape. For equation \ref{eq:free-energy-cv-defn}, the free energy 
+    estimator is a local probability density $p_i(\mathbf{x})$, whereas for equation \ref{eq:free-energy-cv-grad-defn}, the free energy estimator 
+    is a mean force $f_i = -\left<\nabla_{\mathbf{x}}V(\mathbf{x}_i)\right>$. In order to get the free energy estimators for each part of the phase 
+    space, extensive sampling of that part is required to ensure statistical viability of the free energy estimators. Hence, the earliest approaches 
+    to compute free energy estimators came from constraining the simulations into several windows, where the local probability density or the mean 
+    force for each window can be computed using techniques such as Umbrella Sampling (US) \cite{P-JCompPhys-1977-v23-Torrie,P-WIRES-2011-v1-Kastner}
+    for biased local probability densities, Thermodynamic Integration (TI) \cite{P-JChemPhys-1935-v3-Kirkwood} for the mean forces to be integrated 
+    into the free energy either through fixing the atoms involving in the reaction coordinates using SHAKE algorithm, or using a stiff harmonic 
+    restraint to limit sampling around the center of the windowwindow, which is better known as Umbrella Integration (UI) technique. 
+    \cite{P-JChemPhys-2005-v123-Kastner}  Another approach to sample the CV space is through the holonomic constraints, which is used to confine the 
+    system to the collective variable hypersurface such as Blue Moon Sampling. \cite{P-ChemPhysLett-1989-v156-Carter,P-ChemPhysChem-2005-v9-Ciccotti}
+    However, the major disadvantage of the aforementioned techniques is the computational cost. To minimize possible statistical uncertainties of 
+    the estimators, a long simulation in each window is necessary for adequate sampling of any part of the collective variable space we desire to 
+    explore, including the rare event regions. Therefore, these kinds of simulations are costly due to the need to minimize sampling errors. There 
+    are two main kinds of error associating with the process. First of which is the statistical error due to the number of samples, and second of 
+    which is the error due to step size (i.e. the width of the window). In order to minimize these errors, one needs to reduce the width of window 
+    to reduce the error from the large step sizes, as well as performing very long simulation in each of the window to reduce the error from 
+    inaqequate sampling. While this is doable in one dimension, the cost to obtain samples in a $D$-dimensional problem usually scales as 
+    $\mathcal{O}(N_{window}^D)$, where $N_{window}$ is the number of windows usually required to obtain an acceptable result in one dimension. 
+    Moreover, as the dimensionality of the problem increases, the sampling area becomes larger, which necessitates even longer simulation per sampling 
+    area, further increasing total computational cost. Therefore, with limited computational resources, windowed simulations for multidimensional 
+    problems are inherently expensive and takes very long time even for classical MD simulations.
+
+    In the previous decade, numbers of methods were introduced to selectively apply biases along the collective variable spaces in order to force 
+    the exploration away from free energy minima. Adaptive Biasing Force (ABF) \cite{P-JChemPhys-2001-v115-Darve,P-JChemPhys-2008-v128-Darve} 
+    makes use of sampling local free energy gradients and use it as the biasing force that pushes the dynamics away from the minima. 
+    Temperature-Accelerated Molecular Dynamics (TAMD) \cite{P-ChemPhysLett-2006-v426-Maragliano,P-JChemPhys-2008-v128-Maragliano} manipulates the 
+    dynamics in the collective variable space to make it faster than the actual coordinate space, and let the faster dynamics of the collective 
+    variable space pull the actual dynamics away from the minima, and Metadynamics (MTD) \cite{P-PNAS-2002-v99-Laio,P-WIRES-2011-v1-Barducci} 
+    periodically adds repulsive bias potential along the visited regions in the 
+    collective variable space, thereby enhancing the rare event sampling frequency. These three methods can also be used to directly approximate 
+    the free energy in the collective variable space at very long time limit. While using these methods to compute the free energy sounds attractive, 
+    the main drawback is that the free energy can only be recovered at very long time limit. \placeholder{MTD DRAWBACKS HERE} Also, methods like 
+    MTD or TAMD requires parameters adjustment, where a bad set of parameters may never give a good answer to the problems. However, these methods 
+    show potential uses as tools to quickly explore the CV space, as shown in the work by Maragliano and Vanden-Eijnden, 
+    \cite{P-JChemPhys-2008-v128-Maragliano} as well as Cuendet and Tuckerman. \cite{P-JCTC-2014-v10-Cuendet}
+
+    In order to efficiently compute free energy landscapes, the key challenges of the methods mentioned in the above paragraphs, such as the need to 
+    compute local probability densities or the mean forces in sampling cases or the need to let the dynamics asymtotically converge to the free energy 
+    at very long time presented by the adaptive methods, need to be addressed. Recently, machine learning has become a buzzword in a scientific and 
+    engineering community due to active fundings by large enterprises with huge computational resources driven by the need to predict underlying 
+    patterns in large amount of available data. In chemistry, it has been used in various applications; for example, approximating \textsl{ab initio} energies, 
+    deriving newer force field models, \cite{P-JPhysChemLett-2017-v8-Kolb,P-PhysRevB-2017-v95-Glielmo} or structural characterization of biomolecules 
+    or advanced materials. \cite{P-SoftMatter-2016-v12-Long,P-NatComm-2016-v7-Xue,P-JChemInfModel-2017-v57-Khuntawee} In free energy computation, Gaussian 
+    Process Regression (GPR) and Artificial Neural Networks (ANN) have successfully been applied for various polypeptide computational models with 
+    up to 8 dimensions using dihedral angles as the collective variables. \cite{P-JCTC-2014-v10-Stecher,P-JCTC-2016-v12-Mones,P-JCTC-2017-v13-Galvelis} 
+    However, GPR has been around for a significantly longer time, and it has recently been used in a one-dimensional free energy computation from an 
+    expensive AIMD simulation as the first example beyond polypeptide \cite{P-PhysRevLett-2016-v117-Stecher}
+    computational models. Nevertheless, its recent application in free energy computations implies that there is no established simulation protocols 
+    to be based on, especially for multidimensional problems in chemically reactive systems.
+
+    GPR addresses the key challenges mentioned earlier by entirely eliminating the need to obtain statistical averages for free energy estimators 
+    by assuming statistical noises associated with each estimator is part of the procedure, and the conditional expectation of the free energy 
+    based on the available information of the estimators and the explored CV can be computed from the instantaneous force free energy estimators 
+    without the need to perform simulations for very long time, provided that the CV space of interest is adequately explored. Recent work by 
+    Mones et al. \cite{P-JCTC-2016-v12-Mones} shows that the fastest exploration of the CV space can be achieved by using well-tempered metadynamics 
+    (WT-MTD) \cite{P-PhysRevLett-2008-v100-Barducci,P-BiophysJ-2010-v98-Barducci,P-PhysRevLett-2014-v112-Dama} simulation with 
+    relatively long Gaussian deposition rate to ensure the quasi-equilibrium condition and a high bias factor to quickly encourage the system to 
+    quickly overcome the free energy barriers, which has an effect of giving a noisy reconstruction of the free energy landscape. As a result, 
+    one can construct multidimensional free energy landscapes with much less efforts due to the elimination of the need to sample $N_{window}^D$
+    areas in the collective variable space and the entire simulation was transformed into a single biased simulation that seeks to explore the
+    collective variable space as quickly as possible, while a reconstruction of multidimensional free energy surface was fitted according to the 
+    maximum likelihood of the non-averaged instantaneous forces in the collective variable space as free energy estimators to obtain the best fit 
+    to the simulation data. In the next section, the theoretical aspect of GPR will be discussed in detail, as well as our proposed protocol for 
+    effective free energy reconstruction with GPR while ensuring a good agreement with traditional free energy computation methods while keeping 
+    the computational cost minimal. With our protocol, there are huge future implications for any kinds of computationally expensive problems.
 \end{spacing}
