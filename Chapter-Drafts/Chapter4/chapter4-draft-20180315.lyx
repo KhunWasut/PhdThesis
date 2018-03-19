@@ -450,6 +450,7 @@ Training Data
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Gaussian process regression (GPR) is a class of machine learning algorithms,
  where one aims to make a prediction of the relationship between one set
  of input values to another set of output values based on the provided 
@@ -461,7 +462,7 @@ training data
 \end_inset
 
 , which is a set of data obtained from observations or experimental evidence.
- A training data set 
+ A set of the training data 
 \begin_inset Formula $\mathcal{D}$
 \end_inset
 
@@ -512,15 +513,437 @@ training data
 \begin_inset Formula $\mathcal{T}=\left\{ (\mathbf{x}_{i}^{*},y_{i}^{*})\right\} _{i=1}^{N_{T}}$
 \end_inset
 
- with an assertion that for any
-\end_layout
+ with an assertion that for any 
+\begin_inset Formula $\mathbf{x}_{i}^{*},y_{i}^{*}\in\mathcal{T}$
+\end_inset
 
-\begin_layout Subsection
-Gaussian Process and Covariance Kernel
+, each value of 
+\begin_inset Formula $y_{i}^{*}$
+\end_inset
+
+ is a conditional mapping of 
+\begin_inset Formula $\mathbf{x}_{i}^{*}$
+\end_inset
+
+ by 
+\begin_inset Formula $f:\mathbb{R}^{D}\to\mathbb{R}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\left.y_{i}^{*}=f(\mathbf{x}_{i}^{*})\right|\mathcal{D}$
+\end_inset
+
+.
+ GPR itself is a subset of a class of machine learning algorithms called
+ Bayesian Concept Learning, where the main concept is to compute a conditional
+ expectation of 
+\begin_inset Formula $f$
+\end_inset
+
+ given a training data 
+\begin_inset Formula $\mathcal{D}$
+\end_inset
+
+ based on Bayesian inference.
+ In GPR, the 
+\begin_inset Formula $i$
+\end_inset
+
+-th output value of the training data 
+\begin_inset Formula $y_{i}$
+\end_inset
+
+ is assumed to approximately relate to the input features 
+\begin_inset Formula $\mathbf{x}_{i}$
+\end_inset
+
+ through a mapping 
+\begin_inset Formula $f:\mathbb{R}^{D}\to\mathbb{R}$
+\end_inset
+
+.
+ Each of the value 
+\begin_inset Formula $y_{i}$
+\end_inset
+
+, however, is not the exact mapping of corresponding 
+\begin_inset Formula $\mathbf{x}_{i}$
+\end_inset
+
+, and each 
+\begin_inset Formula $y_{i}$
+\end_inset
+
+ has a mapping error 
+\begin_inset Formula $\epsilon_{i}$
+\end_inset
+
+.
+ Therefore, we could express the relationship between 
+\begin_inset Formula $y_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $f(\mathbf{x}_{i})$
+\end_inset
+
+ as follow,
 \end_layout
 
 \begin_layout Standard
-blah blah blah
+\begin_inset Formula 
+\[
+y_{i}=f(\mathbf{x}_{i})+\epsilon_{i}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The deviation 
+\begin_inset Formula $\epsilon_{i}$
+\end_inset
+
+ can be viewed as inherent statistical errors of the experiment, and in
+ GPR, it is assumed to have a normal distribution 
+\begin_inset Formula $\epsilon_{i}\sim\mathcal{N}(0,\sigma_{\epsilon_{i}}^{2})$
+\end_inset
+
+.
+ To determine the underlying 
+\begin_inset Formula $f$
+\end_inset
+
+ that maps 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ to 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+, let us define a vector 
+\begin_inset Formula $\hat{f}$
+\end_inset
+
+where each element represents the evaluation of some arbitrary function
+ 
+\begin_inset Formula $f$
+\end_inset
+
+ that we hope to represent the actual relationship we are looking for each
+ 
+\begin_inset Formula $\mathbf{x}_{i}$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mathbf{f}=\left[f(\mathbf{x}_{1})\,f(\mathbf{x}_{2})\,\ldots\,f(\mathbf{x}_{N})\right]^{\top}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+If the elements of 
+\begin_inset Formula $\mathbf{f}$
+\end_inset
+
+ in equation XX have a joint Gaussian distribution, then the function 
+\begin_inset Formula $f$
+\end_inset
+
+ that gives rise to the aforementioned property is said to be a Gaussian
+ Process 
+\begin_inset Formula $f\sim\mathcal{GP}\left(m(\cdot),k(\cdot,\cdot)\right)$
+\end_inset
+
+ with mean 
+\begin_inset Formula $m$
+\end_inset
+
+ and covariance 
+\begin_inset Formula $k$
+\end_inset
+
+.
+ For the purpose of approximating the conditional expectation of 
+\begin_inset Formula $f$
+\end_inset
+
+, the mean of this Gaussian Process is set to zero.
+ The covariance of the Gaussian Process can be approximated by a kernel
+ where the key property of the covariance represents the correlation between
+ two points in the feature space 
+\begin_inset Formula $\mathbf{x}_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{x}_{j}$
+\end_inset
+
+.
+ If the two points are identical, then the correlation should be at its
+ maximum.
+ If the two points are very far apart, then the correlation is expected
+ to decay towards zero, or no correlations at all.
+ To satisfy this property, the most common choice of the covariance approximatio
+n kernel is the squared exponential kernel 
+\begin_inset Formula $\mathbf{K}_{SE}$
+\end_inset
+
+, which is a 
+\begin_inset Formula $ND\times ND$
+\end_inset
+
+ matrix whose elements are defined as follow,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+k_{ij}=\mathbf{K}(\mathbf{x}_{i},\mathbf{x}_{j})=\chi^{2}\exp\left(-\frac{1}{2}\sum_{a=1}^{D}\frac{\left(\mathbf{x}_{i}^{(a)}-\mathbf{x}_{j}^{(a)}\right)^{2}}{\left(\lambda^{(a)}\right)^{2}}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+where 
+\begin_inset Formula $\chi$
+\end_inset
+
+ represents the overall deviation of the function value in the region of
+ interest, and 
+\begin_inset Formula $\lambda^{(a)}$
+\end_inset
+
+ is called the 
+\backslash
+textsl{length scale} in the 
+\begin_inset Formula $a$
+\end_inset
+
+-th dimension.
+ For a training data with 
+\begin_inset Formula $D$
+\end_inset
+
+ dimensions, there are 
+\begin_inset Formula $D$
+\end_inset
+
+ values of the length scale, each of which controls how abrupt the correlation
+ between the two points in the feature space should be in a specific dimension.
+ Thus, if a dimension has a small value of 
+\begin_inset Formula $\lambda^{(a)}$
+\end_inset
+
+, it means that the value of the function should vary more rapidly in that
+ dimension, and if a dimension has a large value of 
+\begin_inset Formula $\lambda^{(a)}$
+\end_inset
+
+, it means that the value of the function would vary slowly in that dimension.
+ Equations XX and YY are, therefore, key ingredients to the GPR modeling
+ of the test set, and the success of such modeling would require a good
+ set of 
+\begin_inset Formula $2D+1$
+\end_inset
+
+ parameters containing 
+\begin_inset Formula $D$
+\end_inset
+
+ values of 
+\begin_inset Formula $\sigma_{\epsilon_{i}}^{2}$
+\end_inset
+
+, 
+\begin_inset Formula $D$
+\end_inset
+
+ values of 
+\begin_inset Formula $\lambda^{(a)}$
+\end_inset
+
+, and one value for 
+\begin_inset Formula $\chi$
+\end_inset
+
+.
+ These parameters are called hyperparameters in machine learning literatures,
+ and an optimum set of hyperparameters should result in a maximum likelihood
+ 
+\begin_inset Formula $p(\mathcal{D}|\mathbf{y}^{*},\mathbf{X}^{*})$
+\end_inset
+
+ that represents the best fit to the training data.
+ However, Stecher et al.
+ suggested that hyperparameters optimization is a computationally expensive
+ task, but one could make a good choice of the hyperparameters from the
+ a priori knowledge of our training data.
+ Moreover, in the application for free energy surface reconstruction, the
+ range of good hyperparameters can vary at a large range while does not
+ result in a significantly different reconstructed free energy landscape.
+\end_layout
+
+\begin_layout Standard
+Due to the fact that 
+\begin_inset Formula $f$
+\end_inset
+
+ satisfies the conditions of the Gaussian Process and elements of 
+\begin_inset Formula $\mathbf{f}$
+\end_inset
+
+ from equation XX have a joint Gaussian distribution, if we apply the same
+ function f on the inputs of the test set, we would have a vector 
+\begin_inset Formula $\mathbf{f}^{*}=\left[f(\mathbf{x}_{1}^{*})\,f(\mathbf{x}_{2}^{*})\,\ldots\,f(\mathbf{x}_{N}^{*})\right]^{\top}$
+\end_inset
+
+ whose elements also have a joint Gaussian distribution.
+ Therefore,
+\end_layout
+
+\begin_layout Standard
+[THE MATRIX IS ALREADY IN ACTUAL THESIS]
+\end_layout
+
+\begin_layout Standard
+Now define 
+\begin_inset Formula $\epsilon=\left[\epsilon_{1}\,\epsilon_{2}\,\ldots\,\epsilon_{N}\right]^{\top}$
+\end_inset
+
+, the vector form of equation XX for the training set 
+\begin_inset Formula $\mathcal{D}$
+\end_inset
+
+ and for the test set 
+\begin_inset Formula $\mathcal{T}$
+\end_inset
+
+ can be written as,
+\end_layout
+
+\begin_layout Standard
+[THE EQUATION IS ALREADY IN ACTUAL THESIS]
+\end_layout
+
+\begin_layout Standard
+Since we have defined that each element of 
+\begin_inset Formula $\mathbf{f}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{f}^{*}$
+\end_inset
+
+ is a Gaussian random variable, and the elements of 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ and 
+\begin_inset Formula $\epsilon^{*}$
+\end_inset
+
+ are also Gaussian random variable as well, each element of 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{y}^{*}$
+\end_inset
+
+ must also be Gaussian random variable.
+ Hence, similar to equation XX, we could also express the joint Gaussian
+ distribution between 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{y}^{*}$
+\end_inset
+
+ as,
+\end_layout
+
+\begin_layout Standard
+[THE EQUATION IS ALREADY IN ACTUAL THESIS]
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+noindent where 
+\begin_inset Formula $\Sigma^{2}I$
+\end_inset
+
+ and 
+\begin_inset Formula $(\Sigma^{*})^{2}I$
+\end_inset
+
+ are the diagonal matrices of the individual variance of each point in the
+ training data and the test data, respectively.
+ Since both 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{y}^{*}$
+\end_inset
+
+ have joint Gaussian distribution, we could compute the conditional expectation
+ of 
+\begin_inset Formula $\mathbf{y}^{*}$
+\end_inset
+
+ in the test set using the rules of the joint Gaussian distribution of two
+ Gaussian random variables 
+\end_layout
+
+\begin_layout Standard
+[THE EQUATION IS ALREADY IN ACTUAL THESIS]
+\end_layout
+
+\begin_layout Standard
+Besides being able to predict the expectation of the functions in the test
+ set from the training data from the function itself, GPR is also able to
+ predict the expectation of the functions in the test set from the training
+ data of its partial derivatives with respect to each of the individual
+ features while also including the inherent statistical errors in all dimensions.
+ As the derivative of Gaussian Process is still a Gaussian Process, we could
+ write a vector 
+\begin_inset Formula $\mathbf{f}'=\left[f'(\mathbf{x}_{1})\,f'(\mathbf{x}_{2})\,\ldots\,f'(\mathbf{x}_{N})\right]^{\top}$
+\end_inset
+
+ such that each element of 
+\begin_inset Formula $\mathbf{f}'$
+\end_inset
+
+ is also a Gaussian random variable.
+ Thus, it is possible to substitute 
+\begin_inset Formula $\mathbf{f}$
+\end_inset
+
+ in equation XX with 
+\begin_inset Formula $\mathbf{f}'$
+\end_inset
+
+,
 \end_layout
 
 \begin_layout Subsection
