@@ -102,7 +102,7 @@ The free energy of a chemical system governs the macroscopic behavior along
  state to another.
  During the course of the reaction, the system needs to pass through the
  free energy barrier, where the probability of barrier crossing with respect
- to a metastable state (numbered 1 in equation XX) is defined as,
+ to a metastable state labeled as state 1 is defined as,
 \end_layout
 
 \begin_layout Standard
@@ -450,7 +450,69 @@ Training Data
 \end_layout
 
 \begin_layout Standard
-blah blah blah
+Gaussian process regression (GPR) is a class of machine learning algorithms,
+ where one aims to make a prediction of the relationship between one set
+ of input values to another set of output values based on the provided 
+\shape italic
+training data
+\shape default
+ 
+\begin_inset Formula $\mathcal{D}$
+\end_inset
+
+, which is a set of data obtained from observations or experimental evidence.
+ A training data set 
+\begin_inset Formula $\mathcal{D}$
+\end_inset
+
+ with 
+\begin_inset Formula $N$
+\end_inset
+
+ training examples is written as 
+\begin_inset Formula $\mathcal{D}=\left\{ (x_{i},y_{i})\right\} _{i=1}^{N}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{x}_{i}$
+\end_inset
+
+ is a 
+\begin_inset Formula $1\times D$
+\end_inset
+
+ row vector called a feature vector with 
+\begin_inset Formula $D$
+\end_inset
+
+ features.
+ The main objective of any machine learning algorithm is to recover the
+ underlying relationship 
+\begin_inset Formula $f$
+\end_inset
+
+ that maps 
+\begin_inset Formula $\mathbf{X}=\left[\mathbf{x}_{1}\,\mathbf{x}_{2}\,\ldots\,\mathbf{x}_{N}\right]^{T}$
+\end_inset
+
+ to 
+\begin_inset Formula $\mathbf{y}=\left[y_{1}\,y_{2}\,\ldots\,y_{N}\right]^{T}$
+\end_inset
+
+.
+ The predicted form of 
+\begin_inset Formula $f$
+\end_inset
+
+ would then be used to make a prediction in a test set with 
+\begin_inset Formula $N_{T}$
+\end_inset
+
+ entries 
+\begin_inset Formula $\mathcal{T}=\left\{ (\mathbf{x}_{i}^{*},y_{i}^{*})\right\} _{i=1}^{N_{T}}$
+\end_inset
+
+ with an assertion that for any
 \end_layout
 
 \begin_layout Subsection

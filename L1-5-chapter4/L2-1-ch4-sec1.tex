@@ -1,7 +1,24 @@
 \chapter{Multidimensional Free Energy Computation}
 
-\section{Introduction}
+\section{Importance of Free Energy Computation}
 
 \begin{spacing}{2.0}
-    \lipsum[1]
+    The free energy of a chemical system governs the macroscopic behavior along with its thermal fluctuation including both the energetic and 
+    entropic influences, and the free energy landscape may contain one or more local minima representing configurations at the metastable states, 
+    which are the locations where the system spends a significant amount of time. The change in the system from the reactant to the product states, 
+    therefore, is represented in the free energy landscape as a transition from one metastable state to another. During the course of the reaction, 
+    the system needs to pass through the free energy barrier, where the probability of barrier crossing with respect to a metastable state labeled as 
+    state 1 is defined as,
+
+    \begin{equation}
+        p(1\to *) \propto e^{-\beta\Delta A_{1\to *}}
+        \label{eq:free-energy-prob-defn}
+    \end{equation}
+
+    Equation \ref{eq:free-energy-prob-defn} can be further rearranged such that for any configuration $\mathbf{x} \in \Omega$,  the relative free 
+    energy of the configuration $\mathbf{x}$ is related to the equilibrium probability of finding the configuration $\mathbf{x}$ in the phase space,
+
+    \begin{equation}
+        A(\mathbf{x}) = -\beta^{-1}\ln p(\mathbf{x})
+    \end{equation}
 \end{spacing}
