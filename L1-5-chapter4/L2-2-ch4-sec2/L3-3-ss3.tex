@@ -1,0 +1,42 @@
+\begin{spacing}{2.0}
+    \subsection{Learning from Derivative Training Data}
+
+    Besides being able to predict the expectation of the functions in the test set from the training data from the function itself, GPR is also 
+    able to predict the expectation of the functions in the test set from the training data of its partial derivatives with respect to each of the 
+    individual features while also including the inherent statistical errors in all dimensions. As the derivative of Gaussian Process is still a 
+    Gaussian Process, we could write a vector $\mathbf{f}' = \left[f'(\mathbf{x}_1)\,f'(\mathbf{x}_2)\,\ldots\,f'(\mathbf{x}_{N_{\mathcal{T}}})\right]^{\top}$
+    such that each element of $\mathbf{f}'$ is also a Gaussian random variable. Thus, it is possible to substitute $\mathbf{f}$ in equation 
+    \ref{eq:gpr-distribution-gaussian-process} with $\mathbf{f}'$,
+
+    \begin{equation}
+        \left.\begin{bmatrix}
+            \mathbf{f}' \\ \mathbf{f}^*
+        \end{bmatrix}\right|\mathbf{X},\mathbf{X}^* \sim \mathcal{N}\left(0,
+            \begin{bmatrix}
+                \mathbf{K}_{f'f'}(\mathbf{X},\mathbf{X}) & \mathbf{K}_{f'f}(\mathbf{X},\mathbf{X}^*) \\
+                \mathbf{K}_{ff'}(\mathbf{X}^*,\mathbf{X}) & \mathbf{K}_{ff}(\mathbf{X}^*,\mathbf{X}^*) 
+            \end{bmatrix}
+        \right)
+        \label{eq:gpr-derivative-joint-distribution}
+    \end{equation}
+
+    where $\mathbf{K}_{ff}(\mathbf{x}_i,\mathbf{x}_j) = \mathbf{K}(\mathbf{x}_i,\mathbf{x}_j)$ from equation \ref{eq:gpr-covariance-matrix},
+    and
+
+    \begin{equation}\begin{aligned}
+        \mathbf{K}_{f'f'}(\mathbf{x}_i,\mathbf{x}_j) &= \nabla_i\nabla_j\mathbf{K}_{ff}(\mathbf{x}_i,\mathbf{x}_j) \\  
+        \mathbf{K}_{ff'}(\mathbf{x}_i^*,\mathbf{x}_j) &= \nabla_j\mathbf{K}_{ff}(\mathbf{x}_i^*,\mathbf{x}_j)   
+    \end{aligned}\end{equation}
+
+    Therefore, for a noisy derivative training data $\mathbf{y}' = \left[\mathbf{y}'_1\,\mathbf{y}'_2\,\ldots\,\mathbf{y}'_N\right]^{\top}$ and
+    $\mathbf{y}'_i = \left[\mathbf{y}'_{i,1}\,\mathbf{y}'_{i,2}\,\ldots\,\mathbf{y}'_{i,D}\right]$, the conditional expectation of 
+    $\mathbf{y}^*$ given the training data can be computed in a similar fashion to equation \ref{eq:gpr-expectation},
+
+    \begin{equation}
+        \mathbb{E}\left[\mathbf{y}^*|\mathbf{y}',\mathbf{X},\mathbf{X}^*\right] = \mathbf{K}_{ff'}(\mathbf{X}^*,\mathbf{X})
+            \left[\mathbf{K}_{f'f'}(\mathbf{X},\mathbf{X}) + (\Sigma')^2 I\right]^{-1}\mathbf{y}'
+        \label{eq:gpr-der-expectation}
+    \end{equation}
+
+    \noindent where $(\Sigma')^2$ is the associated Gaussian variance of the derivative training data. 
+\end{spacing}

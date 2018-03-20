@@ -1,7 +1,7 @@
 \begin{spacing}{2.0}
     \section{Gaussian Process Regression (GPR)}
 
-    \subsection{Training Data}
+    \subsection{Training Data as a Gaussian Process}
 
     Gaussian process regression (GPR) is a class of machine learning algorithms, where one aims to make a prediction of the relationship between 
     one set of input values to another set of output values based on the provided \textsl{training data} $\mathcal{D}$, which is a set of data 
@@ -45,6 +45,8 @@
         \label{eq:gpr-gaussian-process}
     \end{equation}
 
+    \subsection{The Covariance Matrix}
+
     Equation \ref{eq:gpr-gaussian-process} states that $f$ is a Gaussian Process with mean $m$ and covariance $k$. For the purpose of approximating 
     the conditional expectation of $f$, the mean of this Gaussian Process is set to zero. The covariance of the Gaussian Process can be approximated 
     by a kernel where the key property of the covariance represents the correlation between two points in the feature space $\mathbf{x}_i$ and 
@@ -71,55 +73,4 @@
     make a good choice of the hyperparameters from the \textsl{a priori} knowledge of our training data. Moreover, in the application for free energy surface 
     reconstruction, the range of good hyperparameters can vary at a large range while does not result in a significantly different reconstructed 
     free energy landscape. \cite{P-JCTC-2014-v10-Stecher}
-
-    Due to the fact that $f$ satisfies the conditions of the Gaussian Process and elements of $\mathbf{f}$ from equation \ref{eq:gpr-arbitrary-function-vector}
-    have a joint Gaussian distribution, if we apply the same function $f$ on the inputs of the test set $\mathcal{T}$, we would have a vector
-    $\mathbf{f}^* = \left[f(\mathbf{x}_1^*)\,f(\mathbf{x}_2^*)\,\ldots\,f(\mathbf{x}_{N_{\mathcal{T}}}^*)\right]^{\top}$ whose elements also have a 
-    joint Gaussian distribution. Therefore, \cite{B-GaussianProcessML-Rasmussen}
-
-    \begin{equation}
-        % LEFT VECTOR
-        \left.\begin{bmatrix}
-            \mathbf{f} \\ \mathbf{f}^*
-        \end{bmatrix}\right|\mathbf{X},\mathbf{X}^* \sim \mathcal{N}\left(0,
-            \begin{bmatrix}
-                \mathbf{K}(\mathbf{X},\mathbf{X}) & \mathbf{K}(\mathbf{X},\mathbf{X}^*) \\
-                \mathbf{K}(\mathbf{X}^*,\mathbf{X}) & \mathbf{K}(\mathbf{X}^*,\mathbf{X}^*)
-            \end{bmatrix}
-        \right)
-        \label{eq:gpr-distribution-gaussian-process}
-    \end{equation}
-
-    Let $\epsilon = \left[\epsilon_1\,\epsilon_2\,\ldots\,\epsilon_N\right]^{\top}$, the vectorized form of equation \ref{eq:gpr-training-data-model} can
-    be written as follow,
-
-    \begin{equation}\begin{aligned}
-        \mathbf{y} &= \mathbf{f} + \epsilon \\
-        \mathbf{y}^* &= \mathbf{f}^* + \epsilon^*
-    \end{aligned}\end{equation}
-
-    Since we have defined that each element of $\mathbf{f}$ and $\mathbf{f}^*$ is a Gaussian random variable, and the elements of $\epsilon$ and $\epsilon^*$
-    is also a Gaussian random variable as well, each element of $\mathbf{y}$ and $\mathbf{y}^*$ must also be a Gaussian random variable. Hence, similar to 
-    equation \ref{eq:gpr-distribution-gaussian-process}, we could also express the joint Gaussian distribution between $\mathbf{y}$ and $\mathbf{y}^*$ as,
-
-    \begin{equation}
-        \left.\begin{bmatrix}
-            \mathbf{y} \\ \mathbf{y}^*
-        \end{bmatrix}\right|\mathbf{X},\mathbf{X}^* \sim \mathcal{N}\left(0,
-            \begin{bmatrix}
-                \mathbf{K}(\mathbf{X},\mathbf{X}) + \Sigma^2 I & \mathbf{K}(\mathbf{X},\mathbf{X}^*) \\
-                \mathbf{K}(\mathbf{X},\mathbf{X}) & \mathbf{K}(\mathbf{X}^*,\mathbf{X}^*) + (\Sigma^*)^2 I
-            \end{bmatrix}
-        \right)
-        \label{eq:gpr-distribution-gaussian-process-y}
-    \end{equation}
-
-    \noindent where $\Sigma^2 I$ and $(\Sigma^*)^2 I$ are the diagonal matrices of the individual variance of each point in the training data and the test data, 
-    respectively. Since both $\mathbf{y}$ and $\mathbf{y}^*$ have joint Gaussian distribution, we could compute the conditional expectation of $\mathbf{y}^*$ in 
-    the test set using the rules of the joint Gaussian distribution of two Gaussian random variables, 
-
-    \begin{equation}
-        \mathbb{E}\left[\mathbf{y}^*|\mathbf{y},\mathbf{X},\mathbf{X}^*\right] = \mathbf{K}(\mathbf{X}^*,\mathbf{X})
-            \left[\mathbf{K}(\mathbf{X},\mathbf{X}) + \Sigma^2 I\right]^{-1}\mathbf{y}
-    \end{equation}
 \end{spacing}
