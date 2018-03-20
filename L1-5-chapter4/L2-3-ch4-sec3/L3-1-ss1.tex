@@ -1,0 +1,25 @@
+\begin{spacing}{2.0}
+    \section{GPR and Free Energy Computation}
+
+    \subsection{Fast Exploration of the Collective Variable Space}
+
+    Since the inherent statistical noises of the free energy estimators are already included in the formulation of GPR, we do not need to perform 
+    expensive multidimensional windowed simulations to minimize the statistical noise as in any regular US or TI variants. As mentioned earlier, 
+    the free energy estimator can either be local probability density $p_i(\xi_1,\xi_2,\ldots,\xi_D)$ or the mean force 
+    $f_i(\xi_j) = -\left<\nabla_{\xi_j}V\right>$. However, GPR already took care of the noise in its algorithm; therefore, in principle, the mean 
+    force does not need to be averaged despite an individual expression of the force along a particular collective variable would imply a relatively 
+    large amount of noise, and the unbiased instantaneous forces (UIFs), $\phi$ can thus be used as a noisy free energy estimator for GPR,
+
+    \begin{equation}
+        \phi(\xi_j) = -\nabla_{\xi_j}V(\xi_1,\xi_2,\ldots,\xi_D)
+        \label{eq:uif-definition}
+    \end{equation}
+
+    Removing the need to perform windowed simulations is the main source of the improved efficiency for using GPR to reconstruct free energy
+    landscapes. Consequently, in order to get the free energy landscape that covers a specific area in the collective variable space, it is
+    logical to devise a strategy that would allow us to achieve fastest sampling of the configuration space to save the simulation efforts.
+    Cuendet and Tuckerman \cite{P-JCTC-2014-v10-Cuendet} suggested that MTD, TAMD, or adiabatic free energy dynamics can be used for guiding
+    the exploration of the configuration space, and Mones et al. \cite{P-JCTC-2016-v12-Mones} suggested that using well-tempered metadynamics
+    (WT-MTD), a variant of metadynamics, resulted in the fastest exploration of the regions of interest in their two and four-dimensional
+    free energy landscapes of alanine peptides. 
+\end{spacing}

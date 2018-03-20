@@ -1,0 +1,31 @@
+\begin{spacing}{2.0}
+    \subsection{UIFs Computation from a Biased WT-MTD Simulation}
+
+    For any variants of metadynamics, the forms of the potentials similar to equations \ref{eq:metadynamics-potential} and 
+    \ref{eq:wt-mtd-potential} are added to the normal potential that is the part of the original Hamiltonian of the system. Therefore, the 
+    simulation with these added potential are biased, and the biased total potential for a WT-MTD simulation would have the following form,
+
+    \begin{equation}
+        V_{\mathrm{biased}}(\xi_1,\xi_2,\ldots,\xi_D,t) = V(\xi_1,\xi_2,\ldots,\xi_D) + V_{WT-MTD}(\xi_1,\xi_2,\ldots,\xi_D,t)
+        \label{eq:biased-potential}
+    \end{equation}
+
+    \noindent where $V(\xi_1,\xi_2,\ldots,\xi_D)$ is the potential that is a part of the original Hamiltonian projected onto the collective
+    variable space, and is invariant over time. $V_{WT-MTD}$ is defined in equation \ref{eq:wt-mtd-potential}. 
+
+    Equation \ref{eq:uif-definition} outlines the expression of the UIF, which is the negative of the gradient of the original potential
+    $V(\xi_1,\xi_2,\ldots,\xi_D)$. By taking the gradients of equation \ref{eq:biased-potential}, we can immediately see that
+
+    \begin{equation}
+        -\nabla_{\xi_j}V_{\mathrm{biased}} = -\nabla_{\xi_j}V - \nabla_{\xi_j}V_{WT-MTD}
+        \label{eq:potential-gradients}
+    \end{equation}
+
+    Let $\phi_{\mathrm{biased}}(\xi_j) = -\nabla_{\xi_j}V_{\mathrm{biased}}$ and $\phi_{WT-MTD}(\xi_j) = -\nabla_{\xi_j}V_{WT-MTD}$, then 
+    equation \ref{eq:potential-gradients} becomes,
+
+    \begin{equation}\begin{aligned}
+        \phi_{\mathrm{biased}}(\xi_j) &= \phi(\xi_j) + \phi_{WT-MTD}(\xi_j) \\
+        \phi(\xi_j) &= \phi_{\mathrm{biased}}(\xi_j) - \phi_{WT-MTD}(\xi_j)
+    \end{aligned}\end{equation}
+\end{spacing}

@@ -1,0 +1,85 @@
+\begin{spacing}{2.0}
+    \subsection{Well-Tempered Metadynamics as an Exploration Tool}
+
+    To understand why WT-MTD allows a speedy exploration of the configuration space, it is important to first understand the underlying 
+    theoretical aspects behind regular metadynamics. Originally proposed by Laio and Parrinello in 2002, regular metadynamics adds repulsive
+    Gaussians $V_{MTD}$ of the following form over a long period of simulation, \cite{P-PNAS-2002-v99-Laio}
+
+    \begin{equation}
+        V_{MTD}(\xi_1,\xi_2,\ldots,\xi_D,t) = \sum_{t=0,\,\Delta t,\,2\Delta t,\,\ldots,\,N_G\Delta t} 
+            h\exp\left(-\frac{1}{2}\sum_{i=1}^D\frac{\left(\xi_i-\xi_i(t)\right)^2}{\sigma_i^2}\right)
+        \label{eq:metadynamics-potential}
+    \end{equation}
+
+    \noindent where $h$ represents the height of each Gaussian, which is constant over time, $N_G$ is the number of deposited Gaussians,
+    and $\sigma_i^2$ is the width of the Gaussian in the $i$-th dimension. If more Gaussians are deposited in a metadynamics simulation, the 
+    barrier would become more accessible due to less difference in the potential energy. According to equation \ref{eq:free-energy-prob-defn}, 
+    this would mean that the probability of accessing the barrier would exponentially increase, and if any metadynamics simulations are performed 
+    for a long period of time, the deposited Gaussians would converge to the negative value of the free energy.
+
+    \begin{equation}
+        V_{MTD}(\xi_1,\xi_2,\ldots,\xi_D, t\to\infty) = -A(\xi_1,\xi_2,\ldots,\xi_D) + C
+    \end{equation}
+
+    The rate of the convergence of metadynamics depend on our choice of the parameters $h$ and $\sigma_i^2$. While $\sigma_i^2$ governs 
+    the rate of exploration by dictating how wide of the area in its collective space domain that the Gaussians shall cover, $h$
+    governs how high the Gaussians would be. If $h$ is not chosen carefully, then it is possible that the converged $V_{MTD}$ may become
+    noisy and not smooth. In order to ameliorate this issue, well-tempered metadynamics (WT-MTD) was introduced by Barducci et al.
+    to ensure that over time, $h$ would steadily be decreasing until it asymtotically converges to zero. The bias potential form
+    of WT-MTD takes a similar form with equation \ref{eq:metadynamics-potential}, with a slight difference.
+
+    \begin{equation}
+        V_{WT-MTD}(\xi_1,\xi_2,\ldots,\xi_D,t) = \sum_{t=0,\,\Delta t,\,2\Delta t,\,\ldots,\,N_G\Delta t} 
+            h(t)\exp\left(-\frac{1}{2}\sum_{i=1}^D\frac{\left(\xi_i-\xi_i(t)\right)^2}{\sigma_i^2}\right)
+        \label{eq:wt-mtd-potential}
+    \end{equation}
+
+    Instead of being a constant, the Gaussian height in WT-MTD simulations, $h(t)$, decays over time according to the following equation,
+
+    \begin{equation}
+        h(t) \propto \exp\left(-\frac{V_{WT-MTD}(\xi_1,\xi_2,\ldots,\xi_D,t)}{k_B\Delta T}\right)
+        \label{eq:wt-mtd-decay}
+    \end{equation}
+
+    The exponential term in equation \ref{eq:wt-mtd-decay} tells us that as the Gaussians are deposited, $h(t)$ would be modified by
+    the exponential factor of the negative value of all the deposited Gaussians at that time. Hence, as $t\to\infty$, $h(t)$ would
+    asymptotically converge to zero, which indicates the point where the deposited Gaussians are appropriately smoothened, eliminating
+    the noises that may present from using the regular variant of metadynamics. The rate at which $h(t)$ decays over time is governed
+    by an additional parameter, $\Delta T$, which is called the well-tempered temperature. In WT-MTD simulations, $\Delta T$ can be
+    thought of as a high temperature value that adds up to the regular, thermostatted simulation temperature that modifies the 
+    probability of finding a particular configuration in equation \ref{eq:free-energy-prob-defn} to the following,
+
+    \begin{equation}
+        p(1\to *) \propto e^{-\beta^*\Delta A_{t\to *}}
+    \end{equation}
+
+    \noindent where $\beta^* = \left[k_B(T + \Delta T)\right]^{-1}$. This means when $\Delta T$ is high, the probability of sampling
+    the rare event is significantly greater, while when $\Delta T \to 0$, the WT-MTD simulation would converge to a normal MD simulation
+    in a canonical ensemble. A value that is commonly used in literature to indicate the strength of the WT-MTD bias is called a 
+    \textsl{bias factor}, $\gamma$, which is defined as follow, \cite{P-JCTC-2016-v12-Sun}
+
+    \begin{equation}
+        \gamma = \frac{T + \Delta T}{T}
+    \end{equation}
+
+    However, the drawback of WT-MTD is that the Gaussians do not converge to the free energy as in regular metadynamics. Rather,
+    it converges to a factor of the free energy, and the factor is determined by the choice of $\Delta T$, or $\gamma$.
+
+    \begin{equation}\begin{aligned}
+        V_{WT-MTD}(\xi_1,\xi_2,\ldots,\xi_D,t\to\infty) &= -\frac{\Delta T}{T + \Delta T}A(\xi_1,\xi_2,\ldots,\xi_D) + C \\
+            &= -\frac{\gamma - 1}{\gamma}A(\xi_1,\xi_2,\ldots,\xi_D) + C
+    \end{aligned}\end{equation}
+
+    Nevertheless, WT-MTD still retains the same advantage as regular metadynamics that the Gaussian deposition is implicitly guided by
+    the original probability of finding a configuration (equation \ref{eq:free-energy-prob-defn}). Thus, the Gaussian deposition would
+    still be aimed more toward any regions with deep free energy minima, and will still leveling out those deep wells so that the
+    simulation would move across the free energy barriers more frequently. The exploration is further aided by our choice of $\gamma$.
+    For the purpose of the free energy computations, the accepted range of $\gamma$ for WT-MTD simulation is between 10 to 15.
+    Using a significantly higher $\gamma$ than this range would still result in a noisy reconstruction of the free energy landscape,
+    an issue that usually presents with the regular variant of metadynamics. However, using a very high value of $\gamma$ has
+    a benefit for exploration of the configuration space of any systems with deep minima and high free energy barriers, because
+    the exploration can be done far more quickly while the Gaussian heights would also be partially decayed. Mones et al. reported
+    their exploration of the free energy landscapes of alanine peptides with a value of $\gamma = 33.3$ 
+    ($T = 300\,\mathrm{K}$ and $\Delta T = 10,000\,\mathrm{K}$), 
+    which is unsuitable for recovering the free energy, but hugely aids the exploration efforts. \cite{P-JCTC-2016-v12-Mones}
+\end{spacing}
