@@ -1,5 +1,12 @@
 \begin{spacing}{2.0}
-    \subsection{UIFs Computation from a Biased WT-MTD Simulation}
+    \subsection{Computation of the Unbiased Instantaneous Forces (UIFs) from a Biased WT-MTD Simulation}
+
+    We have mentioned earlier in section \ref{sec:free-energy-intro} that a normal, unbiased MD simulation does not sample the rare 
+    event regions of the free energy landscape very well due to low probability. Therefore, we would usually get a good information
+    in the free energy basins, but the free energy of the rare event regions obtained from unbiased MD simulations tend to be
+    noisy due to poor sampling. In order to obtain enough information in the rare event regions without performing windowed simulations,
+    guided sampling in the collective variable spaces can be done efficiently with WT-MTD simulations, where an additive
+    biasing potential $V_{WT-MTD}(\xi_1,\xi_2,\ldots,\xi_D,t)$ is added to the Hamiltonian over time.
 
     For any variants of metadynamics, the forms of the potentials similar to equations \ref{eq:metadynamics-potential} and 
     \ref{eq:wt-mtd-potential} are added to the normal potential that is the part of the original Hamiltonian of the system. Therefore, the 
@@ -28,4 +35,44 @@
         \phi_{\mathrm{biased}}(\xi_j) &= \phi(\xi_j) + \phi_{WT-MTD}(\xi_j) \\
         \phi(\xi_j) &= \phi_{\mathrm{biased}}(\xi_j) - \phi_{WT-MTD}(\xi_j)
     \end{aligned}\end{equation}
+
+    Since the computation of the free energy requires $\phi(\xi_j)$ as a free energy estimator for the $\xi_j$ dimension, 
+    we need to compute $\phi_{\mathrm{biased}}(\xi_j)$ and $\phi_{WT-MTD}(\xi_j)$ from a biased WT-MTD simulation. 
+    $\phi_{\mathrm{biased}}(\xi_j)$ is computed from $V_{\mathrm{biased}}$ by a transformation of $V_{\mathrm{biased}}$
+    from a Cartesian coordinate system usually common in frequently used MD software packages into the collective variable space using
+    the following equation, \cite{B-FEComput}
+
+    \begin{equation}
+        \mathbf{f}_{\mathrm{biased}} = -(\mathbf{G}_W^{-1}\mathbf{W})\cdot\nabla_{\mathbf{X}}V(\mathbf{X}) + 
+            \beta^{-1}\nabla_{\mathbf{X}}\cdot(\mathbf{G}^{-1}_W\mathbf{W})
+        \label{eq:uif-second-derivative}
+    \end{equation}
+
+    \noindent where $\mathbf{f}_{\mathrm{biased}} = \left[\phi_{\mathrm{biased}}(\xi_1)\,\phi_{\mathrm{biased}}(\xi_2)\,
+    \ldots\,\phi_{\mathrm{biased}}(\xi_D)\right]^{\top}$ is a $D\times 1$ vector of the biased instantaneous forces (BIFs), 
+    $\mathbf{G}_W^{-1} = \mathbf{W}\nabla_{\mathbf{X}}\xi$ is the generalized Gram matrix, $\nabla_{\mathbf{X}}\xi$ is the Jacobian of the
+    collective variables, which is a $3N_{atoms} \times D$ matrix, and $\mathbf{W} = \nabla_{\mathbf{X}}\xi^{\top}\mu^{-1}$, where 
+    $\mu^{-1} = \delta_{ij}m_i^{-1}$ is a $3N_{atoms} \times 3N_{atoms}$ matrix whose diagonal elements represent masses of each atom
+    in the system. However, one could immediately see that the second term of equation \ref{eq:uif-second-derivative} requires a computation of a 
+    Hessian matrix, which can be expensive in case a collective variable involves many atoms. Nevertheless, Darve et al. has pointed out the 
+    relationship between equation \ref{eq:uif-second-derivative} and the average of the potential’s gradient. 
+    \cite{P-JChemPhys-2008-v128-Darve} Therefore, equation \ref{eq:uif-second-derivative} can be simplified as follow,
+
+    \begin{equation}
+        \mathbf{f}_{\mathrm{biased}} = \frac{d}{dt}(\mathbf{W}\nabla_{\mathbf{X}}\xi)^{-1}\frac{d\xi}{dt}
+        \label{eq:uif-first-derivative}
+    \end{equation}
+
+    Equation \ref{eq:uif-first-derivative} can be computed numerically provided that the biased trajectory is evenly spaced by a small enough 
+    timestep $\Delta t$ to minimize the numerical error. Therefore, a vector $\mathbf{f} = \left[\phi(\xi_1)\,\phi(\xi_2)
+    \,\ldots\,\phi(\xi_D)\right]^{\top}$ of the UIFs can be computed by subtracting $\mathbf{f}_{\mathrm{biased}}$ with
+    $\mathbf{f}_{WT-MTD} = \left[\phi_{WT-MTD}(\xi_1)\,\phi_{WT-MTD}(\xi_2)\,\ldots\,\phi_{WT-MTD}(\xi_D)\right]^{\top}$, which could be
+    easily computed by simply taking the gradient of $V_{WT-MTD}$, already expressed in terms of the collective variables of interests.
+
+    \begin{equation}
+        \mathbf{f}_{WT-MTD} = -\nabla_{\xi}V_{WT-MTD}
+    \end{equation}
+
+    With $\mathbf{f}$ determined, a training set of the collective variable points and the unbiased instantaneous forces can be built for
+    GPR reconstruction of a $D$-dimensional free energy landscape. 
 \end{spacing}

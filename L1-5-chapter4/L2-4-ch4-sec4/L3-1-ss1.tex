@@ -1,0 +1,67 @@
+\begin{spacing}{2.0}
+    \section{Validation of GPR Free Energy Surfaces}
+
+    The previous sections have listed all the theoretical requirements for free energy landscape reconstruction for any $D$-dimensional problems 
+    using GPR. However, in order to ensure that the GPR free energy landscapes are sound, the errors of the GPR free energy surfaces are needed
+    to be computed quantitatively. In fact, as part of the characteristic joint distribution between vectors $\mathbf{f}'$ and $\mathbf{f}$ in
+    equation XX, it is also possible to compute the variance of all the points in the test data. \cite{W-Stanford-GPR} However, since the 
+    computation of variance involves the $(\Sigma')^2 I$ matrix of the training data's variance, it is not a representative variance of the 
+    actual free energy landscape computed from a more traditional method with minimum statistical noises of the free energy estimators like US
+    or TI. 
+
+    In order to validate the GPR free energy landscape, GPR results can be compared with a reference surface computed using methods that are
+    more widely accepted among the community, which implies that the best choice of a reference surface must come from windowed simulations. 
+    Although using a reference surface from windowed simulation is not usually a problem in a one-dimensional case, it becomes more problematic
+    for the two-dimensional space and beyond due to the scaling issue, which defeats the main purpose of needing a method for free energy
+    computation that is fast and resource-efficient. 
+
+    As Mones et al. have highlighted that the one-dimensional windowed simulations are computationally cheap enough to perform, one could easily
+    get $D$ one-dimensional free energy landscapes for each individual dimension in our problem. A simple thought experiment would validate that
+    it is more beneficial to perform $D$ one-dimensional windowed simulation than to perform one $D$-dimensional windowed simulation if $D > 1$.
+    Let $N_{1D}$ be the number of windows required for a good one-dimensional free energy landscape from windowed simulations, for a $D$-dimensional
+    problem, we would need to run a reference calculation that involve only $DN_{1D}$ windows, whereas one $D$-dimensional reference free energy
+    landscape computed using windowed simulation would require $\mathcal{O}(N_{1D}^D)$ windows. While this may not be a big problem for classical
+    MD simulations, the scaling issue can be a big consideration once expensive simulation protocols such as AIMD are involved.
+
+    \subsection{Bounding 1D Umbrella Sampling Errors with EMUS}
+
+    Although umbrella sampling (US) simulations have existed for a long time since the original proposal by Torrie and Valleau, most of the work
+    of free energy computations using US rarely published the errors of their surfaces. [CITE] In order to get the free energy out of the 
+    windowed simulation, the most commonly used method among researchers is the Weighted-Histogram Analysis Method (WHAM). 
+    \cite{P-JCompChem-1992-v13-Kumar} When the error of the US free energy landscape constructed from WHAM is needed, a method called
+    Monte Carlo bootstraping analysis is needed, which involves the resampling from generated fake data. [CITE GROSSFIELD WEB] This causes a
+    very long time to sample when the resampling size is large. 
+
+    There have also been recent developments in the US simulation as well, and the recent work by Thiede et al. proposed a reformulation of
+    the free energy computation from US data into an eigenproblem, which they called the Eigenvector Method for Umbrella Sampling (EMUS).
+    \cite{P-JChemPhys-2016-v146-Thiede} They also claimed that EMUS also allowed a computation of the asymptotic variance of the free energy
+    landscape without the need to resample any fake data.
+
+    Key to this theory is the expression of the $i$-th normalization constant, $z_i$, as a vector. The definition of $z_i$ is the following,
+
+    \begin{equation}
+        z_i = \frac{\int V^b_i(\mathbf{x})\pi(\mathbf{x})d\mathbf{x}}{\sum_{i=1}^{N_{window}}\int V^b_i(\mathbf{x})
+            \pi(\mathbf{x})d\mathbf{x}}
+    \end{equation}
+
+    \noindent where $V^b_i(\mathbf{x})$ is the $i$-th biased potential in each window, and $\pi(\mathbf{x})$ is the biased probability density
+    of finding the configuration $\mathbf{x}$. The free energy in each window is, thus, related to $_i$ as,
+
+    \begin{equation}
+        A = -\beta^{-1}\ln z_i
+    \end{equation}
+
+    It then can be show that $z_i$ can also be written as a left eigenvector $\mathbf{z}$ of the operator $\mathbf{F}$, where
+
+    \begin{equation}\begin{aligned}
+        z_j &= \sum_{i=1}^{N_{window}} z_i F_{ij} \\
+        F_{ij} &= \left<\frac{V_j^b}{\sum_{k=1}^{N_{window}}V_j^b}\right>_i
+        \label{eq:emus-z}
+    \end{aligned}\end{equation}
+
+    Equation \ref{eq:emus-z} indicates that $\mathbf{z}$ can be solved as an eigenvalue problem, and the average free energy for each window
+    can then be computed using the knowledge of $\mathbf{z}$. Not only that, the information of $\mathbf{z}$ and $\mathbf{F}$ can also be used
+    to estimate the asymptotic variance of EMUS as well according to the central limit theorem. Therefore, for any US simulations, one can
+    computed the free energy along with its associated asymptotic variance using EMUS, which perfectly serves as good references for a 
+    $D$-dimensional free energy landscape computed using GPR.
+\end{spacing}

@@ -1,0 +1,41 @@
+\begin{spacing}{2.0}
+    \subsection{Projection of a Two-dimensional Free Energy Landscape into One-di\-men\-sional Free Energy Landscape}
+
+    If our $D$-dimensional free energy landscape is quantitatively sound, then its projection into each individual dimension needs to quantitatively 
+    agree with the results we obtained from one-dimensional US simulations. In a two-dimensional scenario, the projection of the free energy into
+    each individual variable is relatively easy. Define a free energy as a function of two collective variables $A(\xi_1,\xi_2)$. Therefore,
+    we can write $A(\xi_1,\xi_2)$ in terms of the marginal probability density $p(\xi_1,\xi_2)$,
+
+    \begin{equation}\begin{aligned}
+        A(\xi_1,\xi_2) &= -\beta^{-1}\ln p(\xi_1,\xi_2) \\
+                       &= -\beta^{-1}\ln\left[p(\xi_1)p(\xi_2|\xi_1)\right] \\
+                       &= -\beta^{-1}\ln\left[e^{\left(-\beta A(\xi_1,\xi_2)\right)}p(\xi_2|\xi_1)\right]
+        \label{eq:free-energy-projection-1}
+    \end{aligned}\end{equation}
+
+    The conditional probability $p(\xi_2|\xi_1)$ in the canonical ensemble can be written as,
+
+    \begin{equation}
+        p(\xi_2|\xi_1) = \frac{e^{-\beta A(\xi_1,\xi_2)}}{\int e^{-\beta A(\xi_1,\xi_2)} d\xi_2}
+        \label{eq:conditional-prob}
+    \end{equation}
+
+    By plugging the expression for $p(\xi_2|\xi_1)$ from equation \ref{eq:conditional-prob} into equation \ref{eq:free-energy-projection-1},
+    we can now express $A(\xi_1)$ by integrating out the elements in the $\xi_2$ dimension according to the following equation,
+
+    \begin{equation}
+        A(\xi_1) = -\beta^{-1}\ln\int e^{-\beta A(\xi_1,\xi_2)} d\xi_2
+        \label{eq:projection-1}
+    \end{equation}
+
+    We could also repeat the similar procedures in equations \ref{eq:free-energy-projection-1} and \ref{eq:conditional-prob} to get $A(\xi_2)$,
+    which is now written as,
+
+    \begin{equation}
+        A(\xi_2) = -\beta^{-1}\ln\int e^{-\beta A(\xi_1,\xi_2)} d\xi_1
+        \label{eq:projection-2}
+    \end{equation}
+
+    Hence, both $A(\xi_1)$ and $A(\xi_2)$ from equations \ref{eq:projection-1} and \ref{eq:projection-2} can be used to compared with the US results
+    to determine the quantitative agreement of GPR with respect to reference US free energy surfaces.
+\end{spacing}
