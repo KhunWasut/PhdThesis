@@ -1,8 +1,6 @@
-\section{Theoretical Foundations of MSM}
-
-\subsection{MSM Ansatz}
-
 \begin{spacing}{2.0}
+    \section{Markovianity of MD Simulations}
+
     In 1983, Zwanzig proposed that the transition between two metastable configurations in the phase space can be treated as a continuous time 
     random walk problem. \cite{P-JStatPhys-1983-v30-Zwanzig} In order to understand the Markovianity of a MD trajectory, it is necessary to think 
     about MD simulations in terms of the probability density of possible configurations, where the evolution of configurations over time is governed 
@@ -40,5 +38,38 @@
     \end{equation}
 
     \noindent where $Z = \int\exp(-\beta H(\mathbf{x}))d\mathbf{x}$ is the canonical partition function, $\beta = (k_B T)^{-1}$, and $H(\mathbf{x})$
-    is a classical Hamiltonian of the system.
+    is a classical Hamiltonian of the system. In order to model reversible reactions, another assumption that the configuration $\mathbf{x}(t)$ 
+    is reversible is needed. Therefore, the following detailed balance condition,
+
+    \begin{equation}
+        \mu(\mathbf{x})p(\mathbf{x},\mathbf{y};\tau) = \mu(\mathbf{y})p(\mathbf{y},\mathbf{x};\tau)
+    \end{equation}
+
+    \noindent as to be satisfied. Considering a probability density of a configuration $p_t(\mathbf{x})$, the transition probability 
+    $p(\mathbf{x},\mathbf{x};\tau)$ governs that after some times $\tau$, the probability density of $\mathbf{x}$ at time $t + \tau$is expressed as
+    $p_{t+\tau}(\mathbf{x})$. Hence, one could define a propagator $\mathcal{Q}(\tau)$that satisfies the following properties,
+
+    \begin{equation}
+        p_{t+\tau}(\mathbf{y}) = \mathcal{Q}(\tau)p_t(\mathbf{y}) = \int_{\mathbf{x}\in\Omega}p(\mathbf{x},\mathbf{y};\tau)p_t(\mathbf{x})d\mathbf{x}
+        \label{eq:msm-propagator}
+    \end{equation}
+
+    When weighted by the stationary density, another way to look at equation \ref{eq:msm-propagator} is through the transfer operator $\mathcal{T}(\tau)$
+    which propagates the weighted probability density. Thus, it must follow that,
+
+    \begin{equation}
+        u_{t+\tau}(\mathbf{y}) = \mathcal{T}(\tau)u_t(\mathbf{y}) = \frac{1}{\mu(\mathbf{y})}
+            \int_{\mathbf{x}\in\Omega}p(\mathbf{x},\mathbf{y};\tau)\mu(\mathbf{x})u_t(\mathbf{x})d\mathbf{x}
+        \label{eq:msm-weighted-propagator}
+    \end{equation}
+
+    In general, $\mathcal{T}(\tau)$ is a preferred operator because of the fact that $\mathcal{T}(\tau)$ operates on the weighted probability density. 
+    Therefore, it can be said that $\mathcal{T}(\tau)$ has to conform with the following properties,
+
+    \begin{enumerate}
+        \item{$\mathcal{T}(\tau)$ fulfills the Chapman—Kolmogorov equation $u_{t+k\tau}(\mathbf{x}) = \left[\mathcal{T}(\tau)\right]^k u_t(\mathbf{x})$,
+              where $\left[\mathcal{T}(\tau)\right]^k$ represents the $k$-th power of the transfer operator matrix.}
+        \item{There exist eigenfunctions $\psi_i$ that corresponds to the eigenvalue problem $\mathcal{T}(\tau)\psi_i = \lambda_i\psi_i$, where
+              $\lambda_i$ is the corresponding eigenvalue of an eigenfunction $\psi_i$}
+    \end{enumerate}
 \end{spacing}
