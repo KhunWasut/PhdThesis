@@ -860,11 +860,7 @@ Nevertheless, the main question here is how would we know the eigenfunction.
 
 \begin_layout Standard
 Hence, the variational principle can be applied to find a good approximation
- of 
-\begin_inset Formula $\tilde{\psi}_{i}$
-\end_inset
-
- if we could find such a function that gives 
+ o 
 \begin_inset Formula $e^{-\frac{\tau}{t_{i}^{\ddagger}}}\approx e^{-\frac{\tau}{t_{i}}}$
 \end_inset
 

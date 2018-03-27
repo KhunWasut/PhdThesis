@@ -1,5 +1,5 @@
 \begin{spacing}{2.0}
-    \section{Markovianity of MD Simulations}
+    \section{Markovianity of MD Simulations}\label{sec:markovian}
 
     In 1983, Zwanzig proposed that the transition between two metastable configurations in the phase space can be treated as a continuous time 
     random walk problem. \cite{P-JStatPhys-1983-v30-Zwanzig} In order to understand the Markovianity of a MD trajectory, it is necessary to think 
@@ -67,9 +67,48 @@
     Therefore, it can be said that $\mathcal{T}(\tau)$ has to conform with the following properties,
 
     \begin{enumerate}
-        \item{$\mathcal{T}(\tau)$ fulfills the Chapman—Kolmogorov equation $u_{t+k\tau}(\mathbf{x}) = \left[\mathcal{T}(\tau)\right]^k u_t(\mathbf{x})$,
+        \item{$\mathcal{T}(\tau)$ fulfills the Chapman—-Kolmogorov equation $u_{t+k\tau}(\mathbf{x}) = \left[\mathcal{T}(\tau)\right]^k u_t(\mathbf{x})$,
               where $\left[\mathcal{T}(\tau)\right]^k$ represents the $k$-th power of the transfer operator matrix.}
         \item{There exist eigenfunctions $\psi_i$ that corresponds to the eigenvalue problem $\mathcal{T}(\tau)\psi_i = \lambda_i\psi_i$, where
               $\lambda_i$ is the corresponding eigenvalue of an eigenfunction $\psi_i$}
+        \item{$\psi_i$ relates to the $i$-th eigenfunction of the propagator $\mathcal{Q}(\tau)$ through the stationary distribution; that is, 
+              $\mu(\mathbf{x})^{-1}\phi_i(\mathbf{x}) = \psi_i(\mathbf{x})$. Both $\phi_i$ and $\psi_i$ share the same eigenvalue $\lambda_i$.}
+        \item{The eigenvalues $\lambda_i$ are real numbers and $\lambda_i \in \left(-1,1\right]$, and the first eigenvalue $\lambda_1$ is always 1 and 
+              corresponds to the stationary density $\mu(\mathbf{x})$, and it must follow that $1 > \lambda_2 \geq \lambda_3 \geq \ldots \geq \lambda_n$}
     \end{enumerate}
+
+    Thus, the weighted probability density $u_{t+\tau}(\mathbf{x})$ can be written as a sum of all the eigenfunctions of $\mathcal{T}(\tau)$, which 
+    represent the spectral decomposition of the dynamics in our system. All motions in the dynamics are thought of the superimposition of 
+    independent motions represent by the $i$-th eigenfunction. Hence, $u_{t+k\tau}(\mathbf{x})$ is now written as,
+
+    \begin{equation}
+        u_{t+k\tau}(\mathbf{x}) = \sum_{i=1}^m \lambda_i^k\left<u_t,\psi_i\right>_{\mu}\psi_i(\mathbf{x}) + 
+            \sum_{j=m+1}^{\infty} \lambda_j^k\left<u_t,\psi_j\right>_{\mu}\psi_j(\mathbf{x})
+        \label{eq:spectral-density-ktau}
+    \end{equation}
+
+    The first term of equation \ref{eq:spectral-density-ktau} represents $m$ slowest motions which are deemed significant, while the second term 
+    represents all the other fast motions that may be considered irrelevant to the rate--determining process. $\left<u_t,\psi_i\right>_{\mu}$ 
+    is simply the inner product between $u_t$ and $\psi_i$ weighted by the stationary density $\mu_{\mathbf{x}}$. Equation \ref{eq:spectral-density-ktau}
+    also implies that in the limit where $k\to\infty$, only the first eigenfunction would remain as all other eigenvalues are strictly less than 
+    one except the first one, recovering the equilibrium distribution. The patterns of the eigenvalues thus would imply that for any motions where
+    $\lambda_i$ is less than 1, all the terms where $i > 1$ would decay over time according to the value of $\lambda_i$, which also determines the 
+    implied relaxation timescale of each motion through the following relationship,
+
+    \begin{equation}
+        t_i = -\frac{\tau}{\ln\lambda_i}
+    \end{equation}
+
+    Equation \ref{eq:spectral-density-ktau} can thus be now written as,
+
+    \begin{equation}
+        u_{t+k\tau}(\mathbf{x}) = 1 + \sum_{i=2}^m e^{-\frac{k\tau}{t_i}}\left<u_t,\psi_i\right>_{\mu}\psi_i(\mathbf{x}) +
+            \sum_{j=m+1}^{\infty} \lambda_j^k\left<u_t,\psi_j\right>_{\mu}\psi_j(\mathbf{x})
+        \label{eq:spectral-density-ktau-2}
+    \end{equation}
+
+    The representation of $u_{t+k\tau}(\mathbf{x})$ outlined in equation \ref{eq:spectral-density-ktau} is now separated into three parts; the stationary 
+    distribution, the $m-1$ important process that have distinctly different eigenvalues, from which the implied timescale of the process can now 
+    be extracted. However, important information can also be found from the first $m-1$ eigenfunctions as well through the projection onto the 
+    collective variable space, which we will discuss in the following section.
 \end{spacing}

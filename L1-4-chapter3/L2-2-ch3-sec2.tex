@@ -1,0 +1,60 @@
+\section{Simulation Details}
+\begin{spacing}{2.0}
+    \subsection{General Settings}
+
+    The system, \ce{NaCl + 495H2O}, contains one Na cation, one Cl anion, and 495 water molecules, was prepared by placing the ions randomly in a 
+    box of 30.0 \r{A}, and the water molecules were then placed in the same box using PACKMOL. \cite{P-JCompChem-2009-v30-Martinez} In order to 
+    get an equilibrium box size at 1.0 atm, the simulation in an isothermic-isobaric ensemble was performed for 960 ps using Nos\'{e}-Hoover 
+    Langevin piston \cite{P-JChemPhys-1994-v101-Martyna, P-JChemPhys-1995-v103-Feller} Once the equilibrium box size is obtained, the production 
+    simulation was performed under the canonical ensemble using Langevin dynamics with a damping constant of 5.0 $\mathrm{ps}^{-1}$ with NAMD 
+    \cite{P-JCompChem-2005-v26-Phillips} with the simulation timestep of 2.0 fs. Water molecules in this simulation are treated as rigid under a 
+    TIP3P model \cite{P-JChemPhys-1983-v79-Jorgensen}, and the force field parameters for all atoms are derived from the work by Joung and Cheatam. 
+    \cite{P-JPhysChemB-2008-v112-Joung} The electrostatic interactions were modeled by Particle Mesh Ewald \cite{P-JChemPhys-1993-v98-Darden} 
+    algorithm. The temperature of the simulation was controlled at 300 K, and periodic boundary conditions were applied throughout the simulation.
+
+    \subsection{Collective Variables}
+
+    In order to get a best reaction coordinate, a good set of collective variables are needed so that there are more basis functions available for
+    TICA. For this work, we chose two different sets of the collective variables for a comparison purpose. One set (CV Set 1) is a set of 13 
+    collective variables modeled after the work by Mullen et al., and another set (CV Set 2) is a set of 32 intuition-based variables that are 
+    thought to describe both the ionic and the solvent coordinates. Tables XX and YY show brief descriptions of the chosen collective variables for 
+    this reaction, as well as their corresponding index numbers. Based on our choice for the collective variables, they can be further subdivided 
+    into the following classes,
+
+    \textsl{The Interionic Separation Class} - This class of the collective variable is based on the interionic separation between the cation and 
+    the anion, which is defined to be the Euclidean distance between the two ions in the simulation,
+
+    \begin{equation}
+        r_{+-} = \left\lVert \mathbf{r}_{\mathrm{Na}} - \mathbf{r}_{\mathrm{Cl}} \right\rVert
+    \end{equation}
+
+    The collective variables belonging to this class are $r_{+-}$ itself, as well as its derivatives, such as $\frac{1}{r_{+-}}$ or 
+    $\frac{1}{r_{+-}^2}$, which are defined in the case that the derivatives can describe the dynamics better than the original variable.
+
+    \textsl{The Ionic Coordination Class} - This class of the collective variables aim to describe the behavior relating to the first and the second 
+    solvation shells of the cation and the anion to monitor the possibility of the ligand exchange type of reactions involved in the ion pairing. 
+    For CV Set 1, the definition of the ionic coordination class collective variables are taken straight from the work of Mullen et al., with slight 
+    modification of parameters to suit our simulation better,
+
+    \begin{equation}\begin{aligned}
+        n_+^{(i)} &= \sum_{j=1}^{N_{wat}}\frac{1-\tanh\left[\alpha\left(\left\lVert\mathbf{r}_{\mathrm{Na-O_j}}\right\rVert - b_{\mathrm{Na}}^{(i)}\right)\right]}{2} \\
+        n_-^{(i)} &= \sum_{j=1}^{N_{wat}}\frac{1-\tanh\left[\alpha\left(\left\lVert\mathbf{r}_{\mathrm{Cl-H_j}}\right\rVert - b_{\mathrm{Cl}}^{(i)}\right)\right]}{2}
+    \end{aligned}\end{equation}
+
+    \noindent where $n^{(i)}$ represents the $i$-th solvation shell of a corresponding ion, $\mathbf{r}_{\mathrm{Na-O}_j}$ is simply 
+    $\mathbf{r}_{\mathrm{Na}} - \mathbf{r}_{\mathrm{O}}$, $\mathbf{r}_{\mathrm{Cl-H}_j} = \mathbf{r}_{\mathrm{Cl}} - \mathbf{r}_{\mathrm{H}}$ where 
+    $\mathbf{r}_{\mathrm{H}}$ is the vector that points to the nearest hydrogen atom of each water molecule to \ce{Cl^-}, and $b^{(i)}$ is the
+    $i$-th minimum of the radial distribution function between the ions and the water molecules. For this simulation, $b_{\mathrm{Na}}^{(1)} = 3.18$ \r{A},
+    $b_{\mathrm{Na}}^{(2)} = 5.88$ \r{A}, $b_{\mathrm{Cl}}^{(1)} = 3.98$ \r{A}, and $b_{\mathrm{Cl}}^{(2)} = 6.28$ \r{A}. The constant $\alpha$ also
+    varies with the ions and the solvation shell, where $\alpha_{\mathrm{Na}}^{(1)} = 3$, $\alpha_{\mathrm{Na}}^{(2)} = 12$, $\alpha_{\mathrm{Cl}}^{(1)} = 7$,
+    and $\alpha_{\mathrm{Cl}}^{(2)} = 15$. For CV Set 2, there are also another alternative which has the following form,
+
+    \begin{equation}\begin{aligned}
+        n_+^{(i)} &= \sum_{j=1}^{N_{wat}} \frac{1-\left(\frac{\left\lVert\mathbf{r}_{\mathrm{Na-O}_j}\right\rVert}{b_{\mathrm{Na}}^{(i)}}\right)^n}
+            {1-\left(\frac{\left\lVert\mathbf{r}_{\mathrm{Na-O}_j}\right\rVert}{b_{\mathrm{Na}}^{(i)}}\right)^m} \\
+        n_-^{(i)} &= \sum_{j=1}^{N_{wat}} \frac{1-\left(\frac{\left\lVert\mathbf{r}_{\mathrm{Cl-H}_j}\right\rVert}{b_{\mathrm{Cl}}^{(i)}}\right)^n}
+            {1-\left(\frac{\left\lVert\mathbf{r}_{\mathrm{Cl-H}_j}\right\rVert}{b_{\mathrm{Cl}}^{(i)}}\right)^m} \\
+    \end{aligned}\end{equation}
+
+    \noindent where $n << m$. The derivatives of these variables are also considered to be belong to this class as well.
+\end{spacing}

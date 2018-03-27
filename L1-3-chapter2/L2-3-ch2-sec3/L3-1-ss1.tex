@@ -1,0 +1,51 @@
+\begin{spacing}{2.0}
+    \section{Approximating the Eigenfunctions of the Transfer Operator}
+
+    \subsection{Approximation of the Eigenfunctions through Variational Principle}
+
+    The solution of an eigenvalue problem in equation \ref{eq:spectral-density-ktau} gives us $m-1$ eigenvalues and eigenfunctions that best 
+    approximates the probability of arriving at an MD configuration at time $\tau$ after the current time. As mentioned in \ref{sec:markovian},
+    the information provided by eigenvalues implies the inherent timescale of their corresponding eigenfunctions. However, the eigenfunctions 
+    themselves also contain several important dynamical information of the process of interest. We could see that the inner product
+    $\left<u_t,\psi_i\right>$ tells us about the projection of the probability density of the configuration at current time; thus, the 
+    eigenfunction $\psi_i$ with the highest eigenvalue contains the contributions that give rise to the slowest motion for this process. 
+    In a situation where we have $\lambda_2 \gg \lambda_i\,\,\forall i > 2$, it readily implies that the slowest motion is a dominant motion and 
+    the other eigenfunctions decay much faster at lag time $\tau$, and $\psi_2$ would be able to be taken to dominate the dynamics.
+
+    Equations \ref{eq:spectral-density-ktau} and \ref{eq:spectral-density-ktau-2} provided a spectral decomposition of all different motions in 
+    the system, where the information of each motion can be obtained from the eigenvalue problem $\mathcal{T}(\tau)\psi_i = \lambda_i\psi_i$.
+    The implied timescale of each process could also be obtained from the eigenvalues $\lambda_i = e^{-\frac{\tau}{t_i}}$. However, we still do 
+    not know how to extract the dynamical information from the eigenfunctions. Nonetheless, equation \ref{eq:spectral-density-ktau} implies
+    that for any function that relates to a configuration $\mathbf{x}$ at time $t$, the time-autocorrelation function of an arbitrary function
+    $f$ as a function of $\tau$ can be written as,
+
+    \begin{equation}
+        \left<f(\mathbf{x}_t) f(\mathbf{x}_{t+\tau})\right>_t = \sum_{i=1}^{\infty} e^{-\frac{\tau}{t_i}} \left<\phi_i, f\right>^2
+        \label{eq:autocorrelation-function}
+    \end{equation}
+
+    Hence, the time-autocorrelation function of the $i$-th normalized eigenfunction $\psi_i$ can be used to recover the $i$-th eigenvalue due
+    to the fact that for a normalized eigenfunction, $\left<\psi_i(\mathbf{x}_t)\psi_i(\mathbf{x}_{t+\tau})\right>^2 = 1$. Thus, given that the 
+    eigenfunctions can be computed, the eigenvalues and the implied timescales can be approximated from the time-autocorrelation function as a 
+    function of $\tau$, now called a \textsl{lag time}.
+
+    \begin{equation}
+        \tilde{\lambda}_i = \left<\psi_i(\mathbf{x}_t\psi_i(\mathbf{x}_{t+\tau}))\right>
+    \end{equation}
+
+    Nevertheless, the main question here is how would we know the eigenfunction. It is very likely that we will never know the true form of the 
+    eigenfunctions $\psi_i$. However, since the eigenvalues $\lambda_i$ can be modeled from the time-autocorrelation of $\psi_i$, we always know 
+    that for any model eigenfunction $\tilde{\psi}_i$,
+
+    \begin{equation}
+        \left<\tilde{\psi}_i(\mathbf{x}_t)\tilde{\psi}_i(\mathbf{x}_{t+\tau})\right> \leq e^{-\frac{\tau}{t_i}}
+    \end{equation}
+
+    Hence, the variational principle can be applied to find a good approximation of $\tilde{\psi}_i$ given that we could find such a function that 
+    gives $e^{-\frac{\tau}{\tilde{t}_i}} \leq e^{-\frac{\tau}{t_i}}$ with a value of $\tilde{t}_i$, the variational approximation of $t_i$, as close 
+    as possible to $t_i$. Since the equality between the modeled and the actual implied timescale only holds if $\tilde{\psi}_i = \psi_i$,
+    the modeled eigenfunction $\tilde{\psi}_i$ that best approximates the true eigenfunction $\psi_i$ needs to maximize the modeled implied timescale
+    $\tilde{t}_i$, or equivalently, maximize the modeled eigenvalue $\tilde{\lambda}_i$. In fact, the principles behind the application of the 
+    variational principle to approximate the eigenfunctions of MSM is analogous to that of quantum mechanics, where the wavefunctions are best 
+    approximated by minimizing the energy.
+\end{spacing}

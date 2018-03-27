@@ -1,13 +1,44 @@
-\chapter{MSM Dynamical Views of \ce{NaCl + 495H2O} and \ce{LiCl + 468H2O} Systems}
-
-\section{Introduction}
-
 \begin{spacing}{2.0}
-    \lipsum[1]
+    \chapter{Ionic Association of NaCl in Aqueous Solution}
 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.75\textwidth]{./figs/fig3-01}
-        \caption{A two-dimensional free energy surface of the \ce{NaCl + 495H2O} reaction with two collective variables.}
-    \end{figure}
+    \section{Introduction}
+
+    The Markovian interpretation of MD simulations opened a wide avenue for calculating many interesting properties from a rigorous mathematical 
+    formalisms introduced in Chapter \ref{chap:chapter-msm}. Nevertheless, there are many components in this formalism, such as Time-lagged 
+    Independent Component Analysis (TICA), Matching Pursuit (MP), Markov State Model (MSM), or the recently published concepts of commute maps and 
+    commute distances. [CITE WORKS] Therefore, often times, it is difficult for researchers to grasp the whole concept of the Markovianity of MD 
+    simulations, preventing them to fully utilize the potentials. Recently, there have been significant breakthroughs in the applications of MSM 
+    and TICA in numerous simulations for biological systems, where the metastable states of the biomolecular configurations and the mechanisms and 
+    the probability of transition between the metastable states can be computed. [CITE] However, in our opinion, the entire package has rarely been 
+    used outside the biomolecuar simulation community. Hence, we believe that the interpretations of the Markovianity of chemical reactions can be 
+    applied to solve numerous problems in chemical dynamics, especially for problems that are easier to solve and a large enough amount of data 
+    can be obtained to assure that a simulation was performed to conform with an equilibrium under the canonical ensemble.
+
+    Therefore, we chose to apply the formulisms of Chapter \ref{chap:chapter-msm} to study the ionic association of NaCl in aqueous solution. 
+    Despite being a relatively simple problem, the mechanistic point of view of ionic association in aqueous solution remains relatively little 
+    understood. The work of Mullen et al. has opened new insights to this type of problem through the introduction of the $n_B$ collective variable 
+    describing the number of water molecules simultaneously associating with both the cation and the anion. \cite{P-JCTC-2014-v10-Mullen} This 
+    finding challenged the prevalent views of this process from the ligand exchange perspective, where the association of the ions is driven by 
+    the loss of water molecule from the cation's first solvation shell in order to make room for the CIP configuration. The identification of $n_B$
+    as an important collective variable; thus, is an important step towards better understandings of this problem. Nevertheless, McGibbon et al. 
+    proposed that a true reaction coordinate representing the slowest motion of the dynamics must rigorously follow the following three 
+    conditions, \cite{P-JChemPhys-2017-v146-McGibbon}
+
+    \begin{enumerate}
+        \item{It has to be at a reduced dimension from $\Omega \to \mathbb{R}$}
+        \item{It needs to be uniquely determined by the dynamics rather than being conditions enforced \textsl{a priori}}
+        \item{It needs to be a maximally predictive projection}
+    \end{enumerate}
+
+    In order to satisfy the three conditions above without any preconditioning of the committor surfaces a priori, we opted for the Markovian 
+    formulisms proposed in the previous chapter, where the slowest motion of the dynamics can be readily determined from the eigenfunction of the 
+    transfer operator with a corresponding highest eigenvalue that is not 1. From this formulism, the variational principle projection of the 
+    slowest eigenfunction can be done onto the basis set of collective variables through TICA, where the linear combination of the collective 
+    variables constitute a TICA eigenfunction, or a reaction coordinate. The TICA reaction coordinates can also be further reduced with MP to form 
+    a more physically interpretable version of the reaction coordinates focusing only on a few relevant collective variables. Having the 
+    information of $m$ slowest reaction coordinates from TICA that covers the majority of the cumulative kinetic variance, a good MSM for this 
+    system can then be built based on the coordinates that fully cover the extent of the simulation, from where the transition matrix between the 
+    coarsed metastable states can be computed either through the Hidden Markov Model (HMM), or Perron-Cluster Cluster Analysis (PCCA), allowing us 
+    to calculate the transition rate between relevant metastable states and the commute map of this system. Thus, here we present the Markovian 
+    interpretation of the ionic association of NaCl in an aqueous solution.
 \end{spacing}
