@@ -1,0 +1,14 @@
+\begin{spacing}{2.0}
+    \section{Markov State Model (MSM)}
+
+    \subsection{Discretization of the Input MD Simulation Data in Collective Variable Space}
+
+    The application of TICA to a mean--free input data in the collective variable space results in a set of $m-1$ slowest eigenfunctions $\tilde{\psi}_i$ 
+    with corresponding implied relaxation timescale $\tilde{t}_i$ associated with its eigenvalue $\tilde{\lambda}_i$ that is slower than a lag time
+    $\tau$ of interest. According to \placeholder{No\'{e} et al., these $\tilde{\psi}_i$ contain enough information to cover the entire kinetic map with
+    cumulative kinetic variance very close to 1. [CITE]} However, these MD input data are often very large, containing millions of data points. This
+    presents a major challenge in the analysis of this data, because many algorithms scale poorly for matrices with size in the order of millions by
+    millions. In order to ease the computational workload to build a kinetic model of an MD trajectory, discretization of a large data set with respect
+    to an appropriate subspace that is thought to completely describe the whole data is a viable strategy that sparsifies a large matrix into a more
+    managable problem. 
+\end{spacing}

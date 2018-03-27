@@ -1,0 +1,63 @@
+\begin{spacing}{2.0}
+    \subsection{Time-lagged Independent Component Analysis (TICA)}\label{ssec:tica}
+
+    Suppose that a modeled eigenfunction $\tilde{\psi}_i$ can be modeled as a linear combination of an orthonormal basis of the ansatz $\chi_k$,
+    the reconstruction of $\tilde{\psi}_i$ as a linear combination of basis functions in the set $\chi = \left\{\chi_1,\chi_2,\ldots,\chi_{N_{\chi}}\right\}$
+    would take the following form,
+
+    \begin{equation}
+        \tilde{\psi}_i = \sum_{k=1}^{N_{\chi}} b_{ik}\chi_k
+    \end{equation}
+
+    % EXPAND MORE HERE!! 
+    \noindent where the optimal set of coefficients $b_{ik}$ can be determined from solving the following eigenvalue problem,
+
+    \begin{equation}
+        \mathbf{C}^{\chi}(\tau)\mathbf{b}_i = \mathbf{b}_i\tilde{\lambda}_i(\tau)
+        \label{eq:tica-eqn-1}
+    \end{equation}
+
+    \noindent where $\mathbf{C}^{\chi}(\tau)$ is the autocorrelation matrix of the ansatz functions at time $\tau$ with the following form,
+
+    \begin{equation}\begin{aligned}
+        c_{ij}^{\chi}(\tau) &= \left<\chi_i(\mathbf{x}_t)\chi_j(\mathbf{x}_{t+\tau})\right>_t \\
+        c_{ij}^{\chi}(0) &= \left<\chi_i(\mathbf{x}_t)\chi_j(\mathbf{x}_{t})\right>_t
+    \end{aligned}\end{equation}
+
+    \noindent under the condition of orthonomal ansatz functions $\left<\chi_i,\chi_j\right>_{\mu} = \left<\chi_i(\mathbf{x}_t)
+    \chi_j(\mathbf{x}_t)\right> = \delta_{ij}$, where $\delta_{ij}$ is the Kronecker's delta. However, for a non-orthonomal basis of the set $\chi$,
+    the basis must be orthonormalized first through generalizations of equation \ref{eq:tica-eqn-1} by using the autocorrelation of the ansatz 
+    function at time 0.
+
+    \begin{equation}
+        \mathbf{C}^{\chi}(\tau)\mathbf{b}_i = \mathbf{C}^{\chi}(0)\mathbf{b}_i\tilde{\lambda}_i(\tau)
+        \label{eq:tica-eqn-2}
+    \end{equation}
+
+    Solving equation \ref{eq:tica-eqn-2} yields an optimal set of the coefficients $\mathbf{b}_{i}$ for any non-orthonormal basis set $\chi$.
+    In our case, since we would like to determine the optimal set of collective variables for a particular eigenfunction, we would then construct a 
+    basis set consisting of as many collective variables as possible then solve equation \ref{eq:tica-eqn-2} for optimal coefficients for each
+    collective variable in $\tilde{\psi}_i$. In order to properly obtain the autocorrelation function in the basis set of the collective variables, 
+    we need to subtract the mean of each collective variable to create the mean--free input from our data such that,
+
+    \begin{equation}
+        \xi_i^{MF}(\mathbf{x}) = \xi_i(\mathbf{x}) - \left<\xi_i(\mathbf{x})\right>_t
+    \end{equation}
+
+    Therefore, we can now write an approximation of the eigenfunction $\tilde{\psi}_i$ as a linear combination of the mean--free collective 
+    variables $\xi_k^{MF}$,
+
+    \begin{equation}
+        \tilde{\psi}_i = \sum_{k=1}^{N_{\xi}} b_{ik}\xi_k^{MF}
+        \label{eq:linear-combination-cv}
+    \end{equation}
+
+    Consequently, we have demonstrated that $\tilde{\psi}_i$ can be approximated from the time--auto-corre-lation of itself at a lag time $\tau$,
+    and $\tilde{\psi}_i$ can be projected onto the collective variable space. According to equation \ref{eq:spectral-density-ktau}, only $m-1$
+    eigenfunctions are needed to sufficiently describe the dynamics. Since $\lambda_i$ and $t_i$ are functions of $\tau$, it is appropriate to only
+    select the eigenfunctions such that the implied relaxation timescale is greater than $\tau$ in order to take all the slowest motions beyond
+    the lag time into an account. Nonetheless, one problem remains --- since $\tilde{\psi}_i$ is a linear combination of all the collective variables
+    in the provided basis set, it can be hard to interpret the physical meaning of $\tilde{\psi}_i$ when it involves a lot of collective variables.
+    Hence, a reduced representation of $\tilde{\psi}_i$ written in terms of only relevant collective variables is desirable for the physical 
+    interpretation purposes. In order to achieve this, we use an algorithm called Matching Pursuit (MP), which we will discuss in the following section.
+\end{spacing}

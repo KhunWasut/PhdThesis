@@ -1,0 +1,69 @@
+\begin{spacing}{2.0}
+    \subsection{Matching Pursuit (MP): Reduced Representation for Eigenfunctions}
+
+    If $\tilde{\psi}_i$ is expanded with a non--orthonormal basis, some of the collective variables may not be entirely independent; hence, 
+    complicating the situation further by having coefficients in two or more possible collective variables that are not independent, and
+    does not help us in achieving our goal to truly reducing the dimensionality expression of the chemical process of interest. Matching Pursuit 
+    algorithm (MP), first proposed by Mallat and Zhang \cite{P-IEEETrans-1993-v41-Mallat}, can help us achieve our goal by finding a sparse 
+    solution of $\tilde{\psi}_i$ and reassign the coefficients accordingly.
+
+    Let us begin by suppose that there are $m-1$ modeled eigenfunctions $\tilde{\psi}_i$ such that $2 \leq i < m$. These $\tilde{\psi}_i$
+    are the most important components that we obtained from solving the TICA problem from the previous section. If we initially build such 
+    eigenfunctions from our library of $N_{\xi}$ collective variables, then each $\tilde{\psi}_i$ is simply a linear combination of those
+    $N_{\xi}$ variables as expressed in equation \ref{eq:linear-combination-cv}. However, as each $\tilde{\psi}_i$ is a function of $N_{\xi}$
+    variables, often times, it is very hard to use these variables altogether to discern the physical meaning of each $\tilde{\psi}_i$.
+    Preferably, one would prefer that each $\tilde{\psi}_i$ has a physically meaningful representation with only dominant collective variables 
+    represented. The MP algorithm reduced the representation of $\tilde{\psi}_i$ by finding only the productive coefficients that best summarize 
+    the behavior of the function based on our data. To better understand the MP algorithm, we would assume an arbitrary function $f(t)$ 
+    that can be written as a linear expansion on a basis $\chi = \left\{\chi_1,\chi_2,\ldots,\chi_{k}\right\}$ that could either be orthonormal 
+    or not.
+
+    \begin{equation}
+        f(t) = \sum_{i=1}^k b_i\chi_i(t)
+    \end{equation}
+
+    The inner product of $f$ and a basis function $\chi_k(t)$, $\left<f,\chi_k(t)\right>$, can be computed from the following equation,
+
+    \begin{equation}\begin{aligned}
+        \left<f,\chi_k\right> &= \sum_{i=1}^N b_i\left<\chi_i,\chi_k\right> \\
+            &= \sum_{i=1}^N b_i c_{ik}^{\chi}(0) \\
+            &= \sum_{i=1}^N c_{ki}^{\chi}(0)b_i \\
+            &= \left(\mathbf{C}^{\chi}(0)\mathbf{b}\right)_k
+        \label{eq:MP-correlation}
+    \end{aligned}\end{equation}
+
+    And a residual norm of $f$, $\left\lVert f_{res}^2 \right\rVert$, is computed as follow,
+
+    \begin{equation}\begin{aligned}
+        \left\lVert f_{res}^2 \right\rVert &= \left< \sum_{i=1}^N b_i\chi_i(t) \sum_{j=1}^N b_j\chi_j(t) \right> \\
+            &= \sum_{i=1}^N \sum_{j=1}^N b_i b_j \left<\chi_i(t)\chi_j(t)\right> \\
+            &= \sum_{i=1}^N \sum_{j=1}^N b_i c^{\chi}_{ij}(0) b_j = \mathbf{b}^{\top}\mathbf{C}^{\chi}(0)\mathbf{b}
+        \label{eq:MP-norm}
+    \end{aligned}\end{equation}
+
+    \placeholder{Algorithm here}
+
+    The algorithm to compute the productive coefficients, $\mathbf{b}^{\ddagger}$ of $f$ is outlined in figure XX using $\left<f,\chi_k\right>$
+    and $\left\lVert f_{res}^2 \right\rVert$ computed from equations \ref{eq:MP-correlation} and \ref{eq:MP-norm}. This presents an iterative 
+    method that converges to a set tolerance value of $\left\lVert f_{res}^2 \right\rVert$. The result of this algorithm is the reduced 
+    representation of $f$, $f^{\ddagger}$, such that,
+
+    \begin{equation}\begin{aligned}
+        f^{\ddagger}(t) &= \sum_{i=1}^{N_{reduced}} b_i^{\ddagger}\chi_i(t) \\
+            &\approx f(t)
+    \end{aligned}\end{equation}
+
+    \noindent where $N_{reduced} < N$. As shown in \ref{ssec:tica}, TICA computes $\tilde{\psi}_i$ according to the variational principle to get 
+    a best approximation that is reasonably close to $\psi_i$. Since TICA computes $\tilde{\psi}_i$ as a linear projection onto the basis of 
+    collective variables, the MP projection of $\tilde{\psi}_i$, $\psi_i^{\ddagger}$, can be computed in the same fashion as equation
+    \ref{eq:linear-combination-cv},
+
+    \begin{equation}\begin{aligned}
+        \psi_i^{\ddagger} &= \sum_{k=1}^{N_{reduced}} b_{ik}^{\ddagger}\chi_k^{MF} \\
+            &\approx \tilde{\psi}_i
+    \end{aligned}\end{equation}
+
+    $\psi_i^{\ddagger}$ is now expressed as a linear combination of $N_{reduced} < N_{\xi}$ variables.  Therefore, a reduced representation of
+    $\psi_i$ would allow us to interpret the dynamics of each motion involving only important collective variables that are dominant in each 
+    specific $\psi_i$. This way, one could gain important mechanistic insights into the slowest dynamics in any kinds of systems.
+\end{spacing}
