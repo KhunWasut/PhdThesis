@@ -11,15 +11,48 @@
     TIP3P model \cite{P-JChemPhys-1983-v79-Jorgensen}, and the force field parameters for all atoms are derived from the work by Joung and Cheatam. 
     \cite{P-JPhysChemB-2008-v112-Joung} The electrostatic interactions were modeled by Particle Mesh Ewald \cite{P-JChemPhys-1993-v98-Darden} 
     algorithm. The temperature of the simulation was controlled at 300 K, and periodic boundary conditions were applied throughout the simulation.
+    The trajectory was saved every 10 steps. The total simulation time for this system is 220 ns.
+
+    The analysis part started from reading the entire trajectory with MDTraj \cite{P-BiophysJ-2015-v109-McGibbon} using a 10-frame stride; therefore,
+    each of the snapshot input is 100 steps, or 0.2 picoseconds apart from one another. The analysis started with finding the slowest 
+    variational eigenfunctions $\tilde{\psi}_i$ with TICA at different lag times $\tau$, from where we picked a value of $\tau$ such that 
+    all the $m-1$ eigenfunctions consist of different motions that cover largest extent of the kinetic map possible. In order to form a Markov
+    State Model (MSM) for this reaction, $k$-means clustering [CITE] with $k$-means++ was used to discretize the input data into the space of 
+    $m-1$ $\tilde{\psi}_i$ obtained earlier from TICA, from which a coarse kinetic model, transition matrix, and commute maps can be obtained 
+    from Perron-Cluster Clustering Approach (PCCA+) [CITE] or Hidden Markov Model (HMM) [CITE]. All the analysis from TICA to coarse-grained
+    MSM was performed with a software package PyEMMA. \cite{P-JCTC-2015-v11-Scherer}
 
     \subsection{Collective Variables}
 
     In order to get a best reaction coordinate, a good set of collective variables are needed so that there are more basis functions available for
     TICA. For this work, we chose two different sets of the collective variables for a comparison purpose. One set (CV Set 1) is a set of 13 
     collective variables modeled after the work by Mullen et al., and another set (CV Set 2) is a set of 32 intuition-based variables that are 
-    thought to describe both the ionic and the solvent coordinates. Tables XX and YY show brief descriptions of the chosen collective variables for 
-    this reaction, as well as their corresponding index numbers. Based on our choice for the collective variables, they can be further subdivided 
-    into the following classes,
+    thought to describe both the ionic and the solvent coordinates. Tables \ref{tab:cv-set-1} and YY show brief descriptions of the chosen 
+    collective variables for this reaction, as well as their corresponding index numbers. Based on our choice for the collective variables, they 
+    can be further subdivided into the following classes,
+
+    \begin{table}[h]
+        \centering
+        \caption{A list of collective variables used in CV Set 1 inspired by the previous work in Mullen et al.}
+        \label{tab:cv-set-1}
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            \textbf{Index} & \textbf{Feature} & \textbf{Feature Class} & \textbf{Remarks} \\ \hline
+            1 & $n_+^{(1)}$ & Ion Coordination & \\
+            2 & $n_-^{(1)}$ & Ion Coordination & \\
+            3 & $n_B$ & Water Between Ions & \\
+            4 & $n_+^{(2)}$ & Ion Coordination & Including first shell \\ 
+            5 & $n_-^{(2)}$ & Ion Coordination & Including first shell \\
+            6 & $n_+^{(2)}$ & Ion Coordination & Excluding first shell \\ 
+            7 & $n_-^{(2)}$ & Ion Coordination & Excluding first shell \\
+            8 & $r_{+-}$ & Interionic Separation & \\
+            9 & $\rho_{ii}$ & Water Density & $\sigma = 3.57$ \r{A} \\
+            10 & $\rho_{ii}$ & Water Density & $\sigma = r_{+-}/4$ \\
+            11 & $\rho_{ii}$ & Water Density & $\sigma = r_{+-}/3$ \\
+            12 & $\rho_{ii}$ & Water Density & $\sigma = r_{+-}/2$ \\
+            13 & $\rho_{ii}$ & Water Density & $\sigma = r_{+-}$ \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textsl{The Interionic Separation Class} - This class of the collective variable is based on the interionic separation between the cation and 
     the anion, which is defined to be the Euclidean distance between the two ions in the simulation,
@@ -37,8 +70,8 @@
     modification of parameters to suit our simulation better,
 
     \begin{equation}\begin{aligned}
-        n_+^{(i)} &= \sum_{j=1}^{N_{wat}}\frac{1-\tanh\left[\alpha\left(\left\lVert\mathbf{r}_{\mathrm{Na-O_j}}\right\rVert - b_{\mathrm{Na}}^{(i)}\right)\right]}{2} \\
-        n_-^{(i)} &= \sum_{j=1}^{N_{wat}}\frac{1-\tanh\left[\alpha\left(\left\lVert\mathbf{r}_{\mathrm{Cl-H_j}}\right\rVert - b_{\mathrm{Cl}}^{(i)}\right)\right]}{2}
+        n_+^{(i)} &= \sum_{j=1}^{N_{wat}}\frac{1-\tanh\left[\alpha\left(\left\lVert\mathbf{r}_{\mathrm{Na-O}_j}\right\rVert - b_{\mathrm{Na}}^{(i)}\right)\right]}{2} \\
+        n_-^{(i)} &= \sum_{j=1}^{N_{wat}}\frac{1-\tanh\left[\alpha\left(\left\lVert\mathbf{r}_{\mathrm{Cl-H}_j}\right\rVert - b_{\mathrm{Cl}}^{(i)}\right)\right]}{2}
     \end{aligned}\end{equation}
 
     \noindent where $n^{(i)}$ represents the $i$-th solvation shell of a corresponding ion, $\mathbf{r}_{\mathrm{Na-O}_j}$ is simply 
@@ -47,14 +80,44 @@
     $i$-th minimum of the radial distribution function between the ions and the water molecules. For this simulation, $b_{\mathrm{Na}}^{(1)} = 3.18$ \r{A},
     $b_{\mathrm{Na}}^{(2)} = 5.88$ \r{A}, $b_{\mathrm{Cl}}^{(1)} = 3.98$ \r{A}, and $b_{\mathrm{Cl}}^{(2)} = 6.28$ \r{A}. The constant $\alpha$ also
     varies with the ions and the solvation shell, where $\alpha_{\mathrm{Na}}^{(1)} = 3$, $\alpha_{\mathrm{Na}}^{(2)} = 12$, $\alpha_{\mathrm{Cl}}^{(1)} = 7$,
-    and $\alpha_{\mathrm{Cl}}^{(2)} = 15$. For CV Set 2, there are also another alternative which has the following form,
+    and $\alpha_{\mathrm{Cl}}^{(2)} = 15$. %For CV Set 2, there are also another alternative which has the following form,
 
-    \begin{equation}\begin{aligned}
-        n_+^{(i)} &= \sum_{j=1}^{N_{wat}} \frac{1-\left(\frac{\left\lVert\mathbf{r}_{\mathrm{Na-O}_j}\right\rVert}{b_{\mathrm{Na}}^{(i)}}\right)^n}
-            {1-\left(\frac{\left\lVert\mathbf{r}_{\mathrm{Na-O}_j}\right\rVert}{b_{\mathrm{Na}}^{(i)}}\right)^m} \\
-        n_-^{(i)} &= \sum_{j=1}^{N_{wat}} \frac{1-\left(\frac{\left\lVert\mathbf{r}_{\mathrm{Cl-H}_j}\right\rVert}{b_{\mathrm{Cl}}^{(i)}}\right)^n}
-            {1-\left(\frac{\left\lVert\mathbf{r}_{\mathrm{Cl-H}_j}\right\rVert}{b_{\mathrm{Cl}}^{(i)}}\right)^m} \\
-    \end{aligned}\end{equation}
+    %\begin{equation}\begin{aligned}
+    %    n_+^{(i)} &= \sum_{j=1}^{N_{wat}} \frac{1-\left(\frac{\left\lVert\mathbf{r}_{\mathrm{Na-O}_j}\right\rVert}{b_{\mathrm{Na}}^{(i)}}\right)^n}
+    %        {1-\left(\frac{\left\lVert\mathbf{r}_{\mathrm{Na-O}_j}\right\rVert}{b_{\mathrm{Na}}^{(i)}}\right)^m} \\
+    %    n_-^{(i)} &= \sum_{j=1}^{N_{wat}} \frac{1-\left(\frac{\left\lVert\mathbf{r}_{\mathrm{Cl-H}_j}\right\rVert}{b_{\mathrm{Cl}}^{(i)}}\right)^n}
+    %        {1-\left(\frac{\left\lVert\mathbf{r}_{\mathrm{Cl-H}_j}\right\rVert}{b_{\mathrm{Cl}}^{(i)}}\right)^m} \\
+    %    \label{eq:CN-power}
+    %\end{aligned}\end{equation}
 
-    \noindent where $n << m$. The derivatives of these variables are also considered to be belong to this class as well.
+    %\noindent where $n << m$. The derivatives of these variables are also considered to be belong to this class as well. The definition in equation
+    %\ref{eq:CN-power} was widely used in numerous literatures. [CITE] \placeholder{We also have other definitions as well.}
+
+    \textsl{The Water Between Ions Class} - This class of the collective variables was first conceived in Mullen et al. \cite{P-JCTC-2014-v10-Mullen}, which
+    aims to describe the simultaneous association of a water molecule with respect to either of the ion. Therefore, for higher $r_{+-}$, there should be
+    no water molecules associating with both of the ions. However, for small $r_{+-}$, more water molecules can associate with the ions, bridging the
+    ions together. The definition of $n_B$, the number of water molecules associating with both of the ions, is defined as follow,
+
+    \begin{equation}
+        n_B = \sum_{j=1}^{N_{wat}}\max\left(\frac{1-\tanh\left[\alpha\left(\left\lVert \mathbf{r}_{\mathrm{Na-O}_j} \right\rVert - b_{\mathrm{Na}}^{(1)}\right)\right]}{2}, 
+            \frac{1-\tanh\left[\alpha\left(\left\lVert \mathbf{r}_{\mathrm{Cl-H}_j} \right\rVert - b_{\mathrm{Cl}}^{(1)}\right)\right]}{2}\right)
+    \end{equation}
+
+    \noindent where all the parameters, $\alpha$, $b_{\mathrm{Na}}^{(1)}$, $b_{\mathrm{Cl}}^{(1)}$ are the same as the ones defined for the ionic coordination
+    class. This variable, $n_B$, is used in CV Set 1. %However, for CV Set 2, we use another variable per suggestions from Professor Cecilia Clementi
+    %that indicates the number of water molecules between the two ions
+
+    \textsl{The Water Density Class} - This class of collective variables describes the density of water molecules around the midpoint between
+    the two ions. In Mullen et al., this variable is defined as follow,
+
+    \begin{equation}
+        \rho_{ii} = \frac{1}{(2\pi\sigma^2)^{3/2}}\sum_{j=1}^{N_{wat}}\exp\left[-\frac{\left\lVert \mathbf{r}_{\mathrm{O}_j} - \mathbf{r}_{mid} \right\rVert^2}
+            {2\sigma^2}\right]
+    \end{equation}
+
+    \noindent where $\mathbf{r}_{mid}$ is the vector that points to the midpoint between the two ions. This variable has a unit of $\mathrm{length}^{-3}$, and
+    there are 5 variables in CV Set 1 belonging to this class, each of which has a different value of $\sigma$, which indicates how rapidly the density would
+    vary around the midpoint between the ions. The smaller the value of $\sigma$, the density varies more abruptly. Another way to look at this variable is
+    that it represents the number of water molecules inside the volume $V_{ii} = \left(2\pi\sigma^2\right)^{3/2}$. In this work, we used the values of $\sigma$
+    at 3.54 \r{A}, $r_{+-}/4$, $r_{+-}/3$, $r_{+-}/2$, and $r_{+-}$. 
 \end{spacing}
