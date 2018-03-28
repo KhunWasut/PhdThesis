@@ -1,0 +1,26 @@
+\begin{spacing}{2.0}
+    \section{Summary}
+
+    A molecular dynamics simulation can be interpreted in the probabilistic view, where the Markovian properties hold in the phase space $\Omega$.
+    Taking an advantage of the Markovian properties, eigenfunctions and eigenvalues of the transfer operator $\mathcal{T}(\tau)$ contain numerous
+    information pertaining the dynamics of any system of interest, where different motions in the system can be viewed as a spectral decomposition
+    of the weighted probability density for a particular configuration $u_{t+\tau}(\mathbf{x})$ after a lag time $\tau$. Each of the motion has
+    a corresponding eigenvalue, which relates to the relaxation timescale, where each motion decays differently. As each eigenfunction strictly
+    corresponds to a specific motion in the system, the terms \textsl{eigenfunction of the transfer operator} and \textsl{reaction coordinate}
+    can be use synonymously.
+
+    Time-lagged Independent Component Analysis (TICA) allows us to approximate the eigenfunctions of $\mathcal{T}(\tau)$ under the condition of
+    variational principle in a similar fashion to quantum mechanics. The approximated eigenfunctions by TICA can be projected onto the collective
+    variable space, allowing us to interpret the physical meaning of different motions in a chemical system. However, if a set of collective
+    variable is large, the eigenfunctions obtained from TICA may be hard to decipher. A reduced representation of TICA eigenfunctions through
+    Matching Pursuit (MP) can be computed, which reduced the number of variables needed to express the eigenfunctions, allowing us to deduce
+    the physical interpretations of each reaction coordinate better.
+
+    After the $m-1$ slowest processes are determined from TICA, a discretization of the input data can be performed in the subspace of those
+    $m-1$ reaction coordinates to form a discrete Markov State Model of the process, which predicts a better relaxation timescale than TICA.
+    The coarse--grained MSM allows us to interpret the transition probabilities between key metastable states in the system. Therefore, the
+    contents presented in this chapter encompass the entire workflow of using the Markovian properties of MD simulations to gain the dynamical
+    insights to a chemical reaction, which is summarized in figure XX.
+
+    \placeholder{Workflow Figure}
+\end{spacing}

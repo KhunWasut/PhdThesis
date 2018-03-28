@@ -1,8 +1,6 @@
 \begin{spacing}{2.0}
     \section{Markov State Model (MSM)}
 
-    \subsection{Discretization of the Input MD Simulation Data in Collective Variable Space}
-
     The application of TICA to a mean--free input data in the collective variable space results in a set of $m-1$ slowest eigenfunctions $\tilde{\psi}_i$ 
     with corresponding implied relaxation timescale $\tilde{t}_i$ associated with its eigenvalue $\tilde{\lambda}_i$ that is slower than a lag time
     $\tau$ of interest. According to \placeholder{No\'{e} et al., these $\tilde{\psi}_i$ contain enough information to cover the entire kinetic map with
@@ -10,5 +8,39 @@
     presents a major challenge in the analysis of this data, because many algorithms scale poorly for matrices with size in the order of millions by
     millions. In order to ease the computational workload to build a kinetic model of an MD trajectory, discretization of a large data set with respect
     to an appropriate subspace that is thought to completely describe the whole data is a viable strategy that sparsifies a large matrix into a more
-    managable problem. 
+    managable problem.
+
+    Once we have proved that our set of $\tilde{\psi}_i$ has a cumulative kinetic variance very close to 1, we can choose to make a discretization
+    within the subspace of $\tilde{\psi}_i$. Usually, the discretization is done through $k$-means clustering \cite{B-ML-Cambridge,B-MachineLearning-Murphy}.
+    The discretization generates a Voronoi diagram with a specific $n$ clusters, each of which has a center weighted with respect to the distribution
+    of the original data in the space of $\tilde{\psi}_i$. In order to construct a Markov State Model from these $n$ clusters, the population in each
+    cell of the Voronoi diagram is counted using a step function $\theta_i(\mathbf{x})$ defined as follow,
+
+    \begin{equation}
+        \theta_i(\mathbf{x}) = \left\{
+        \begin{array}{ll}
+            1 & \mathbf{x} \in S_i \\
+            0 & \mathbf{x} \not\in S_i
+        \end{array}
+        \right.
+        \label{eq:step-function}
+    \end{equation}
+
+    \noindent where $S_i$ is the $i$-th cluster of the Voronoi diagram. From this model, a transition probability matrix of the discretization
+    $\mathbf{T}(\tau) \in \mathbb{R}^{n\times n}$ can be computed from $\theta_i$ from equation \ref{eq:step-function},
+
+    \begin{equation}
+        T_{ij}(\tau) = \frac{\left<\theta_j,\left(\mathcal{T}(\tau)\theta_i\right)\right>_{\mu}}{\left<\theta_i,\theta_i\right>_{\mu}}
+    \end{equation}
+
+    The matrix element transition matrix $\mathbf{T}(\tau)$, $T_{ij}$, approximates the transition probability between the states $i$ and $j$, which
+    represents a discretized version of the transfer operator $\mathcal{T}(\tau)$. Moreover, the eigenvalues and eigenvectors of $\mathbf{T}$ can
+    also be computed, and according to the variational principle, the eigenvalues obtained with MSM is better than those obtained from TICA, representing
+    a better relaxation timescale for each eigenfunction. \cite{P-SIAMMultModSim-2013-v11-Noe,P-JChemPhys-2013-v139-Perez-Hernandez}
+    However, if the size of $n$ is relatively large, the kinetic 
+    model of a chemical reaction can still be hard to interpret. Therefore, $\mathbf{T}(\tau)$ can be further coarse--grained into a very small
+    set of states that we hope to describe the key metastable states presented in the dynamics. The coarse--graining process is done using 
+    Perron Cluster Cluster Analysis (PCCA) \cite{P-JChemPhys-2007-v126-Noe} to look at the structure of the eigenfunctions obtained from MSM.
+    The kinetic information, such as the average time spent to move from states $i$ to $j$, can be computed through the commute map which make use of
+    the scaling of the TICA eigenfunction. \cite{P-JCTC-2016-v12-Noe}
 \end{spacing}
