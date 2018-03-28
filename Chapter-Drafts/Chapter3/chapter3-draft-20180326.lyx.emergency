@@ -1,0 +1,289 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass book
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Ionic Association of NaCl in Aqueous Solution
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+The Markovian interpretation of MD simulations opened a wide avenue for
+ calculating many interesting properties from a rigorous mathematical formalisms
+ introduced in chapter XX.
+ Nevertheless, there are many components in this formalism, such as Time-lagged
+ Independent Component Analysis (TICA), Matching Pursuit (MP), Markov State
+ Model (MSM), or the recently published concepts of commute maps and commute
+ distances.
+ [CITE WORKS].
+ Therefore, often times, it is difficult for researchers to grasp the whole
+ concept of the Markovianity of MD simulations, preventing them to fully
+ utilize the potentials.
+ Recently, there have been significant breakthroughs in the applications
+ of MSM and TICA in numerous simulations for biological systems, where the
+ metastable states of the biomolecular configurations and the mechanisms
+ and the probability of transition between the metastable states can be
+ computed.
+ [CITE] However, in our opinion, the entire package has rarely been used
+ outside the biomolecuar simulation community.
+ Hence, we believe that the interpretations of the Markovianity of chemical
+ reactions can be applied to solve numerous problems in chemical dynamics,
+ especially for problems that are easier to solve and a large enough amount
+ of data can be obtained to assure that a simulation was performed to conform
+ with an equilibrium under the canonical ensemble.
+\end_layout
+
+\begin_layout Standard
+Therefore, we chose to apply the formulisms of chapter XX to study the ionic
+ association of NaCl in aqueous solution.
+ Despite being a relatively simple problem, the mechanistic point of view
+ of ionic association in aqueous solution remains relatively little understood.
+ The work of Mullen et al.
+ has opened new insights to this type of problem through the introduction
+ of the 
+\begin_inset Formula $n_{B}$
+\end_inset
+
+ collective variable describing the number of water molecules simultaneously
+ associating with both the cation and the anion.
+ This finding challenged the prevalent views of this process from the ligand
+ exchange perspective, where the association of the ions is driven by the
+ loss of water molecule from the cation's first solvation shell in order
+ to make room for the CIP configuration.
+ The identification of 
+\begin_inset Formula $n_{B}$
+\end_inset
+
+ as an important collective variable; thus, is an important step towards
+ better understandings of this problem.
+ Nevertheless, McGibbon et al.
+ proposed that a true reaction coordinate representing the slowest motion
+ of the dynamics must rigorously follow the following three conditions,
+ 
+\backslash
+cite{P-JChemPhys-2017-v146-McGibbon}
+\end_layout
+
+\begin_layout Enumerate
+It has to be at a reduced dimension from 
+\begin_inset Formula $\Omega\to\mathbb{R}$
+\end_inset
+
+, where 
+\begin_inset Formula $n$
+\end_inset
+
+ is a positive integer that is as small as possible
+\end_layout
+
+\begin_layout Enumerate
+It needs to be uniquely determined by the dynamics rather than being conditions
+ enforced a priori
+\end_layout
+
+\begin_layout Enumerate
+It needs to be a maximally predictive projection
+\end_layout
+
+\begin_layout Standard
+In order to satisfy the three conditions above without any preconditioning
+ of the committor surfaces a priori, we opted for the Markovian formulisms
+ proposed in the previous chapter, where the slowest motion of the dynamics
+ can be readily determined from the eigenfunction of the transfer operator
+ with a corresponding highest eigenvalue that is not 1.
+ From this formulism, the variational principle projection of the slowest
+ eigenfunction can be done onto the basis set of collective variables through
+ TICA, where the linear combination of the collective variables constitute
+ a TICA eigenfunction, or a reaction coordinate.
+ The TICA reaction coordinates can also be further reduced with MP to form
+ a more physically interpretable version of the reaction coordinates focusing
+ only on a few relevant collective variables.
+ Having the information of 
+\begin_inset Formula $m$
+\end_inset
+
+ slowest reaction coordinates from TICA that covers the majority of the
+ cumulative kinetic variance, a good MSM for this system can then be built
+ based on the coordinates that fully cover the extent of the simulation,
+ from where the transition matrix between the coarsed metastable states
+ can be computed either through the Hidden Markov Model (HMM), or Perron-Cluster
+ Cluster Analysis (PCCA), allowing us to calculate the transition rate between
+ relevant metastable states and the commute map of this system.
+ Thus, here we present the Markovian interpretation of the ionic association
+ of NaCl in an aqueous solution.
+\end_layout
+
+\begin_layout Section
+Simulation Settings
+\end_layout
+
+\begin_layout Standard
+The system, 
+\backslash
+ce{NaCl + 495H2O}, contains one Na cation, one Cl anion, and 495 water molecules
+, was prepared by placing the ions randomly in a box of 30.0 
+\backslash
+r{A}, and the water molecules were then placed in the same box using PACKMOL.
+ 
+\backslash
+cite{P-JCompChem-2009-v30-Martinez} In order to get an equilibrium box size
+ at 1.0 atm, the simulation in an isothermic-isobaric ensemble was performed
+ for 960 ps using Nos
+\backslash
+'{e}-Hoover Langevin piston 
+\backslash
+cite{P-JChemPhys-1994-v101-Martyna, P-JChemPhys-1995-v103-Feller} Once the
+ equilibrium box size is obtained, the production simulation was performed
+ under the canonical ensemble using Langevin dynamics with a damping constant
+ of 5.0 $
+\backslash
+mathrm{ps}^{-1}$ with NAMD 
+\backslash
+cite{P-JCompChem-2005-v26-Phillips} with the simulation timestep of 2.0 fs.
+ Water molecules in this simulation are treated as rigid under a TIP3P model
+ 
+\backslash
+cite{P-JChemPhys-1983-v79-Jorgensen}, and the force field parameters for
+ all atoms are derived from the work by Joung and Cheatam.
+ 
+\backslash
+cite{P-JPhysChemB-2008-v112-Joung} The electrostatic interactions were modeled
+ by Particle Mesh Ewald 
+\backslash
+cite{P-JChemPhys-1993-v98-Darden} algorithm.
+ The temperature of the simulation was controlled at 300 K, and periodic
+ boundary conditions were applied throughout the simulation.
+\end_layout
+
+\begin_layout Subsection
+Collective Variables
+\end_layout
+
+\begin_layout Standard
+In order to get a best reaction coordinate, a good set of collective variables
+ are needed so that there are more basis functions available for TICA.
+ For this work, we chose two different sets of the collective variables
+ for a comparison purpose.
+ One set (CV Set 1) is a set of 13 collective variables modeled after the
+ work by Mullen et al., and another set (CV Set 2) is a set of 32 intuition-based
+ variables that are thought to describe both the ionic and the solvent coordinat
+es.
+ Tables XX and YY show brief descriptions of the chosen collective variables
+ for this reaction, as well as their corresponding index numbers.
+ Based on our choice for the collective variables, they can be further subdivide
+d into the following classes,
+\end_layout
+
+\begin_layout Standard
+The Interionic Separation Class - This class of the collective variable
+ is based on the interionic separation between the cation and the anion,
+ which is defined to be the Euclidean distance between the two ions in the
+ simulation,
+\end_layout
+
+\begin_layout Standard
+[EQUATION]
+\end_layout
+
+\begin_layout Standard
+The collective variables belonging to this class are $r_{+-}$ itself, as
+ well as its derivatives, such as $
+\backslash
+frac{1}{r_{+-}}$ or $
+\backslash
+frac{1}{r_{+-}^2}$, which are defined in the case that the derivatives can
+ describe the dynamics better than the original variable.
+\end_layout
+
+\begin_layout Standard
+The Ionic Coordination Class - This class of the collective variables aim
+ to describe the behavior relating to the first and the second solvation
+ shells of the cation and the anion to monitor the possibility of the ligand
+ exchange type of reactions involved in the ion pairing.
+ For CV Set 1, the definition of the ionic coordination class collective
+ variables are taken straight from the work of Mullen et al., with slight
+ modification of parameters to suit our simulation better,
+\end_layout
+
+\begin_layout Standard
+[EQUATIONS]
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_body
+\end_document

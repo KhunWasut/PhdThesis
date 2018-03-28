@@ -1,0 +1,27 @@
+\begin{spacing}{2.0}
+    \section{Summary}
+
+    This chapter presents the Markovian interpretation of the dynamics of the ionic association of NaCl in aqueous solutions, where slowest reaction 
+    coordinates for this process is determined using TICA. We found that there are 6 coordinates that sums up the cumulative variance for up to 0.997,
+    while the dynamics are mostly dominated by two slowest motions with similar relaxation timescales.
+    These 6 reaction coordinates are then subsequently used for building the MSM of this process using $k$-means discretization.
+    Further coarse-graining of the MSM transition probability matrix was done through PCCA, and the kinetic profile of this reaction was then reconstructed
+    with a Hidden Markov Model.
+
+    The interpretation of a 6-state HMM allows us to deduce the arrangement of the CIP, SSIP, and the bulk states in the collective variable space,
+    as well as the probability of the dynamics staying in each specific state. We found that for NaCl, the dynamics greatly prefers the bulk, and the 
+    contacted ion pair is very rarely formed. The 20-state HMM allows a better assignment of the metastable states, and with the projected free energy
+    landscapes in appropriate coordinates, more information of the dynamics and the mechanistic point of view for this reaction can be determined. 
+    The projection of the 20-state HMM onto the free energy landscape in two of the slowest reaction coordinates found from TICA verifies the existence
+    of the CIP, SSIP, and the bulk states, and further projection onto the appropriate collective variables allow us to interpret the physical and 
+    mechanistic meaning of the two slowest motions in this system, where the reaction coordinate $\tilde{\psi}_2$ drives the ionic association through
+    the local effect of bridge formation of water molecules that simultaneously coordinate with both the ions, while the reaction coordinate $\tilde{\psi}_3$
+    drives the ionic association through a more global effect by the expulsion of solvent molecules away from the region between the two ions as the
+    two ions come into a closer contact.
+
+    Despite the rigor of the theory, the main drawback here is the computation of the free energy from the histograms of the molecular dynamics trajectory.
+    The areas around the barrier can never be thoroughly sampled without a guided scheme, and the information around the transition state can deviate,
+    causing the incorrect inference of the mechanism and the rate. The next two chapters will present a scheme that can be used to calculate multidimensional
+    free energy landscape with less computational resources, while producing quantitatively plausible results through the application of Gaussian Process
+    Regression (GPR).
+\end{spacing}
