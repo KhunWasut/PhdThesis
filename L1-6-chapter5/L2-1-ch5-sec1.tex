@@ -1,7 +1,31 @@
 \begin{spacing}{2.0}
-    \chapter{GPR Computation of Two-dimensional Free Energy Landscapes of \ce{NaCl} and \ce{LiCl} in Aqueous Solutions}
+    \chapter{GPR Computation of Two-dimensional Free Energy Landscapes of \ce{NaCl} in Aqueous Solutions}
 
     \section{Introduction}
 
-    \lipsum[1]
+    Chapters 2 and 3 took advantages of the Markovian properties of MD simulations to interpret many aspects of the dynamical information of a 
+    chemical reaction; however, as shown in chapter 3, in order to get a full mechanistic picture, a good free energy landscape greatly assists
+    the analysis of the metastable states and the kinetic models obtained from MSM. However, obtaining a free energy landscape with a good
+    quantitative result in the barrier region is no easy task, as that implies adequate sampling of the rare event regions. However, the free
+    energy computation method used in chapter 3, where the histograms of the distribution in the variable space obtained directly from unbiased
+    simulations are often noisy and lack adequate resolution. Moreover, the relative free energy in the barrier region computed using this method
+    have very high statistical uncertainties, since the MD trajectory would rarely visit this region. In some cases, the histogram registers zero
+    visit in some particular bin, causing a gap in the free energy data, as shown in figure XX.
+
+    A good free energy landscape with acceptable statistical uncertainties would greatly enhance the results from TICA and MSM by helping us 
+    calculating a good rate constant across the free energy barrier, thereby giving a complete information of the mechanisms and the rate of any
+    chemical reactions. While during earlier attempts, the free energy landscapes were often computed in the one--dimensional space due to 
+    relative simplicity, as we have demonstrated in chapter 3, it is possible for a chemical reaction to contain more than one relevant reaction
+    coordinates to adequately describe the reaction. Moreover, each reaction coordinate may be described by more than one dominant collective
+    variables. Consequently, an efficient and quantitively robust method to compute multidimensional free energy surfaces is highly beneficial.
+
+    This chapter presents an application of Gaussian Process Regression (GPR) for a calculation of a two--dimensional free energy landscapes
+    for the reaction in \ce{NaCl + 495H2O} system that we studied in chapter 3. Here, we propose a protocol for multidimensional free energy
+    surfaces calculation by combining the efficiency of fast sampling with Well-Tempered Metadynamics (WT-MTD) simulation with the GPR 
+    reconstruction of the free energy landscapes from noisy free energy estimators to recreate smooth results. The quantitative agreement
+    of the GPR--constructed free energy landscapes is then verified by the Eigenvector Method for Umbrella Sampling (EMUS), where a statistical
+    error of the free energy landscapes in each dimension can be easily computed using one--dimensional umbrella sampling (US) simulations.
+    The error of a two--dimensional free energy landscape can thus be compared efficiently with reference free energy landscapes in each dimension
+    through the projection of the two--dimensional result into a one--dimensional result without the need to perform an expensive US reference
+    simulation in two dimensions.
 \end{spacing}

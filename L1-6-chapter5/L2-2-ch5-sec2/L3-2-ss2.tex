@@ -1,0 +1,14 @@
+\begin{spacing}{2.0}
+    \subsection{Collective Variables}
+
+    As the purpose of this chapter intends to demonstrate the usage of GPR for multidimensional free energy landscapes of an actual chemical 
+    process, we opt to use a simple set of collective variables for simplicity in calculation in order to gain more expertise in the relatively
+    unknown area. Our choice is, therefore, set for the interionic separation ($r_{+-}$) and the number of water molecules in the first solvation
+    shell of the cation ($n_{+}^{(1)}$). $r_{+-}$ was chosen to model the association between the ions, while $n_{+}^{(1)}$ was chosen to model
+    the Eigen--Wilkins type of a ligand exchange problem. Although chapter 3 has proved that the $n_{+}^{(1)}$ collective variable does not
+    play a key role in this process, we made this choice here because the definition of $n_{+}^{(1)}$ does not involve picking a maximum between
+    two functions for each water molecule, making the computation of the Jacobian matrix ($\nabla_{\mathbf{X}}\xi$) for GPR more streamlined 
+    for our purposes.
+    
+    The definition of $r_{+-}$ was directly taken from equation \ref{eq:r-definition}
+\end{spacing}
